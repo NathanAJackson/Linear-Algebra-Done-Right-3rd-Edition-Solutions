@@ -1,0 +1,304 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Linear Algebra Done Right 3rd Edition Excercise Solutions}
+\author{Nathan Jackson}
+
+\begin{document}
+
+{\huge \textbf{Chapter 2: Finite-Dimensional Vector Spaces}}
+
+2.A: Span and Linear Independence
+
+\begin{enumerate}
+
+\item Suppose \(v_1,v_2,v_3,v_4\) spans \(V\).  Prove that the list \[v_1-v_2,v_2-v_3,v_3-v_4,v_4\] also spans \(V\).
+
+Since \(v_1,v_2,v_3,v_4\) spans \(V\) for any \(v \in V\) there exist constants \(a,b,c,d \in \textbf{F}\) such that \(av_1+bv_2+cv_3+dv_4=v\).  By rearranging we find that this expression can be written as \((a)(v_1-v_2)+(a+b)(v_2-v_3)+(b+c)(v_3-v_4)+(c+d)(v_4)\).  Therefore, for any \(v \in V\) there exist coefficients in \(\textbf{F}\) such that a linear combination of \(v_1-v_2,v_2-v_3,v_3-v_4,v_4\) sums to \(v\).
+
+\item Verify the assertions in Example 2.18.
+
+(a) A list \(v\) of one vector \(v \in V\) is linearly independent if and only if \(v \neq 0\).
+
+Say that \(v \neq 0\).  Then, by the contrapositive of Excercise 1.B.2, \(av=0\) for every nonzero \(a \in \textbf{F}\), i.e. \(av=0\) implies that \(a=0\), so \(v\) as its own list is linearly independent.
+
+We prove the other direction through contraposition.  Say that \(v=0\).  Then, by 1.30, \(1v=0\) even though \(1 \neq 0\), and so \(v\) as its own list is not linearly independent.
+
+(b) A list of two vector in \(V\) is linearly independent if and only if neither vector is a scalar multiple of the other.
+
+Our proof in both directions is through contraposition.  Call the vectors \(v\) and \(w\) and say that one vector is a scalar multiple of the other, i.e. \(v=aw\) for \(a \in \textbf{F}\).  Then, \(-v+aw=(-1)v+aw=0\), so then the list \(v,w\) is not linearly independent.
+
+Now, say that the list is linearly dependent.  Then, there exists constants \(a,b \in \textbf{F}\) not both zero such that \(av+bw=0\).  Without loss of generality say that \(a \neq 0\); then, we can rearrange the equation as \(av=-bw\), and so \(v=-a^{-1}bw\), i.e. \(v\) is a scalar multiple of \(w\).
+
+(c) \((1,0,0,0),(0,1,0,0),(0,0,1,0)\) is linearly independent in \(\textbf{F}^4\).
+
+Say that \(a(1,0,0,0)+b(0,1,0,0)+c(0,0,1,0)=0\); we can rewrite this as \((a,b,c,0)=0\).  Of course this takes place if and only if \(a=b=c=0\). Thus, the given list is linearly independent.
+
+(d) The list \(1,z,\dots,z^m\) is linearly independent in \(\mathcal{P}(\textbf{F})\) for each nonnegative integer \(m\).
+
+Say that \(a_0+a_1z+\dots+a_mz^m=0\) for \(a_0,a_1,\dots,a_m \in \textbf{F}\).  This can only happen if \(a_0=a_1=\dots=a_m=0\).
+
+\item Find a number \(t\) such that \[(3,1,4),(2,-3,5),(5,9,t)\] is not linearly independent in \(\textbf{R}^3\).
+
+Note that if \(5,9,t\) is in the span of the previous two vectors then the list will be linearly dependent, since we would have that \(a(3,1,4)+b(2,-3,5)-(5,9,t)=0\) for some \(a,b,t \in \textbf{R}\).  Therefore, we need to find real numbers \(a,b\) such that \(a(3,1,4)+b(2,-3,5)=(5,9,t)\).  Since \(t\) can be any real number, we only need to find \(a,b\) such that \(3a+2b=5\) and \(a-3b=9\), i.e. \(a=3b+9\).  We can substitute to obtain that \(3(3b+9)+2b=5\), i.e. \(11b=-22\), so \(b=-2, a=3\).  Let \(t=(3)(4)+(-2)(5)=2\).  Then, \(3(3,1,4)-2(2,-3,5)=(5,9,2)\), as required.
+
+\item Verify the assertion in the second bullet point in Example 2.20.
+
+We wish to show that list \((2,3,1),(1,-1,2),(7,3,c)\) is linearly dependent in \(\textbf{F}^3\) iff \(c=8\).  First, say that \(c=8\).  We wish to show that there exist scalars \(x,y \in \textbf{F}\) such that \(x(2,3,1)+y(1,-1,2)=(7,3,8)\).  We can solve the system of equations \(2x+y=7\) and \(3x-y=3\); then, \(5x=10\), so \(x=2\) and \(y=3\).  Then, \(2(2,3,1)+3(1,-1,2)=(7,3,8)\), so the list is linearly dependent.
+
+Now, say that \(c \neq 8\).  Our calculations above show that the only choices of \(x\) and \(y\) that make the first two entries in each vector agree are \(x=2\) and \(y=3\), but this forces the third entry \(c=8\), which is not the case here.  Thus, no vector in the list is in the span of the previous vectors, and so by the contrapositive of 2.21 the list is linearly independent.
+
+\item (a) Show that if we think of \(\textbf{C}\) as a vector space over \(\textbf{R}\), then the list \((1+i,1-i)\) is linearly independent.
+
+(b) Show that if we think of \(\textbf{C}\) as a vector space over \(\textbf{C}\), then the list \((1+i,1-i)\) is linearly independent.
+
+(a) Say that \(a(1+i)+b(1-i)=0\) for \(a,b \in \textbf{R}\).  Then, \((a+b)+(a-b)i=0\), and so \(a+b=a-b=0\), meaning that \(a=b=0\).
+
+(b) By Excercise 1.A.1 we can find a multiplicative inverse \((1+i)^{-1} \in \textbf{C}\).  Then, \(((1-i)(1+i)^{-1})(1+i)+(-1)(1-i)=(1-i)-(1-i)=0\), and so the list \((1+i,1-i)\) is not linearly independent.
+
+\item Suppose \(v_1,v_2,v_3,v_4\) is linearly independent in \(V\).  Prove that the list \[v_1-v_2,v_2-v_3,v_3-v_4,v_4\] is also linearly independent.
+
+Say that there exist coefficients \(a,b,c,d \in \textbf{F}\) such that \[a(v_1-v_2)+b(v_2-v_3)+c(v_3-v_4)+d(v_4)=0\].  Then, by expanding the expression out and factoring, we find that \[av_1+(b-a)v_2+(c-b)v_3+(d-c)v_4=0\], and so then since \(v_1,v_2,v_3,v_4\) is linearly independent in \(V\) then \(a=b-a=c-b=d-c=0\).  By plugging in \(a=0\) to the second expression we find that \(b=0\), and similarly we can find that \(c=d=0\).  Thus, \[a(v_1-v_2)+b(v_2-v_3)+c(v_3-v_4)+d(v_4)=0 \rightarrow a=b=c=d=0\], and so the given list is linearly independent.
+
+\item Prove or give a counterexample: If \(v_1,v_2,\dots,v_m\) is a linearly independent list of vectors in \(V\), then \[5v_1-4v_2,v_2,v_3,\dots,v_m\] is linearly independent.
+
+Our proof is as follows: say that \(a_1(5v_1-4v_2)+a_2(v_2)+\dots+a_mv_m=0\).  We can rearrange to find that \((5a_1)v_1+(-4a_1+a_2)v_2+\dots+a_mv_m=0\), and so since \(v_1,v_2,\dots,v_m\) is linearly independent then \(5a_1=-4a_1+a_2=\dots=a_m=0\).  Since we have that \(a_1=0\), then plugging in \(a_2=0\) as well.  Thus, \[a_1(5v_1-4v_2)+a_2(v_2)+\dots+a_mv_m=0 \rightarrow a_1=a_2=\dots=a_m=0\], and so the given list is linearly independent.
+
+\item Prove or give a counterexample: if \(v_1, v_2,\dots,v_m\) is a linearly independent list of vectors in \(V\) and \(\lambda \in \textbf{F}\) with \(\lambda \neq 0\), then \(\lambda{v_1},\lambda{v_2},\dots,\lambda{v_m}\) is linearly independent.
+
+Say that \(a_1(\lambda{v_1})+\dots+a_m(\lambda{v_m})=0\).  Then, we can factor out \(\lambda\) to find that \(\lambda(a_1v_1+\dots+a_mv_m)=0\), and cancel out \(\lambda\) to find that \(a_1v_1+\dots+a_mv_m=0\).  Since \(v_1, v_2,\dots,v_m\) is linearly independent this implies that \(a_1=\dots=a_m=0\).  Therefore, \[a_1(\lambda{v_1})+\dots+a_m(\lambda{v_m})=0 \rightarrow a_1=\dots=a_m=0\], i.e. \(\lambda{v_1},\lambda{v_2},\dots,\lambda{v_m}\) is linearly indepenent.
+
+\item Prove or give a counterexample: if \(v_1,\dots,v_m\) and \(w_1,\dots,w_m\) are linearly independent lists of vectors in \(V\), then \(v_1+w_1,\dots,v_m+w_m\) is linearly indepenent.
+
+This statement is false.  As a counterexample consider \(V=\textbf{R}\) and let \(v=1,w=-1\); \(v\) and \(w\) considered as lists on their own are linearly independent but \(v+w=0\), which is clearly not linearly independent.
+
+\item Suppose \(v_1,\dots,v_m\) is linearly independent in \(V\) and \(w \in V\).  Prove that if \(v_1+w,\dots,v_m+w\) is linearly dependent, then \(w \in \textrm{span}(v_1,\dots,v_m)\).
+
+Say that \(v_1+w,\dots,v_m+w\) is linearly dependent, so there exist scalars \(a_1,\dots,a_m\) not all zero such that \(a_1(v_1+w)+\dots+a_m(v_m+w)=0\).  We can rearrange this expression to obtain that \[(a_1v_1+\dots+a_mv_m)+(a_1+\dots+a_m)w=0\].  The case in which \(a_1+\dots+a_m = 0\) is impossible because then \(a_1v_1+\dots+a_mv_m=0\) which since \(v_1,\dots,v_m\) is linearly independent implies that \(a_1=\dots=a_m=0\) and contradicts our choice of \(a_1,\dots,a_m\) not all zero.  Thus, we can divide both sides by \(a_1+\dots+a_m\) to obtain that \(-\frac{a_1v_1+\dots+a_mv_m}{a_1+\dots+a_m}=w\), so \(w \in \textrm{span}(v_1,\dots,v_m)\).
+
+\item Suppose \(v_1,\dots,v_m\) is linearly independent in \(V\) and \(w \in V\).  Show that \(v_1,\dots,v_m,w\) is linearly independent if and only if \[w \notin \textrm{span}(v_1,\dots,v_m)\]
+
+If \(w \in \textrm{span}(v_1,\dots,v_m)\), then by the contrapositive of 2.21 \(v_1,\dots,v_m,w\) is linearly dependent, i.e. \(w \notin \textrm{span}(v_1,\dots,v_m)\) implies that \(v_1,\dots,v_m,w\) is linearly independent.
+
+Now, say that \(v_1,\dots,v_m,w\) is linearly independent.  Then, it is trivial that \(w \notin \textrm{span}(v_1,\dots,v_m)\).
+
+\item Explain why there does not exist a list of six polynomials that is linearly independent in \(\mathcal{P}_4(\textbf{F})\).
+
+We can take \(1,x,x^2,x^3,x^4\) as a spanning list of \(\mathcal{P}_4(\textbf{F})\).  By 2.23 the length of any spanning list is greater than or equal to the length of any linearly independent list.  Therefore, no list of six polynomials be linearly independent in \(\mathcal{P}_4(\textbf{F})\); any such list would need to have five or fewer polynomials.
+
+\item Explain why no list of four polynomials spans \(\mathcal{P}_4(\textbf{F})\).
+
+We can take \(1,x,x^2,x^3,x^4\) as a linearly independent list of 5 vectors in \(\mathcal{P}_4(\textbf{F})\).  By 2.23 the length of any spanning list is greater than or equal to the length of any linearly independent list.  Thus, no list of only four polynomials can span \(\mathcal{P}_4(\textbf{F})\); any such list would need to have five or more polynomials.
+
+\item Prove that \(V\) is infinite-dimensional if and only if there is a sequence \(v_1,v_2,\dots\) of vectors in \(V\) such that \(v_1,\dots,v_m\) is linearly independent for every positive integer \(m\).
+
+Assume that there is a sequence \(v_1,v_2,\dots\) of vectors in \(V\) such that \(v_1,\dots,v_m\) is linearly independent for every positive integer \(m\) but that \(V\) is finite dimensional, i.e. there is a spanning list of \(V\).  A spanning list would have finite length and we know that there exist linearly independent lists of arbitrarily long length in \(V\), so there is some linearly independent list longer than the spanning list, contradicting 2.23.  Therefore, if such a sequence exists, then \(V\) must be infinite-dimensional.
+
+Now, say that \(V\) is infinite-dimensional, so no finite list of vectors spans \(V\).  We can then construct an infinite sequence of linearly independent vectors as follows: pick some vector \(v_1 \in V\).  Since \((v_1)\) is not a spanning list there exist vectors in \(V\) outside of \(\textrm{span}(v_1)\); pick \(v_2\) as one of these vectors.  \((v_1,v_2)\) likewise cannot be a spanning list of \(V\); pick \(v_3\) as a vector not in \(\textrm{span}(v_1,v_2)\).  Construct the rest of \(v_n\) similarly.  Since no vector in \((v_n\) is in the span of the previous vectors, by the contrapositive of 2.21 we know that \((v_1,\dots,v_m\) is linearly independent for every integer \(m\).
+
+\item Prove that \(\textbf{F}^{\infty}\) is infinite-dimensional.
+
+Define a sequence of vectors \((v_n) \in \textbf{F}^{\infty}\) by the kth vector being a sequence consisting of all zeros except for the kth entry, which is a 1.  For any \(m \in \textbf{F}^{\infty}\) the sum \(a_1v_1+\dots+a_mv_m\) is the sequence with the kth entry \(a_k\) for \(k\) up to \(m\) and all the rest of the entries being zero.  Therefore, \(a_1v_1+\dots+a_mv_m=0\) implies that \(a_1=\dots=a_m=0\), and so the list \(v_1,\dots,v_m\) is linearly independent.  By the above, then, \(\textbf{F}^{\infty}\) is infinite-dimensional.
+
+\item Prove that the real vector space of all continuous real-values functions on the interval \([0,1]\) is infinite-dimensional.
+
+Since polynomial functions are continuous, it suffices to show that \(\mathcal{P}_(\textbf{R})\) is infinite-dimensional, by the contrapositive of 2.26.  Define an infinite sequence of vectors in \((v_n)\) by \(v_n=x^n\).  Then, they are linearly independent, since the degree of a linear combination of monomials can be zero if and only if each of the coefficients is zero.  Therefore, by, \(\mathcal{P}_4(\textbf{R})\) is infinite-dimensional and so the given set is also infinite-dimensional.
+
+\item Suppose \(p_0, p_1,\dots,p_m\) are polynomials in \(\mathcal{P}_m(\textbf{F})\) such that \(p_j(2)=0\) for each \(j\).  Prove that \(p_0, p_1,\dots,p_m\) is not linearly independent in \(\mathcal{P}_m(\textbf{F})\).
+
+Since \(p_j(2)=0\) for each \(j\), \(x-2\) must divide each \(p_j\).  We can thus write each \(p_j\) as \((x-2)q_j\) for \(q_j \in \mathcal{P}_{m-1}(\textbf{F})\); \(\textrm{deg}(q_j) \leq m-1\) for each \(j\) because otherwise the product \((x-2)q_j\) would have degree greater than \(m\), contradicting the definition of each \(p_j\).  There are \(m+1\) such \(q_j\), but the spanning list \(1,x,\dots,x^{m-1} \in \mathcal{P}_{m-1}(\textbf{F})\) has just \(m\) polynomials; thus, the list \(q_0,\dots,q{m+1}\) must be linearly dependent by 2.23.  There then exist scalars \(a_0,\dots,a_m \in \textbf{F}\) not all zero such that \(a_0q_0+\dots+a_mq_m=0\)  By multiplying both sides of this equation by \(x-2\) we find that \(a_0p_0+\dots+a_mq_m\)=0 for scalars not all zero, meaning that \(p_0, p_1,\dots,p_m\) is not linearly independent in \(\mathcal{P}_m(\textbf{F})\).
+
+\end{enumerate}
+
+2.B: Bases
+
+\begin{enumerate}
+\item Find all vector spaces that have exactly one basis.
+
+The only vector spaces with only one basis are one-dimensional vector spaces over the field with two elements and the zero vector space.
+
+\item Verify all the assertions in Example 2.28.
+
+\item (a) Let \(U\) be the subspace of \(\textbf{R}^5\) defined by \[U=\{(x_1,x_2,x_3,x_4,x_5) \in \textbf{R}^5:x_1=3x_2 \ \textrm{and} \ x_3=7x_4 \}.\] Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\textbf{R}^5\).
+
+(c) Find a subspace \(W\) of \(\textbf{R}^5\) such that \(\textbf{R}^5 = U \oplus W\).
+
+(a) Such a basis is given by the list \((3,1,0,0,0),(0,0,7,1,0),(0,0,0,0,1)\).
+
+(b) We can use \((3,1,0,0,0),(0,0,7,1,0),(0,0,0,0,1),(1,0,0,0,0),(0,0,1,0,0)\).
+
+(c) Let \(W = \textrm{span}((1,0,0,0,0),(0,0,1,0,0))\).
+
+\item (a) Let \(U\) be the subspace of \(\textbf{R}^5\) defined by \[U=\{(z_1,z_2,z_3,z_4,z_5) \in \textbf{C}^5:6z_1=z_2 \ \textrm{and} \ z_3+2z_4+3z_5=0\}.\] Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\textbf{C}^5\).
+
+(c) Find a subspace \(W\) of \(\textbf{C}^5\) such that \(\textbf{C}^5 = U \oplus W\).
+
+(a) Such a basis is given by the list \(((1,6,0,0,0),(0,0,2,-1,0,0),(0,0,3,0,-1))\).
+
+(b) We can use \(((1,6,0,0,0),(0,0,2,-1,0),(0,0,3,0,-1),(0,0,0,0,1),(0,1,0,0,0))\).
+
+(c) Let \(W = \textrm{span}((0,0,0,0,1),(0,1,0,0,0))\).
+
+\item Prove or disprove: there exists a basis \(p_0,p_1,p_2,p_3\) of \(\mathcal{P}_4(\textbf{F}\) such that none of the polynomials \(p_0,p_1,p_2,p_3\) has degree 2.
+
+This proposition is true.  To prove it, take the list \(1,x,x^2+x^3,x^3\), in which no polynomial has degree 2.  Any \(v=ax^3+bx^2+cx+d \in \mathcal{P}_4(\textbf{F})\) can be represented as a linear combination of these vectors \((a-b)x^3+b(x^3+x^2)+cx+d\), so the given list is spanning.  The given list is also linearly independent because if \(ax^3+b(x^3+x^2)+cx+d=0\) then \(c=d=0\) and \(b=0\) so \(a=0\) too.  Thus, \(1,x,x^2+x^3,x^3\) is a basis.
+
+\item Suppose \(v_1,v_2,v_3,v_4\) is a basis of \(V\).  Prove that \[v_1+v_2,v_2+v_3,v_3+v_4,v_4\] is also a basis of \(V\).
+
+To prove that \(v_1+v_2,v_2+v_3,v_3+v_4,v_4\) is linearly independent say that \(a(v_1+v_2)+b(v_2+v_3)+c(v_3+v_4)+d(v_4)=0\) for \(a,b,c,d \in \textbf{F}\).  We rearrange to obtain that \(a(v_1)+(a+b)v_2+(b+c)v_3+(c+d)v_4=0\).  Since \(v_1,v_2,v_3,v_4\) is a basis it is linearly independent in \(V\), so \(a=a+b=b+c=c+d=0\).  By cancellation and substitution we find that \(a=b=c=d=0\), and so \(v_1+v_2,v_2+v_3,v_3+v_4,v_4\) is linearly independent in \(V\).
+
+Next, we show that \(v_1+v_2,v_2+v_3,v_3+v_4,v_4\) spans \(V\).  Since \(v_1,v_2,v_3,v_4\) is a basis it spans \(V\) so for any \(v \in V\) there exist \(a,b,c,d \in \textbf{F}\) such that \(av_1+bv_2+cd_3+dv_4=v\).  We can rearrange to obtain that \(a(v_1+v_2)+(b-a)(v_2+v_3)+(c-(b-a))(v_3+v_4)+(d-(c-(b-a)))v_4=v\), so \(v\) is also expressible as a linear combination of the vectors \(v_1+v_2,v_2+v_3,v_3+v_4,v_4\) and that list spans \(V\).
+
+Since \(v_1+v_2,v_2+v_3,v_3+v_4,v_4\) is a linearly independent spanning list it is then a basis, as required.
+
+\item Prove or give a counterexample: If \(v_1,v_2,v_3,v_4\) is a basis of \(V\) and \(U\) is a subspace of \(V\) such that \(v_1,v_2 \in U\) and \(v_3 \notin U\) and \(v_4 \notin U\), then \(v_1,v_2\) is a basis of \(U\).
+
+This is false.  Consider \(V=\textbf{R}^4\) with \(v_1=(1,0,0,0),v_2=(0,1,0,0),v_3=(0,0,1,0),v_4=(0,0,0,1)\), and \(U=\{(x,y,z,w) \in \textbf{R}^4:z=w\}\).  Clearly \(v_3,v_4 \notin U\), but \(v_1,v_2 \in U\).  Since a basis of \(U\) is given by \(v_1,v_2,(0,0,1,1)\), then \(v_1,v_2\) is not a basis of \(U\).  Thus, this is a counterexample to the proposition.
+
+\item Suppose \(U\) and \(W\) are subspaces of \(V\) such that \(V=U \oplus W\).  Suppose also that \(u_1,\dots,u_m\) is a basis of \(U\) and \(w_1,\dots,w_n\) is a basis of \(W\).  Prove that \[u_1,\dots,u_m,w_1,\dots,w_n\] is a basis of \(V\).
+
+To prove this observe that since \(V=U \oplus W\) every \(v \in V\) can be represented uniquely as \(u+w\) for \(u \in U,w \in W\).  Likewise since \(u_1,\dots,u_m\) is a basis of \(U\) and \(w_1,\dots,w_n\) is a basis of \(W\) then there exist unique \(a_1,\dots,a_m\) and \(b_1,\dots,b_m \in \textbf{F}\) such that \(a_1u_1+\dots+a_mu_m=u\) and \(b_1w_1+\dots+b_nw_n=w\).  Therefore the selected scalars are also unique coefficients in \(\textbf{F}\) for which \(a_1u_1 +\dots+a_mu_m+b_1w_1+\dots+b_nw_n=v\).  Thus, by 2.29, \(u_1,\dots,u_m,w_1,\dots,w_n\) is a basis of \(V\).
+
+\end{enumerate}
+
+2.C: Dimension
+
+\begin{enumerate}
+
+\item Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\) such that \(\textrm{dim} \, U=\textrm{dim} \, V\).  Prove that \(U=V\).
+
+To prove this take a basis \(u_1,\dots,u_m\) of \(U\), so that \(\textrm{dim} \, U=m\).  By definition it is linearly independent, and so since \(\textrm{dim} \, U=\textrm{dim} \, V=m\) the list \(u_1,\dots,u_m\) is a basis of \(V\) by 2.39.
+
+\item Show that the subspaces of \(\textbf{R}^2\) are precisely \(\{0\}, \textbf{R}^2\), and all lines in \(\textbf{R}^2\) through the origin.
+
+By 2.38 the dimension of any subspace of \(\textbf{R}^2\) can only be 0, 1, or 2.  The only 0-dimensional subspace is \(\{0\}\) itself and the only 2-dimensional subspace is \(\textbf{R}^2\) itself by the above.
+
+Now, consider a 1-dimensional subspace.  Each 1-dimensional subspace will have a single basis vector \(v\), and hence will consist of all the scalar multiples of \(v\) \(av\) such that \(a \in \textbf{R}\).  Say that \(v = (a,b)\) for \(a\) and \(b\) not both zero; then, the subspace can be parameterized as \(\{(ta,tb): t \in \textbf{R}\}\).  If \(a=0\), then we are left with \(\{(0,tb)\}=\{(0,y):y \in \textbf{R}\}\), which is the y-axis.  Through an analogous calculation, if \(b=0\), then we are left with the x-axis.  Finally, if both \(a\) and \(y\) are nonzero, then we are left with \(\{(x,y) \in \textbf{R}:bx-ay=0\}\), another line through the origin.
+
+\item Show that the subspaces of \(\textbf{R}^3\) are precisely \(\{0\}, \textbf{R}^3\), all lines in \(\textbf{R}^3\) through the origin, and all planes in \(\textbf{R}^3\) through the origin.
+
+By 2.38 the dimension of any subspace of \(\textbf{R}^3\) can only be 0, 1, 2, or 3.  The only 0-dimensional subspace is \(\{0\}\) itself and the only 3-dimensional subspace is \(\textbf{R}^3\) itself by the above.  
+
+This leaves the case of 1- and 2-dimensional subspaces.  Geometrically, we can visualize them as the spans of one and two basis vectors, respectively.  The span of one basis vector will form a linear 
+
+\item (a) Let \(U=\{p \in \mathcal{P}_4(\textbf{F}: p(6)=0\}\).  Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\mathcal{P}_4(\textbf{F})\).
+
+(c) Find a subspace \(W\) of \(\mathcal{P}_4(\textbf{F})\) such that \(\mathcal{P}_4(\textbf{F})=U \oplus W\).
+
+(a) Such a basis is given by the list \(((x-6),(x-6)^2,(x-6)^3,(x-6)^4)\).
+
+(b) We can adjoin \(1\) to obtain the basis \((1, (x-6),(x-6)^2,(x-6)^3,(x-6)^4)\).
+
+(c) Let \(W=\textrm{span} \, (1)\).
+
+\item (a) Let \(U=\{p \in \mathcal{P}_4(\textbf{R}: p''(6)=0\}\).  Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\mathcal{P}_4(\textbf{R})\).
+
+(c) Find a subspace \(W\) of \(\mathcal{P}_4(\textbf{R})\) such that \(\mathcal{P}_4(\textbf{R})=U \oplus W\).
+
+(a) Given some \(p = ax^4+bx^3+cx^2+dx+e \in \mathcal{P}_4(\textbf{R})\).  Then, \(p'=4ax^3+3bx^2+2cx+d\) and \(p''=12ax^2+6bx+2c\).  We want \(p''(6)=0\), i.e. \[12a*36+6b*6+2c=0;\] we can simplify this expression to obtain that \[216a+18b+c=0.\] \(d\) and \(e\) can be any real number.  Therefore, a basis of the given set is given by \((1,x,x^3-18x^2,x^4-216x^2)\).
+
+(b) We can adjoin \(x^2\) and \(x^3\) to obtain the basis \((1,x,x^3-18x^2,x^4-216x^2,x^2)\).
+
+(c) Let \(W=\textrm{span}(x^2)\).
+
+\item (a) Let \(U=\{p \in \mathcal{P}_4(\textbf{F}): p(2)=p(5)\}\).  Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\mathcal{P}_4(\textbf{F})\).
+
+(c) Find a subspace \(W\) of \(\mathcal{P}_4(\textbf{F})\) such that \(\mathcal{P}_4(\textbf{F})=U \oplus W\).
+
+(a) A basis of \(U\) is given by the set \(\{x^4-7x^3+10x^2,x^3-7x^2+10x,x^2-7x+10,1\}\).  We obtained this answer by finding polynomials of degree 0, 2, 3, and 4 satisfying the given relation.
+
+(b) We can add \(x\) to obtain the basis \(\{x^4-7x^3+10x^2,x^3-7x^2+10x,x^2-7x+10,x,1\}\).
+
+(c) Let \(W=\textrm{span}(x)\).
+
+\item (a) Let \(U=\{p \in \mathcal{P}_4(\textbf{F}): p(2)=p(5)=p(6)\}\).  Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\mathcal{P}_4(\textbf{F})\).
+
+(c) Find a subspace \(W\) of \(\mathcal{P}_4(\textbf{F})\) such that \(\mathcal{P}_4(\textbf{F})=U \oplus W\).
+
+(a) A basis of \(U\) is given by the set \(\{x^4-11x^3+36x^2-36x,x^3-11x^2+36x-36,1\}\).  We obtained this answer by finding polynomials of degree 0, 3, and 4 satisfying the given relation.
+
+(b) We can add \(x^2\) and \(x\) to obtain the basis \(\{x^4-11x^3+36x^2-36x,x^3-11x^2+36x-36,x^2,x,1\}\).
+
+(c) Let \(W=\textrm{span}(x^2,x)\).
+
+\item (a) Let \(U=\{p \in \mathcal{P}_4(\textbf{R}): \int_{-1}^{1} p = 0\}\).  Find a basis of \(U\).
+
+(b) Extend the basis in part (a) to a basis of \(\mathcal{P}_4(\textbf{R})\).
+
+(c) Find a subspace \(W\) of \(\mathcal{P}_4(\textbf{R})\) such that \(\mathcal{P}_4(\textbf{R})=U \oplus W\).
+
+(a) A basis of \(U\) is given by \(x^4-\frac{1}{5},x^3,x^2-\frac{1}{3},x\).
+
+(b) We can add \(1\) to obtain the basis \(x^4-\frac{1}{5},x^3,x^2-\frac{1}{3},x,1\).
+
+(c) Let \(W=\textrm{span}(1)\).
+
+\item Suppose \(v_1,\dots,v_m\) is linearly independent in \(V\) and \(w \in \textbf{V}\).  Prove that \[\textrm{dim} \, \textrm{span} \, (v_1+w,\dots,v_m+w)= \geq m-1.\]
+
+If \(w=0\), then we are done.  Now, assume that \(w\) is nonzero and not the additive inverse of any vector in the given list.  Say that \(a_1(v_1+w)+\dots+a_m(v_m+w)=0\); then, \(a_1v_1+\dots+a_mv_m+(a_1+\dots+a_mv_m)w=0\).  Then, .
+
+\item Suppose \(p_0,p_1,\dots,p_m \in \mathcal{P}(\textbf{F})\) are such that each \(p_j\) has degree \(j\).  Prove that \(p_0,p_1,\dots,p_m\) is a basis of \(\mathcal{P}_m(\textbf{F})\).
+
+Note that \(\textrm{dim}(\mathcal{P}_m(\textbf{F}))=m+1\), and since the list contains \(m+1\) vectors by 2.39 it suffices to show that \(p_0,p_1,\dots,p_m\) is linearly independent in \(\mathcal{P}_m(\textbf{F})\).  To do this observe that multiplying by a scalar does not increase the degree of a polynomial and adding two polynomials together yields a polynomial with degree no greater than the degrees of the summands.  Since each \(p_m\) has degree \(m\), then, no linear combination of polynmials \(p_0,\dots,p_{j-1}\) can add up to \(p_j\) and so no polynomial is in the span of the previous polynomials in the list.  By the contrapositive of 2.21 we then have that \(p_0,p_1,\dots,p_m\) is linearly independent.
+
+\item Suppose that \(U\) and \(W\) are subspaces of \(\textbf{R}^8\) such that \(\textrm{dim}U=3,\textrm{dim}W=5\), and \(U+W=\textbf{R}^8\).  Prove that \(\textbf{R}^8=U \oplus W\).
+
+From 2.43 we have that \(\textrm{dim}(U+W)=\textrm{dim}U+\textrm{dim}W-\textrm{dim}(U \cap W)\), and so plugging in we find that \(8=5+3-\textrm{dim}(U \cap W)\), i.e. \(\textrm{dim}(U \cap W)=0\), i.e. \(U \cap W=\{0\}\).  Therefore, by 1.45, the sum is direct, and \(\textbf{R}^8=U \oplus W\).
+
+\item Suppose \(U\) and \(W\) are both five-dimensional subspaces of \(\textbf{R}^9\).  Prove that \(U \cap W \neq \{0\}\).
+
+Say that \(U \cap W = \{0\}\); then \(\textrm{dim}(U+W)=\textrm{dim}U+\textrm{dim}W-\textrm{dim}(U \cap W)=5+5-0=10\).  However, \(U+W\) is a subspace of \(\textbf{R}^9\) and by 2.38 must have dimension less than or equal to 9, which is a contradiction.  Therefore, our initial assumption must be wrong, and \(U \cap W \neq \{0\}\).
+
+\item Suppose \(U\) and \(W\) are both 4-dimensional subspaces of \(\textbf{C}^6\).  Prove that there exist two vectors in \(U \cap W\) such that neither of these vectors is a scalar multiple of the other.
+
+By 2.38 \(\textrm{dim}(U+W) \leq 6\), and so substituting into 2.43 we find that \(6 \geq 4+4-\textrm{dim}(u \cap W)\), i.e. \(\textrm{dim}(u \cap W) \geq 2\).  Therefore, any basis of \(\textrm{dim}(u \cap W)\) and so \(\textrm{dim}(u \cap W)\) itself must contain at least 2 vectors, none of which will be scalar multiples of each other because bases are linearly independent.
+
+\item Suppose \(U_1,\dots,U_m\) are finite-dimensional subspaces of \(V\).  Prove that \(U_1+\dots+U_m\) is finite-dimensional and \[\textrm{dim}(U_1+\dots+U_m) \leq \textrm{dim}U_1+ \dots + \textrm{dim}U_m\]
+
+First observe that we can take bases of each \(U_k\).  Putting all these basis together into a list leads to a spanning list of \(U_1+\dots+U_m\), since every vector in \(U_1+\dots+U_m\) is the sum of vectors in the \(U_k\), which are themselves linear combinations of the corresponding basis vectors.  The length of this spanning list is \(\textrm{dim}U_1+ \dots + \textrm{dim}U_m\), and since any basis of the subspace sum is linearly independent it must have length less than or equal to the length of that spanning list.  Therefore,  \(\textrm{dim}(U_1+\dots+U_m) \leq \textrm{dim}U_1+ \dots + \textrm{dim}U_m\).
+
+\item Suppose \(V\) is finite-dimensional, with \(\textrm{dim}V=n \geq 1\).  Prove that there exist 1-dimensional subspaces \(U_1,\dots,U_n\) of \(V\) such that \[V=U_1 \oplus \dots \oplus U_n\]
+
+Take a basis of \(V\), \(u_1,\dots,u_n\).  Now define 1-dimensional subspaces \(U_1,\dots,U_n\) by \(U_k=\textrm{span}(v_k)=\{au_k:a \in \textrm{F}\}\).  Each \(v \in V\) can be uniquely represented as a linear combination \(a_1u_1+\dots+a_nu_n\).  Of course every \(a_ku_k \in U_k\), and so then \(V=U_1+\dots+U_n\).  In addition, each \(a_ku_k\) is unique, and so the sum is direct, as required.
+
+\item Suppose \(U_1,\dots,U_m\) are finite-dimensional subspaces of \(V\) such that \(U_1 + \dots + U_m\) is a direct sum.  Prove that \(U_1 \oplus \dots \oplus U_m\) is finite-dimensional and \[\textrm{dim} \, U_1 \oplus \textrm{dim} \, U_m = \textrm{dim} \, U_1 + \dots \textrm{dim} \, U_m\]
+
+To begin with, take a basis of each \(U_k\) and the union of these bases.  Since the subspace sum is direct, no two subspaces can have nonzero vectors in common by 1.45; therefore, the union list has length \(\textrm{dim} \, U_1 + \dots \textrm{dim} \, U_m\).  Since every vector in \(V\) can be uniquely represented as the sum of vectors in the \(U_1,\dots,U_m\) and each of those vectors can be represented as a unique linear combination of the basis vectors we have chosen of its subspace, then each vector in \(V\) can be represented as a linear combination of vectors in the union list with coefficients in \(\textbf{F}\).  Therefore, the union of bases is by 2.29 itself a basis of \(V\), and since it has length then \(\textrm{dim} \, U_1 \oplus \dots \oplus \textrm{dim} \, U_m = \textrm{dim} \, U_1 + \dots \textrm{dim} \, U_m\).
+
+\item You might guess, by analogy with the formula for the number of elements in the union of three subsets of a finite set, that if \(U_1,U_2,U_3\) are subspaces of a finite-dimensional vector space then
+\begin{multline*}
+\textrm{dim}(U_1+U_2+U_3)=\textrm{dim} \, U_1+\textrm{dim} \, U_2+\textrm{dim} \, U_3 \\
+-\textrm{dim} \, (U_1 \cap U_2)-\textrm{dim} \, (U_1 \cap U_3)-\textrm{dim} \, (U_2 \cap U_3) \\
++\textrm{dim} \, (U_1 \cap U_2 \cap U_3)
+\end{multline*}
+Addition of subspaces is associative; thus, we can write \(U_1+U_2+U_3=U_1+(U_2+U_3)\).  By 2.43, 
+\begin{equation*}
+\begin{split}
+\textrm{dim}(U_1+(U_2+U_3)) &= \textrm{dim}(U_1)+\textrm{dim}(U_2+U_3)-\textrm{dim}(U_1 \cap (U_2 + U_3)) \\
+&=\textrm{dim}U_1+\textrm{dim}U_2+\textrm{dim}U_3-\textrm{dim}(U_2 \cap U_3)-\textrm{dim}(U_1 \cap (U_2+U_3)) 
+\end{split}
+\end{equation*}
+So - after cancelling out like terms - it remains to prove or disprove that
+\[\textrm{dim}(U_1 \cap U_2 \cap U_3)-\textrm{dim}(U_1 \cap U_2)-\textrm{dim}(U_1 \cap U_3)=-\textrm{dim}(U_1 \cap (U_2+U_3)).\]
+By rearranging the terms of 2.43 we can rewrite the right side to obtain the following expression:
+\[\textrm{dim}(U_1 \cap U_2 \cap U_3)-\textrm{dim}(U_1 \cap U_2)-\textrm{dim}(U_1 \cap U_3)=\textrm{dim}(U_1 + (U_2+U_3))-\textrm{dim}U_1-\textrm{dim}(U_2+U_3).\]
+By 
+\end{enumerate}
+
+\end{document}

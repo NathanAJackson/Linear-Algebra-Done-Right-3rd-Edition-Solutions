@@ -1,0 +1,532 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Linear Algebra Done Right 3rd Edition Excercise Solutions}
+\author{Nathan Jackson}
+
+\begin{document}
+
+\textbf{Chapter 6: Inner Product Spaces}
+
+6.A: Inner Products and Norms
+
+\begin{enumerate}
+
+\item Show that the function that takes \(((x_1,x_2),(y_1,y_2)) \in \textbf{R}^2 \times \textbf{R}^2\) to \(|x_1y_1|+|x_2y_2|\) is not an inner product on \(\textbf{R}^2\).
+
+Consider the example of \(\langle (1,1),(1,1) \rangle = |1 \cdot 1| + |1 \cdot 1| = 1 + 1 = 2\).  However, \[\langle -1(1,1),(1,1) \rangle = \langle (-1,-1),(1,1) \rangle = |(-1) \cdot 1| + |(-1) \cdot 1| = 1 + 1 = 2 \neq -2 = (-1)\langle (1,1),(1,1) \rangle,\] contradicting the first slot homogeneity requirement of the definition of the inner product, 6.3.
+
+\item Show that the function that takes \((x_1,x_2,x_3),(y_1,y_2,y_3) \in \textbf{R}^2 \times \textbf{R}^2\) to \(x_1y_1+x_3y_3\) is not an inner product on \(\textbf{R}^3\).
+
+Observe that \(\langle (0,1,0),(0,1,0) \rangle = 0 \cdot 0 + 0 \cdot 0 = 0\) even though \((0,1,0)\) is not equal to the zero vector \((0,0,0)\), contradicting the definiteness requirement of the definition of the inner product, 6.3.
+
+\item Suppose \(\textbf{F}=\textbf{R}\) and \(V \neq \{0\}\).  Replace the positivity condition (which states that \(\langle v,v \rangle \geq 0\) for all \(v \in V\)) in the definition of an inner product (6.3) with the condition that \(\langle v,v \rangle > 0\) for some \(v \in V\).  Show that this change in the definition does not change the set of functions from \(V \times V\) to \(\textbf{R}\) that are inner products on \(V\).
+
+That every function with \(\langle v,v \rangle \geq 0\) for all \(v \in V\) has \(\langle v,v \rangle \geq 0\) for some \(v \in V\) follows from the definiteness property and that \(V \neq \{0\}\).  To prove inclusion in the other direction: select a function with \(\langle v,v \rangle > 0\) for some \(v \in V\) and fulfilling all the other conditions necessary for an inner product.  Now for the sake of contradiction assume that there exists some \(u \in V\) for which \(\langle u,u \rangle < 0\).  Define \(f(\lambda) = \langle u-\lambda v,u-\lambda v \rangle = \langle u,u \rangle - 2\lambda \langle u,v \rangle + \lambda^2 \langle v,v \rangle\).  Note that \(f(0)=\langle u,u \rangle < 0\) but that since \(\textbf{F}=\textbf{R}\), we can say that \(f(\lambda)\) must go to infinity as \(\lambda\) goes to infinity.  Furthermore, \(f\) is continuous, which implies that there exists some \(\lambda' \in \textbf{F}\) such that \(f(\lambda')=0\).  By the definiteness property this forces \(u-\lambda'v=0\), or \(u=\lambda v'\).  In light of homogeneity in the first slot, which states that \(\langle \lambda v,\lambda v \rangle = \lambda^2 \langle v,v \rangle \geq 0\), this is a contradiction.  Thus, no such \(u\) can exist, and \(\langle u,u \rangle > 0\) for every nonzero \(u \in V\).
+
+\item Suppose \(V\) is a real inner product space.
+
+(a) Show that \(\langle u+v,u-v \rangle = ||u||^2-||v||^2\) for every \(u,v \in V\).
+
+(b) Show that if \(u,v \in V\) have the same norm, then \(u+v\) is orthogonal to \(u-v\).
+
+(c) Use part (b) to show that the diagonals of a rhombus are perpendicular to each other.
+
+(a) We can expand as follows: 
+\begin{align*}
+\langle u+v,u-v \rangle &= \langle u,u \rangle + \langle v,u \rangle + \langle u,-v \rangle + \langle v,-v \rangle \\
+&= \langle u,u \rangle +\langle u,v \rangle + \langle u,v \rangle - \langle u,v \rangle - \langle v,v \rangle \\
+&= ||u||^2 - ||v||^2
+\end{align*}
+The first equality follows from the additivity properties given in 6.3 and 6.7.  The second equality follows from the homogeneity properties given in 6.3 and 6.7, together with the fact that since \(V\) is a real inner product space \(\langle u,v \rangle = \langle v,u \rangle\) for all \(u,v \in V\) as explained following definition 6.3, and the fact that \(\bar{-1}=-1\) and the homogeneity properties given in 6.3 and 6.7.  The final equality comes from cancelling out, and the definition of the norm 6.8.
+
+(b) If \(||u||=||v||\), then obviously \(||u||^2 - ||v||^2=0\), which by defnition 6.11 and part (a) of this excercise implies that \(u+v\) is orthogonal to \(u-v\).
+
+(c) Represent the sides of a rhombus with the vectors \(u\) and \(v\), as shown:
+
+Then, the rhombus's diagonals are the vectors \(u+v\) and \(u-v\).  By definition, a rhombus's sides have the same length, and so the \(||u||=||v||\).  Thus, we can use part (b) to show that \(\langle u+v,u-v \rangle=0\), i.e. the rhombus's diagonals are perpendicular.
+
+\item Suppose \(T \in \mathcal{L}(V)\) is such that \(||Tv|| \leq ||v||\) for every \(v \in V\).  Prove that \(T - \sqrt{2}I\) is invertible.
+
+Assume that \(||Tv|| \leq ||v||\) for every \(v \in V\) and say that \((T-\sqrt{2}I)v=0\) for some nonzero \(v \in V\), meaning that \(Tv=\sqrt{2}v\).  Then, \(||Tv||=||\sqrt{2}v||=\sqrt{2}||v||\), by 6.10b.  However, since \(v \neq 0\), then \(||v|| \neq 0\) by 6.10a, which means that \(\sqrt{2}||v||=||Tv|| > ||v||\), contradicting the condition given on \(T\).  Therefore, no nozero vector \(v \in V\) can be mapped to zero and \(\textrm{null} \, T = \{0\}\), which by 3.16 implies that \(T\) is injective.  To prove surjectivity, select nonzero \(v \in V\).  ---
+
+\item Suppose \(u,v \in V\).  Prove that \(\langle u,v \rangle = 0\) if and only if \[||u|| \leq ||u+av||\] for all \(a \in \textbf{F}\).
+
+To begin with, assume that \(\langle u,v \rangle = 0\).  Then,
+\begin{equation*}
+\begin{split}
+||u+av||&=\langle u+av,u+av \rangle \\
+&= \langle u,u \rangle + \langle u,av \rangle+\langle av,u \rangle + \langle av,av \rangle \\
+&= ||u||^2 + \bar{a} \langle u,v \rangle + a \langle v,u \rangle + |a|||v||^2 \\
+&= ||u||^2 + |a|||v||^2 \geq ||u||^2
+\end{split}
+\end{equation*}
+for all \(a \in \textbf{F}\), as required.  Now, we prove the converse: say that there exists some \(a \in \textbf{F}\) such that \(||u||>||u+av||\).  Then, from the above, we have that \[||u||^2>||u||^2 + \bar{a} \langle u,v \rangle + a \langle v,u \rangle + |a|||v||^2,\] and so then \[0 \geq -|a|||v||^2 > \bar{a} \langle u,v \rangle + a \langle v,u \rangle.\] Assume that \(\langle u,v \rangle = \langle v,u \rangle = 0\); this leads to a contradiction, since it leaves us with the inequality \(0>0\).  Thus, in this case \(\langle u,v \rangle = 0\), proving the other direction and completing the proof.
+
+\item Suppose \(u,v \in V\).  Prove that \(||au+bv||=||bu+av||\) for all \(a,b \in \textbf{R}\) if and only if \(||u||=||v||\).
+
+We expand the expressions as follows: \[||au+bv||=\langle au+bv,au+bv \rangle = a^2||u||^2+a\bar{b} \langle u,v \rangle + \bar{a}b\langle v,u \rangle + \bar{b}^2 ||v||^2.\] \[||bu+av||=\langle bu+av,bu+av \rangle = b^2||u||^2+b\bar{a} \langle u,v \rangle + \bar{b}a\langle v,u \rangle + \bar{a}^2 ||v||^2.\]
+Since \(a\) and \(b\) are both real, we can equate these expressions and cancel out the dot product terms to obtain the equivalent equality \[a^2||u||^2+b^2||v||^2=b^2||u||^2+a^2||v||^2.\] If \(u=v\), then this expression reads that \((a^2+b^2)||u||^2=(a^2+b^2)||u||^2\), which is clearly true for all \(a,b \in \textbf{R}\).  Now, assume that \(||u|| \neq ||v||\) (since both \(||u||\) and \(||v||\) are nonnegative this is equivalent to \(||u||^2 \neq ||v||^2\)) and set \(a=1\) and \(b=0\) to obtain the expression \(||u||^2=||v||^2\), which by our choice of \(||u||\) and \(||v||\) will be false.  Thus, the given expression holds for all \(a,b \in \textbf{R}\) if and only if \(||u||=||v||\).
+
+\item Suppose \(u,v \in V\) and \(||u||=||v||=1\) and \(\langle u,v \rangle = 1\).  Prove that \(u=v\).
+
+By the Cauchy-Schwartz inequality 6.15, for any two vectors \(u\) and \(v\) we have that \(|\langle u,v \rangle| = ||u||||v||\) if and only if one of the vectors is a scalar multiple of the other.  Obviously \(|1|=|1||1|\), and so then - since neither vector is zero by 6.10 - we can write \(u=av\) for some \(a \in \textbf{F}\).  By the definition of an inner product 6.3, we have that \(\langle u,v \rangle = \langle av,v \rangle = a \langle v,v \rangle = a||v||^2=a\) since \(||v||=1\).  Since we are given that \(\langle u,v \rangle = 1\), then \(a=1\) and \(u=v\).
+
+\item Suppose \(u,v \in V\) and \(||u|| \leq 1\) and \(||v|| \leq 1\).  Prove that
+
+\begin{equation*}
+    \sqrt{1-||u||^2}\sqrt{1-||v||^2} \leq 1-|\langle u,v \rangle|.
+\end{equation*}
+
+Square both sides to obtain the equivalent expression
+
+\begin{equation*}
+    \begin{split}
+        (1-||u||^2)(1-||v||^2) &= 1 - ||u||^2 - ||v||^2 + ||u||^2||v||^2 \\
+        &= (1-||u||||v||)^2+2||u||||v||-||u||^2-||v||^2 \\
+        &= (1-||u||||v||)^2-(||u||+||v||)^2 \\
+        &\leq (1-|\langle u,v \rangle |)^2.
+    \end{split}
+\end{equation*}
+
+By the positivity property of the inner product \(-(||u||+||v||)^2 \leq 0\).  Furthermore, by 6.15, \((1-||u||||v||)^2 \leq (1-|\langle u,v \rangle |)^2\).  The final inequality above follows, completing the proof.
+
+\item Find vectors \(u,v \in \textbf{R}^2\) such that \(u\) is a scalar multiple of \((1,3)\), \(v\) is orthogonal to \((1,3)\), and \((1,2)=u+v\).
+
+From the given information we see that \(u=(t,3t)\) for \(t \in \textbf{R}\) and - if \(v=(v_1,v_2)\) - then \(v_1+3v_2=0\), meaning that \(v=(3s,-s)\) for \(s \in \textbf{R}\).  Together with the fact that \((1,2)=u+v\) this allows us to set up linear equations as follows:
+\begin{align*}
+t+3s&=1 \\
+3t-s&=2,
+\end{align*}
+which we solve to obtain that \(t=0.7\) and \(s=0.1\), meaning that \(u=(0.7,2.1)\) and \(v=(0.3,-.1)\).
+
+\item Prove that \[16 \leq (a+b+c+d)(\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d})\] for all positive numbers \(a,b,c,d\).
+
+Let \(V=\textbf{R}^4\) and \(u=4(\sqrt{a},\sqrt{b},\sqrt{c},\sqrt{d}),v=(\frac{1}{\sqrt{a}},\frac{1}{\sqrt{b}},\frac{1}{\sqrt{c}},\frac{1}{\sqrt{d}})\).  By the Cauchy-Schwartz inequality 6.15, we have that \(\langle u,v \rangle \leq ||u||||v||\), which - expanding - allows us to say that \[4(1+1+1+1) \leq 4\sqrt{a+b+c+d}\sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}.\] Simplifying: \[4 \leq \sqrt{a+b+c+d}\sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}.\] Squaring both sides: \[16 \leq (a+b+c+d)(\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}).\]
+
+\item Prove that \[(x_1+\dots+x_n)^2 \leq n(x_1^2+\dots+x_n^2)\] for all positive integers \(n\) and all real numbers \(x_1,\dots,x_n\).
+
+Let \(V=\textbf{R}^n\) and pick vectors \(u=(x_1,\dots,x_n)\) and \(v=(\frac{1}{\sqrt{n}},\dots,\frac{1}{\sqrt{n}})\).  By the Cauchy-Schwartz inequality 6.15, \(\langle u,v \rangle \leq ||u||||v||\), i.e. \[\frac{x_1+\dots+x_n}{\sqrt{n}} \leq \sqrt{x_1^2+\dots+x_n^2}(1).\] Squaring both sides and multiplying both sides by \(n\) allows us to obtain the given form of the inequality: \[(x_1+\dots+x_n)^2 \leq n(x_1^2+\dots+x_n^2).\]
+
+\item Suppose \(u,v\) are nonzero vectors in \(\textbf{R}^2\).  Prove that \[\langle u,v \rangle = ||u||||v|| \textrm{cos} \, \theta,\] where \(\theta\) is the angle between \(u\) and \(v\) (thinking of \(u\) and \(v\) as arrows with initial point at the origin).
+
+Consider the diagram below:
+
+By the Law of Cosines, we have that \[||u-v||^2=||u||^2+||v||^2-2||u||||v||\textrm{cos}\theta.\] We expand out as follows: \[||u||^2-2\langle u,v \rangle + ||v||^2=||u||^2+||v||^2-2||u||||v||\textrm{cos}\theta.\] Cancelling out like terms and simplifying, we are left with \(\langle u,v \rangle = ||u||||v||\textrm{cos}\theta\), as required.
+
+\item The angle between two vectors (though of as arrows with initial point at the origin) in \(\textbf{R}^2\) or \(\textbf{R}^3\) can be defined geometrically.  However, geometry is not as clear in \(\textbf{R}^n\) for \(n > 3\).  Thus the angle between two nonzero vectors \(x,y \in \textbf{R}^n\) is defined to be \[\textrm{arccos} \frac{\langle x,y \rangle}{||x||||y||},\] where the motivation for this definition comes from the previous exercise.  Explain why the Cauchy-Schwartz inequality is needed to show that this definition makes sense.
+
+The domain of the \(\textrm{arccos}\) function is the set \([-1,1]\), or the set of real numbers with absolute value less than or equal to 1.  If the Cauchy-Schwartz inequality did not hold and there existed some nonzero \(u,v\) such that \(|\langle u,v \rangle| > ||u||||v||\) (they would have to be nonzero since the dot product and product of magnitudes are both 0 when either vector is the zero vector), then the quotient \(\frac{\langle u,v \rangle}{||u||||v||}\) would have absolute value greater than 1.  It would then fall outside the domain of the \(\textrm{arccos}\) function and thus leave the angle between the two vectors undefined.
+
+\item Prove that \[(\sum_{j=1}^{n} a_jb_j)^2 \leq (\sum_{j=1}^{n} ja_j^2)(\sum_{j=1}^{n} \frac{b_j^2}{j})\] for all real numbers \(a_1,\dots,a_n\) and \(b_1,\dots,b_m\).
+
+Let \(V=\textbf{R}^n\) and let \(u=(a_1\sqrt{1},\dots,a_n\sqrt{n}),v=(\frac{b_1}{\sqrt{1}},\dots,\frac{b_n}{\sqrt{n}})\).  By the Cauchy-Schwartz inequality 6.15, we have that \(\langle u,v \rangle \leq ||u||||v||\), which - for our vectors - is the statement that \[\sum_{j=1}^{n} a_jb_j \leq \sqrt{\sum_{j=1}^{n} ja_j^2}\sqrt{\sum_{j=1}^{n} \frac{b_j^2}{j}}.\] Squaring both sides yields the desired inequality.
+
+\item Suppose \(u,v \in V\) are such that \[||u||=3, \\ ||u+v||=4, \\ ||u-v||=6.\] What number does \(||v||\) equal?
+
+By 6.22, we have that \[||u+v||^2+||u-v||^2=2(||u||^2+||v||^2).\] Plugging in, we find that \[4^2+6^2=2(3^2+||v||^2).\] Simplifying, we obtain that \(||v||=\sqrt{17}\).
+
+\item Prove or disprove: there is an inner product on \(\textbf{R}^2\) such that the associated norm is given by \[||(x,y)||=\textrm{max}\{x,y\}\] for all \((x,y) \in \textbf{R}^2\).
+
+This is false.  Consider the example of \((x,y)=(0,-1)\).  Under the "norm" given \(||(x,y)||=\textrm{max}\{0,-1\}=0\), even though clearly \((x,y)\) is not the zero vector, contradicting 6.10(a).
+
+\item Suppose \(p>0\).  Prove that there is an inner product on \(\textbf{R}^2\) such that the associated norm is given by
+
+\begin{equation*}
+    ||(x,y)|| = (x^p+y^p)^{\frac{1}{p}}
+\end{equation*}
+
+for all \((x,y) \in \textbf{R}^2\) if and only if \(p=2\).
+
+For \(p=2\), this is the Euclidean norm, defined in Example 6.9(a), and the Euclidean inner product.
+
+% Now, consider the case of \(p \neq 2\).  By the definition of the norm (6.8) we have that \(||(x,y)||^2 = \langle (x,y),(x,y) \rangle = (x^p+y^p)^{\frac{2}{p}}\), and so .
+
+
+\item Suppose \(V\) is a real inner product space.  Prove that \[\langle u,v \rangle = \frac{||u+v||^2-||u-v||^2}{4}\] for all \(u,v \in V\).
+
+Expanding out and taking advantage of the fact that \(V\) is a real inner product space - and so the inner product is "nice" as outlined in 6.3 and 6.7 - we calculate the numerator term:
+\begin{align*}
+\langle u+v,u+v \rangle - \langle u-v,u-v \rangle &= ||u||^2+2\langle u,v \rangle + ||v||^2 - ||u||^2 + 2\langle u,v \rangle - ||v||^2 \\
+&=4 \langle u,v \rangle
+\end{align*}
+Dividing by \(4\) lets us obtain the expected result \(\langle u,v \rangle\) for the whole formula.
+
+\item Suppose \(V\) is a complex inner product space.  Prove that \[\langle u,v \rangle = \frac{||u+v||^2-||u-v||^2+||u+iv||^2i-||u-iv||^2i}{4}\] for all \(u,v \in V\).
+
+We expand the numerator of the right-hand side as follows:
+\begin{equation*}
+\begin{split}
+& ||u+v||^2-||u-v||^2+||u+iv||^2i-||u-iv||^2i \\
+&= \langle u+v,u+v \rangle - \langle u-v,u-v \rangle + \langle u+iv,u+iv \rangle i - \langle u-iv,u-iv \rangle i \\
+&= ||u||^2+\langle u,v \rangle+\langle v,u \rangle+||v||^2 - ||u||^2 + \langle u,v \rangle + \langle v,u \rangle -||v||^2 \\
+&+||u||^2i +\langle u,iv \rangle i + \langle iv,u \rangle i +||v||^2 i - ||u||^2 i + \langle u,iv \rangle i + \langle iv,u \rangle i - ||v||^2 i \\
+&= 2\langle u,v \rangle + 2\langle v,u \rangle + 2\langle u,v \rangle - 2\langle v,u \rangle \\
+&= 4\langle u,v \rangle
+\end{split}
+\end{equation*}
+Dividing by \(4\) lets us obtain the expected result \(\langle u,v \rangle\) for the whole formula.
+
+\item A norm on a vector space \(u\) is a function \(|| ||:U \rightarrow [0,\infty)\) such that \(||u||=0\) if and only if \(u=0\), \(|\alpha u|=|\alpha|||u||\) for all \(\alpha \in \textbf{F}\) and all \(u \in U\), and \(||u+v|| \leq ||u||+||v||\) for all \(u,v \in U\).  Prove that a norm satisfying the parallelogram equality comes from an inner product (in other words, show that if \(||||\) is a norm on \(U\) satisfying the parallelogram equality, then there is an inner product \(\langle \cdot,\cdot \rangle\) on \(U\) such that \(||u||=\langle u,u \rangle^\frac{1}{2}\) for all \(u \in U\)).
+
+% Assume the existence of such a norm and define the inner product \(\langle u,v \rangle=\).
+
+\item Show that the square of an average is less than or equal to the average of the squares.  More precisely, show that if \(a_1,\dots,a_n \in \textbf{R}\), then the square of the average of \(a_1,\dots,a_n\) is less than or equal to the average of \(a_1^2,\dots,a_n^2\).
+
+Writing this out algebraically we see that it is equal to the proposition that \[(\frac{a_1+\dots+a_n}{n})^2 \leq \frac{a_1^2+\dots+a_n^2}{n}\] for arbitrary \(a_1,\dots,a_n \in \textbf{R}\).  Multiplying out and rearranging lets us see that this is equivalent to the inequality \[(a_1+\dots+a_n)^2 \leq n(a_1^2+\dots+a_n^2),\] which we proved in Excercise 6A.12.
+
+\item Suppose \(V_1,\dots,V_m\) are inner product spaces.  Show that the equation
+
+\begin{equation*}
+    \langle (u_1,\dots,u_m),(v_1,\dots,v_m) \rangle = \langle u_1,v_1 \rangle + \dots + \langle u_m,v_m \rangle
+\end{equation*}
+
+defines an inner product on \(V_1 \times \dots \times V_m\).
+
+We prove each property of an inner product:
+
+Positivity and definiteness: Select arbitrary \((v_1,\dots,v_m) \in V_1 \times \dots \times V_m\).  Then
+
+\begin{equation*}
+    \langle (v_1,\dots,v_m), (v_1,\dots,v_m) \rangle = \langle v_1,v_1 \rangle + \dots + \langle v_m,v_m \rangle.
+\end{equation*}
+
+Since each inner product is itself positive, then each term on the right hand side of the equation must be greater than or equal to zero, meaning that the sum is.  Moreover, this also means that for the sum to be zero each individual inner product term must be zero, which - by the definiteness property of each inner product - forces each \(v_i\) to be the zero of \(V_i\).  The vector \((v_1,\dots,v_n)\) is then the zero element of \(V_1 \times \dots \times V_m\).
+
+Conjugate symmetry:
+
+\begin{equation*}
+    \begin{split}
+        \langle (v_1,\dots,v_m),(u_1,\dots,u_m) \rangle &= \langle v_1,u_1 \rangle + \dots + \langle v_m,u_m \rangle \\
+        &= \langle v_1,u_1 \rangle + \dots + \langle v_m,u_m \rangle \\
+        &= \overline{\langle u_1,v_1 \rangle} + \dots + \overline{\langle u_m,v_m \rangle} \\
+        &= \overline{\langle u_1,v_1 \rangle + \dots + \langle u_m,v_m \rangle} \\
+        &= \overline{\langle (u_1,\dots,u_m),(v_1,\dots,v_m) \rangle}.
+    \end{split}
+\end{equation*}
+
+Homogeneity in the first slot:
+
+\begin{equation*}
+    \begin{split}
+        \langle \lambda(u_1,\dots,u_m),(v_1,\dots,v_m) \rangle &= \langle (\lambda u_1,\dots,\lambda u_m), (v_1,\dots,v_m) \rangle \\
+        &= \langle \lambda u_1,v_1 \rangle + \dots + \langle \lambda u_m,v_m \rangle \\
+        &= \lambda \langle u_1,v_1 \rangle + \dots + \lambda \langle u_m,v_m \rangle \\
+        &= \lambda (\langle u_1,v_1 \rangle + \dots + \langle u_m,v_m \rangle) \\
+        &= \lambda \langle (u_1,\dots,u_m),(v_1,\dots,v_m) \rangle.
+    \end{split}
+\end{equation*}
+
+Additivity in the first slot:
+
+\begin{equation*}
+    \begin{split}
+        \langle (u_1,\dots,u_m)+(w_1,\dots,w_m),(v_1,\dots,v_m) \rangle &= \langle (u_1+w_1,\dots,u_m+w_m), (v_1,\dots,v_m) \rangle \\
+        &= \langle \lambda u_1+w_1,v_1 \rangle + \dots + \langle \lambda u_m+w_m,v_m \rangle \\
+        &= \langle u_1,v_1 \rangle + \langle w_1,v_1 \rangle + \dots + \langle u_m,v_m \rangle + \langle w_m,v_m \rangle \\
+        &= (\langle u_1,v_1 \rangle + \dots + \langle u_m,v_m \rangle) + (\langle w_1,v_1 \rangle + \dots + \langle w_m,v_m \rangle) \\
+        &= \langle (u_1,\dots,u_m),(v_1,\dots,v_m) \rangle + \langle (w_1,\dots,w_m),(v_1,\dots,v_m) \rangle.
+    \end{split}
+\end{equation*}
+
+\item Suppose \(S \in \mathcal{L}(V)\) is an injective operator on \(V\).  Define \(\langle \cdot,\cdot \rangle_1\) by \[\langle u,v \rangle_1 = \langle Su,Sv \rangle\] for \(u,v \in V\).  Show that \(\langle \cdot,\cdot \rangle_1\) is an inner product on \(V\).
+
+We verify each inner product property as follows:
+
+Positivity: Obviously for any \(v \in V\), then \(Sv \in V\), and so then \(\langle v,v \rangle_1 = \langle Sv,Sv \rangle \geq 0\) by the inner product properties of \(\langle \cdot,\cdot \rangle\).
+
+Definiteness: \(\langle v,v \rangle_1 = 0 \Leftrightarrow \langle Sv,Sv \rangle = 0 \Leftrightarrow Sv = 0 \Leftrightarrow v = 0\), as required.  The first two logical equivalences follow from our definition of \(\langle \cdot,\cdot \rangle_1\) and the definiteness property of the inner product \(\langle \cdot,\cdot \rangle\); the last follows from the fact that \(S\) is injective and 3.16.
+
+Additivity in first slot: \(\langle v+w,u \rangle_1 = \langle S(v+w),u \rangle = \langle Sv+Sw,u \rangle = \langle Sv,u \rangle + \langle Sw,u \rangle = \langle v,u \rangle_1 + \langle w,u \rangle_1\).  The equalities all follow from our definition of \(\langle \cdot,\cdot \rangle_1\), the definining properties of the inner product \(\langle \cdot,\cdot \rangle\) and the linearity properties of \(S\).
+
+Homogeneity in first slot: \(\langle \lambda v,w \rangle_1 = \langle S(\lambda v),Sw \rangle = \langle \lambda Sv,Sw \rangle = \lambda \langle Sv,Sw \rangle = \lambda \langle v,w \rangle_1\).  The equalities all follow from our definition of \(\langle \cdot,\cdot \rangle_1\), the definining properties of the inner product \(\langle \cdot,\cdot \rangle\) and the linearity properties of \(S\).
+
+Conjugate symmetry: \(\langle w,v \rangle_1 = \langle Sw,Sv \rangle = \overline{\langle Sv,Sw \rangle} = \overline{\langle v,w \rangle_1}\).  The equalities all follow from our definition of \(\langle \cdot,\cdot \rangle_1\), the definining properties of the inner product \(\langle \cdot,\cdot \rangle\) and the linearity properties of \(S\).
+
+\item Suppose \(S \in \mathcal{L}(V)\) is not injective.  Define \(\langle \cdot,\cdot \rangle_1\) as in the excercise above.  Explain why \(\langle \cdot,\cdot \rangle_1\) is not an inner product on \(V\).
+
+Since \(S\) is not injective, its null space contains some nonzero vector by 3.16; denote it \(v\).  Then, \(\langle v,v \rangle_1 = \langle Sv,Sv \rangle = \langle 0,0 \rangle = 0\) even though \(v \neq 0\), contradicting the definiteness property of inner products defined in 6.3.  Thus, \(\langle \cdot,\cdot \rangle_1\) is not an inner product.
+
+\item Suppose \(f,g\) are differentiable functions from \(\textbf{R}\) to \(\textbf{R}^n\).
+
+(a) Show that \[\langle f(t),g(t) \rangle'=\langle f'(t),g(t) \rangle + \langle f(t),g'(t)\rangle.\]
+
+(b) Suppose \(c>0\) and \(||f(t)||=c\) for every \(t \in \textbf{R}\).  Show that \(\langle f'(t),f(t) \rangle=0\) for every \(t \in \textbf{R}\).
+
+(c) Interpret the result in part (b) geometrically in terms of the tangent vector to a curve lying on a sphere in \(\textbf{R}^n\) centered at the origin.
+
+(a) Define \(f(t)=(f_1(t),\dots,f_n(t))\) and \(g(t)=(g_1(t),\dots,g_n(t)\)).  Then, \[\langle f,g \rangle = \sum_{i=1}^n f_i(t)g_i(t),\] and so - by the product rule of differentiation -
+\begin{equation*}
+\begin{split}
+&\langle f,g \rangle'=\left(\sum_{i=1}^n f_i(t)g_i(t)\right)'=\sum_{i=1}^n (f_i(t)g_i(t))' = \sum_{i=1}^n f'_i(t)g_i(t)+f_i(t)g'_i(t) \\
+&= \sum_{i=1}^n f'_i(t)g_i(t)+\sum_{i=1}^n f_i(t)g'_i(t)=\langle f'(t),g(t) \rangle + \langle f(t),g'(t) \rangle
+\end{split}
+\end{equation*}
+(b) We use the result of part (a) and the fact that \(\textbf{R}^n\) is a real vector space to write as follows: \[\langle f',f \rangle = \frac{1}{2} \langle f',f \rangle + \frac{1}{2} \langle f',f \rangle = \frac{1}{2} \langle f',f \rangle + \frac{1}{2} \langle f,f' \rangle = \langle f,f \rangle ' = (||f||^2)' = 0.\] The final equality follows from the fact that \(||f||\) is constant, so then \(||f||^2\) is constant and thus has derivative zero.
+
+(c) Geometrically, this means that the tangent vector at any point of a curve lying on a sphere in \(\textbf{R}^n\) is perpendicular to the vector pointing from the center of the sphere to that point.
+
+\item Suppose \(u,v,w \in V\).  Prove that
+
+\begin{equation*}
+    ||w-\frac{1}{2}(u+v)||^2=\frac{||w-u||^2+||w-v||^2}{2}-\frac{||u-v||^2}{4}.
+\end{equation*}
+
+We expand the left hand side as follows: 
+\begin{align*}
+||w-\frac{1}{2}(u+v)||^2&=\langle w-\frac{1}{2}(u+v),w-\frac{1}{2}(u+v) \rangle \\
+&= \langle w-\frac{1}{2}u-\frac{1}{2}v, w-\frac{1}{2}u-\frac{1}{2}v \rangle \\
+&=||w||^2-\frac{1}{2}\langle u,w \rangle - \frac{1}{2}\langle v,w \rangle - \frac{1}{2}\langle w,u \rangle +\frac{1}{4}||u||^2+\frac{1}{4}\langle v,u \rangle -\frac{1}{2}\langle w,v \rangle +\frac{1}{4}\langle u,v \rangle + \frac{1}{4}||v||^2
+\end{align*}
+We expand the right hand side as follows:
+\begin{equation*}
+\begin{split}
+&\frac{||w-u||^2+||w-v||^2}{2}-\frac{||u-v||^2}{4}=\frac{||w||^2-\langle w,u \rangle -\langle u,w \rangle +||u||^2+||w||^2-\langle w,v \rangle -\langle v,w \rangle +||v||^2}{2} \\
+&-\frac{||u||^2-\langle u,v \rangle - \langle v,u \rangle +||v||^2}{4} \\
+&= ||w||^2-\frac{1}{2}\langle u,w \rangle - \frac{1}{2}\langle v,w \rangle - \frac{1}{2}\langle w,u \rangle +\frac{1}{4}||u||^2 +\frac{1}{4}\langle v,u \rangle -\frac{1}{2}\langle w,v \rangle +\frac{1}{4}\langle u,v \rangle + \frac{1}{4}||v||^2
+\end{split}
+\end{equation*}
+Though there are enough terms such that it is not immediately visually apparent, the two sides of the given equation are equal.
+
+\item Suppose \(C\) is a subset of \(V\) with the property that \(u,v \in C\) implies \(\frac{1}{2}(u+v) \in C\).  Let \(w \in V\).  Show that there is at most one point in \(C\) that is closest to \(w\).  In other words, show that there is at most one \(u \in C\) such that
+
+\begin{equation*}
+    ||w-u|| \leq ||w-v|| \ \textrm{for all} \ v \in C.
+\end{equation*}
+
+Select such a subset \(C\), as well as arbitrary \(w \in V\).  Furthermore, assume that two \(u_1,u_2 \in C\) exist that are the closest to \(w\), i.e. that \(||w-u_1||, ||w-u_2|| \leq ||w-v||\) for every \(v \in C\).  Obviously, this forces that \(||w-u_1||=||w-u_2||\).  Then, \(\frac{1}{2}(u+v) \in C\) as well, and so then - by the result of 6A.27 - we have that
+
+\begin{equation*}
+    \begin{split}
+        ||w - \frac{1}{2}(u_1+u_2)||^2 &= \frac{||w-u_1||^2+||w-u_2||^2}{2}-\frac{||u_1-u_2||^2}{4} \\
+        &= ||w-u_1||^2 - \frac{||u_1-u_2||^2}{4}.
+    \end{split}
+\end{equation*}
+
+We have assumed that \(u_1\) and \(u_2\) are the closest, and so this forces \(||u_1 - u_2||^2 = 0\).  By 6.10(a) it follows that \(u_1 = u_2\), meaning that there is at most one point in \(C\) closest to \(w\), as required.
+
+\item For \((u,v) \in V\), define \(d(u,v) = ||u-v||\).
+
+(a) Show that \(d\) is a metric on \(V\).
+
+(b) Show that if \(V\) is finite-dimensional, then \(d\) is a complete metric on \(V\) (meaning that every Cauchy sequence converges).
+
+(c) Show that every finite-dimensional subspace of \(V\) is a closed subset of \(V\) (with respect to the metric \(d\)).
+
+(a) A metric has 3 defining properties:
+
+1.  For each vector \(v\), \(d(v,v)=0\).  Take any \(v\); then, \(d(v,v)=||v-v||=||0||=0\), as required (6.3).
+
+2.  For all \(u \neq v\), \(d(u,v)>0\).  Take any non-equal \(u\) and \(v\); then, \(d(u,v)=|u-v|>0\), as required (6.3).
+
+3.  For all \(u,v,w \in V\), \(d(u,w) \leq d(u,v)+d(v,w)\).  Take any \(u,v,w\); then.
+
+(b) Say that \(V\) is finite-dimensional with basis \(u_1,\dots,u_n\).  Now, take a Cauchy sequence \((v_i)\).  For each \(v_j\), express \[v_j=a_{j,1}u_1+\dots+a_{j,n}u_n.\] Now, observe that for any \(j\) and \(k\),
+
+\begin{equation*}
+    \begin{split}
+        ||v_j-v_k||&=||(a_{j,1}-a_{k,1})u_1+\dots+(a_{j_n}-a_{k,n})u_n|| \\
+        & \leq ||(a_{j,1}-a_{k,1})u_1||+\dots+||(a_{j_n}-a_{k,n})u_n|| \\
+        &= |(a_{j,1}-a_{k,1})|||u_1||+\dots+|(a_{j_n}-a_{k,n})|||u_n||
+    \end{split}
+\end{equation*}
+
+where the first inequality comes from 6.18 and the second equality comes from 6.10(b).  Since \(||v_j-v_k||\) becomes arbitrarily small and \(||u_i||\) is fixed and nonzero (by 6.10(a)) for each \(u_i\) this forces each \((a_{j,i})\) to be a Cauchy sequence, the limit of which is contained in \(\textbf{F}\) (since \(\textbf{F}=\textbf{R}\) or \(\textbf{F}=\textbf{C}\)).  Thus the limit of the sequence \((v_i)\) is \(a_1v_1+\dots+a_nv_n \in V\), meaning that \(d\) is complete.
+
+% (c) Select a subspace \(U\) with basis \(u_1,\dots,u_m\).  Extend \(u_1,\dots,u_m\) to a basis \(u_1,\dots,u_m,w_1,\dots,w_k\) of \(V\).  Now select arbitrary \(v=a_1u_1+\dots+a_mu_m+b_1w_1+\dots+b_kw_k \in V\) such that \(v \notin U\); that is, not all of the \(b_i\) are zero.  Select the \(b_j\) such that \(|b_j|||w_j||\) is minimized, and set \(\epsilon=|b_j|||w_j||\).  Then, by 6.18, \(||v'-v||<\epsilon\) forces \(|b_j'-b_j|<\).  Thus there exists an \(\epsilon\)-neighborhood of \(v\) contained in \(V \backslash U\), i.e. \(U\) is a closed subset of \(V\).
+
+\item Fix a positive integer \(n\).  The \textbf{\textit{Laplacian}} \(\Delta p\) of a twice differentiable function \(p\) on \(\textbf{R}^n\) is the function on \(\textbf{R}^n\) defined by
+
+\begin{equation*}
+    \Delta p=\frac{\partial^2 p}{\partial x_1^2}+\dots+\frac{\partial^2 p}{\partial x_1^2}.
+\end{equation*}
+
+The function \(p\) is called \textbf{\textit{harmonic}} if \(\Delta p=0\).
+
+A \textbf{\textit{polynomial}} on \(\textbf{R}^n\) is a linear combination of functions of the form \(x_1^{m_1} \cdots x_n^{m_n}\), where \(m_1,\dots,m_n\) are nonnegative integers.
+
+Suppose \(q\) is a polynomial on \(\textbf{R}^n\).  Prove that there exists a hormonic polynomial \(p\) on \(\textbf{R}^n\) such that \(p(x)=q(x)\) for for every \(x \in \textbf{R}^n\) with \(||x||=1\).
+
+% Define \(V\) to be the set of polynomials on \(\textbf{R}^n\) with degree less than or equal to that of \(p\), and a map \(T: V \rightarrow V: r \rightarrow \Delta \left( (1 - ||x||^2)r \right)\).  Since \(||x||^2\) is itself a polynomial in \(\textbf{R}^n\), given by \(x_1^2 + \dots + x_n^2\), it follows that \(T\) is an operator on \(V\).  Say that \(Tr = 0\) for some polynomial \(r\); then, \(\Delta \left(1 - (x_1^2 + \dots + x_n^2)\right)r = 0\).  Expanding and using the product rule allows us to see that
+
+% \begin{equation*}
+%     \begin{split}
+%         & \Delta \left(1 - ||x||^2\right)r = \Delta r - \Delta ||x||^2 r \\
+%         &= \Delta r - \Delta r ||x||^2 - 2 \nabla r \cdot \nabla ||x||^2 - r \Delta ||x||^2 \\
+%         &= \Delta r - \Delta r ||x||^2 - 2 \nabla r \cdot \nabla ||x||^2 - 2nr.
+%     \end{split}
+% \end{equation*}
+
+% The image of .
+
+\item Use inner products to prove Apollonius's Identity: In a triangle with sides of length \(a\), \(b\), and \(c\), let \(d\) be the length of the line segment from the midpoint of the side of length \(c\) to the opposite vertex.  Then 
+
+\begin{equation*}
+    a^2+b^2 = \frac{1}{2}c^2+2d^2.
+\end{equation*}
+
+Note from the diagram that \(a=d+\frac{1}{2}c\) and \(b=d-\frac{1}{2}c\).  Thus,
+\begin{equation*}
+    \begin{split}
+        ||a||^2+||b||^2&=||d+\frac{1}{2}c||^2+||d-\frac{1}{2}c||^2 \\
+        &=||d||^2+\langle c,d \rangle+\frac{1}{4}||c||^2-\langle c,d \rangle+\frac{1}{4}||c||^2+||d||^2 \\
+        &=\frac{1}{2}||c||^2+2||d||^2.
+    \end{split}
+\end{equation*}
+
+\end{enumerate}
+
+6.B: Orthonormal Bases
+
+\begin{enumerate}
+
+\item (a) Suppose \(\theta \in \textbf{R}\).  Show that \((\textrm{cos} \, \theta,\textrm{sin} \, \theta),(-\textrm{sin} \, \theta,\textrm{cos} \, \theta)\) and \((\textrm{cos} \, \theta,\textrm{sin} \, \theta),(\textrm{sin} \, \theta,-\textrm{cos} \, \theta)\) are orthonormal bases of \(\textbf{R}^2\).
+
+(b) Show that each orthonormal basis of \(\textbf{R}^2\) is of the form given by one of the two possibilities of part (a).
+
+(a) For any \(\theta \in \textbf{R}\), 
+
+\begin{equation*}
+    \begin{split}
+    & \langle (\cos \theta, \sin \theta), (- \sin \theta, \cos 
+    \theta) \rangle = -\cos \theta \sin \theta + \sin \theta \cos \theta = 0 \\
+    & \langle (\cos \theta, \sin \theta), (\sin \theta, -\cos 
+    \theta) \rangle = \cos \theta \sin \theta - \sin \theta \cos \theta = 0.
+    \end{split}
+\end{equation*}
+
+This proves that the vectors in each pair are each orthogonal to each other.  The fact that each of the vectors has magnitude 1 follows from the trigonometric identity \(\sin^2 \theta + \cos^2 \theta = 1\).
+
+(b) Geometrically: we can envision the locus of vectors with magnitude \(1\) with their endpoints at the origin as forming a unit circle.  Every point on the unit circle is given by \((\text{cos} \, \theta,\text{sin} \, \theta)\) for some \(\theta \in \textbf{R}\).  Given this vector, there are exactly two magnitude-\(1\) vectors perpendicular to it, which point in opposite directions along the perpendicular running through the origin of the original vector. 
+ Since we have identified two orthonormal bases in part (a), these must then exactly correspond to these two orthogonal vectors.  Since \(\theta\) can be shifted so that the first vector matches any magnitude-\(1\) vector, then, it follows that every orthogonal basis of \(\textbf{R}^2\) is of one of the forms given in part (a).
+
+\item Suppose \(e_1,\dots,e_m\) is an orthonormal list of vectors in \(V\).  Let \(v \in V\).  Prove that
+
+\begin{equation*}
+    ||v||^2=|\langle v,e_1 \rangle |^2 + \dots + |\langle v,e_m \rangle |^2
+\end{equation*}
+if and only if \(v \in \textrm{span}(e_1,\dots,e_m)\).
+
+First, say that \(v \in \text{span}(e_1,\dots,e_m)\), so that \(v=a_1e_1+\dots+a_me_m\).  Then, this follows from the same argument used to prove 6.30.
+
+Now, say that \(v \notin \text{span}(e_1,\dots,e_m\).  From the orthonormality (and hence linear independence by 6.26 of the \(e_i\), our assumption, and the contrapositive of 2.21, it follows that the list \(e_1,\dots,e_m, v\) is linearly independent.  Thus, the Gram-Schmidt process 6.31 can be applied to it to produce an orthonormal list \(e_1,\dots,e_m,e'\) (the original \(e_i\) are left unchanged because they are already orthonormal), the span of which contains the original \(v\).  Then, \(v = \langle v, e_1 \rangle \dots + \langle v, e_m \rangle e_m + \langle v, e' \rangle\) with \(\langle v, e' \rangle \neq 0\) by our assumption, and so then - by 6.25 - we have that \(||v||^2=|\langle v,e_1 \rangle |^2 + \dots + |\langle v,e_m \rangle |^2 + |\langle v, e' \rangle|^2\).  The final term is nonzero, proving that \(||v||^2 \neq |\langle v,e_1 \rangle |^2 + \dots + |\langle v,e_m \rangle |^2\), as required.
+
+\item Suppose \(T \in \mathcal{L}(\textbf{R}^3)\) has an upper-triangular matrix with respect to the basis \((1,0,0),(1,1,1),(1,1,2)\).  Find an orthonormal basis of \(\textbf{R}^3\) (use the usual inner product on \(\textbf{R}^3\) with respect to which \(T\) has an upper-triangular matrix.
+
+\item Suppose \(n\) is a positive integer.  Prove that \[\frac{1}{\sqrt{2\pi}},\frac{\textrm{cos} \, x}{\sqrt{\pi}},\frac{\textrm{cos} \, 2x}{\sqrt{\pi}},\dots,\frac{\textrm{cos} \, nx}{\sqrt{\pi}},\frac{}{\sqrt{\pi}},\frac{\textrm{sin} \, x}{\sqrt{\pi}},\dots,\frac{\textrm{sin} \, nx}{\sqrt{\pi}}\] is an orthonormal list of vectors in \(C[-\pi,\pi]\), the vector space of continuous real-valued functions on \([-\pi,\pi]\) with inner product \[\langle f,g \rangle = \int_{-\pi}^{\pi} f(x)g(x) \, dx.\]
+
+\item On \(\mathcal{P}_2(\textbf{R})\), consider the inner product given by
+
+\begin{equation*}
+    \langle u,v \rangle = \int_{0}^{1} p(x)q(x) \, dx.
+\end{equation*}
+
+Apply the Gram-Schmidt Procedure to the basis \(1,x,x^2\) to produce an orthonormal basis of \(\mathcal{P}_2(\textbf{R})\).
+
+To begin with,
+
+\begin{equation*}
+    \frac{1}{\sqrt{\int_0^1 1 \cdot 1 dx}} = 1,
+\end{equation*}
+
+and so then \(e_1 = 1\).  Next, 
+
+\begin{equation*}
+    x - \int_0^1 x \cdot 1 dx \cdot 1 = x - \frac{1}{2}.
+\end{equation*}
+
+Furthermore,
+
+\begin{equation*}
+    \int_0^1 (x - \frac{1}{2})^2 dx = \frac{(1 - \frac{1}{2})^3 - (0 - \frac{1}{2})^3}{3} = \frac{1}{12},
+\end{equation*}
+
+and so then \(||x - \frac{1}{2}|| = \frac{1}{2 \sqrt{3}}\).  Thus, \(e_2 = 2 \sqrt{3} (x - \frac{1}{2})\).  Repeating the process once more yields that \(e_3 = \sqrt{\frac{5}{31}} (6x^2 - (2 + \sqrt{3}))\).  Thus, an orthonormal basis of \(\mathcal{P}_2(\textbf{R})\) is given by \(1, 2 \sqrt{3} (x - \frac{1}{2}), \sqrt{\frac{5}{31}} (6x^2 - (2 + \sqrt{3}))\).
+
+\item Find an orthonormal basis of \(\mathcal{P}_2(\textbf{R})\) (with inner product as in Excercise 5) such that the differentiation operator (the operator that takes \(p\) to \(p'\)) on \(\mathcal{P}_2(\textbf{R})\) has an upper-triangular matrix with respect to this basis.
+
+\item Find a polynomial \(q \in (\mathcal{P}_2(\textbf{R})\) such that \[p(\frac{1}{2})= \int_{0}^{1} p(x)q(x) \, dx\] for every \(p \in \mathcal{P}_2(\textbf{R})\).
+
+\item  Find a polynomial \(q \in \mathcal{P}_2(\textbf{R})\) such that \[\int_{0}^{1} p(x)(\textrm{cos} \, n\pi x) \, dx= \int_{0}^{1} p(x)q(x) \, dx\] for every \(p \in \mathcal{P}_2(\textbf{R})\).
+
+\item What happens if the Gram-Schmidt Procedure is applied to a list of vectors that is not linearly independent?
+
+2.21 states that in any linearly dependent list, there is a vector in the span of the previous vectors.  Therefore, applying the Gram-Schmidt process to a linearly dependent list \(v_1,\dots,v_n\) will produce a list of orthonormal vectors \(e_1,\dots,e_k\) (as it does for a linearly independent list), up until the first vector \(v_{k+1}\) in the span of the preceding vectors.  Note that \(e_1,\dots,e_k\) has the same span as \(v_1,\dots,v_k\); therefore, \(v_{k+1}\) will be in the span of the previous \(e_i\), so the numerator of its Gram-Schmidt term will - by the argument of 6.30 - be zero.  Thus, the vector \(e_{k+1}\) will be degenerate, and the same will occur for any vector in the span of the previous vectors.  If the procedure is applied to the whole list but only the non-degenerate vectors that the Gram-Schmidt process produces are kept, the end result will be a linearly independent (by 2.21 again) and orthonormal list that has the same span as the original linearly dependent list.
+
+\item Suppose \(V\) is a real inner product space and \(v_1,\dots,v_m\) is a linearly independent list of vectors in \(V\).  Prove that there exist exactly \(2^m\) orthonormal lists \(e_1,\dots,e_m\) in \(V\) such that \[\textrm{span}(v_1,\dots,v_j)=\textrm{span}(e_1,\dots,e_j)\] for all \(j \in \{1,\dots,m\}\).
+
+\item Suppose \(\langle \cdot,\cdot \rangle_1\) and \(\langle \cdot,\cdot \rangle_2\) are inner products on \(V\) such that \(\langle v,w \rangle_1=0\) if and only if \(\langle v,w \rangle_2=0\).  Prove there is a positive number \(c\) such that \(\langle v,w \rangle_1=c\langle v,w \rangle_2\) for every \(v,w \in V\).
+
+\item Suppose \(V\) is finite-dimensional and \(\langle \cdot,\cdot \rangle_1,\langle \cdot,\cdot \rangle_2\) are inner products on \(V\) with corresponding norms \(||\cdot||_1\) and \(||\cdot||_2\).  Prove that there exists a positive number \(c\) such that \[||v||_1 \leq c||v||_2\] for every \(v \in V\).
+
+\item Suppose \(v_1,\dots,v_m\) is a linearly independent list in \(V\).  Show that there exists \(w \in V\) such that \(\langle w,v_j \rangle > 0\) for all \(j \in \{1,\dots,m\}\).
+
+\item Suppose \(e_1,\dots,e_n\) is an orthonormal basis of \(V\) and \(v_1,\dots,v_n\) are vectors in \(V\) such that
+
+\begin{equation*}
+    ||e_j-v_j|| < \frac{1}{\sqrt{n}}
+\end{equation*}
+
+for each \(j\).  Prove that \(v_1,\dots,v_n\) is a basis of \(V\).
+
+
+
+\item Suppose \(C_{\textbf{R}}([-1,1])\) is the vector space of continuous real-valued functions on the interval \([-1,1]\) with inner product given by \[\langle f,g \rangle = \int_{-1}^{1} f(x)g(x) \, dx\] for \(f,g \in C_{\textbf{R}}([-1,1])\).  Let \(\phi\) be the linear functional on \(C_{\textbf{R}}([-1,1])\) defined by \(\phi(f)=f(0)\).  Show that there does not exist \(g \in C_{\textbf{R}}([-1,1])\) such that \[\phi(f)=\langle f,g \rangle\] for every \(f \in C_{\textbf{R}}([-1,1])\).
+
+\item Suppose \(\textbf{F}=\textbf{C}\), \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\), all the eigenvalues of \(T\) have absolute value less than one, and \(\epsilon > 0\).  Prove that there exists a positive integer \(m\) such that \(||T^mv|| \leq \epsilon||v||\) for every \(v \in V\).
+
+\item For \(u \in V\), let \(\phi u\) denote the linear functional on \(V\) defined by \[(\phi u)(v)=\langle v,u \rangle\] for \(v \in V\).
+
+(a) Show that if \(\textbf{F}=\textbf{R}\), then \(\phi\) is a linear map from \(V\) to \(V'\).  (Recall from section 3.F that \(V'=\mathcal{L}(V,\textbf{F})\) and that \(V'\) is called the dual space of \(V\).)
+
+(b) Show that if \(\textbf{F}=\textbf{C}\) and \(V \neq \{0\}\). then \(\phi\) is not a linear map.
+
+(c) Show that \(\phi\) is injective.
+
+(d) Suppose \(\textbf{F}=\textbf{R}\) and \(V\) is finite-dimensional.  Use parts (a) and (c) and a dimension-counting argument (but without using 6.42) to show that \(\phi\) is an isomorphism from \(V\) onto \(V'\).
+
+\end{enumerate}
+
+6.C: Orthogonal Complements and Minimization Problems
+
+\begin{enumerate}
+
+\item Suppose \(v_1,\dots,v_m \in V\).  Prove that \[\{v_1,\dots,v_m\}^{\perp} = \textrm{span}(v_1,\dots,v_m).\]
+
+\item Suppose \(U\) is a finite-dimensional subspace of \(V\).  Prove that \(U^{\perp}=\{0\}\) if and only if \(U=V\).
+
+\item Suppose \(U\) is a subspace of \(V\) with basis \(u_1,\dots,u_m\) and \[u_1,\dots,u_m,w_1,\dots,w_n\] is a basis of \(V\).  Prove that if the Gram-Schmidt Procedure is applied to the basis of \(V\) above, producing a list \(e_1,\dots,e_m,f_1,\dots,f_n\), then \(e_1,\dots,e_m\) is an orthonormal basis of \(U\) and \(f_1,\dots,f_n\) is an orthonormal basis of \(U^{\perp}\).
+
+\item Suppose \(U\) is the subspace of \(\textbf{R}^4\) and defined by \[U=\textrm{span}((1,2,3,-4),(-5,4,3,2)).\] Find an orthonormal basis of \(U\) and an orthonormal basis of \(U^{\perp}\).
+
+\item Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\).  Show that \(P_{U^{\perp}}=I-P_U\), where \(I\) is the identity operator on \(V\).
+
+\item Suppose \(U\) and \(W\) are finite-dimensional subspace of \(V\).  Prove that \(P_UP_W=0\) is and only if \(\langle u,w \rangle=0\) for all \(u \in U\) and all \(w \in W\).
+
+\item Suppose \(V\) is finite-dimensional and \(P \in \mathcal{L}(V)\) is such that \(P^2=P\) and every vector in \(\textrm{null} \, P\) is orthogonal to every vector in \(\textrm{range} \, P\).  Prove that there exists a subspace \(U\) of \(V\) such that \(P=P_U\).
+
+\item Suppose \(V\) is finite-dimensional and \(P \in \mathcal{L}(V)\) is such that \(P^2=P\) and \[||Pv|| \leq ||v||\] for every \(v \in V\).  Prove that there exists a subspace \(U\) of \(V\) such that \(P=P_U\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(U\) is a finite-dimensional subspace of \(V\).  Prove that \(U\) is invariant under \(T\) if and only if \(P_UTP_U=TP_U\).
+
+\item Suppose \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\), and \(U\) is a subspace of \(V\).  Prove that \(U\) and \(U^{\perp}\) are both invariant under \(T\) if and only if \(P_UT=TP_U\).
+
+\item In \(\textbf{R}^4\), let \[U=\textrm{span}((1,1,0,0),(1,1,1,2)).\] Find \(u \in U\) such that \(||u-((1,2,3,4)||\) is as small as possible.
+
+\item Find \(p \in \mathcal{P}_3(\textbf{R})\) such that \(p(0)=0,p'(0)=0\), and \[\int_{0}^{1} |2+3x-p(x)|^2 dx\] is as small as possible.
+
+\item Find \(p \in \mathcal{P}_5(\textbf{R})\) that makes \[\int_{-\pi}^{\pi} |\textrm{sin} \, x-p(x)|^2 dx\] as small as possible.
+
+\item Suppose \(C_{\textbf{R}}([-1,1])\) is the vector space of continuous real-valued functions on the interval \([-1,1]\) with inner product given by \[\langle f,g \rangle = \int_{-1}^{1} f(x)g(x) dx\] for \(f,g \in C_{\textbf{R}}([-1,1])\).  Let \(U\) be the subspace of \(C_{\textbf{R}}([-1,1])\) defined by \[U=\{f \in C_{\textbf{R}}([-1,1]): f(0)=0\}.\]
+
+(a) Show that \(U^{\perp}=\{0\}\).
+
+(b) Show that 6.47 and 6.51 do not hold without the finite-dimensional hypothesis.
+
+\end{enumerate}
+
+\end{document}

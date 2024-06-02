@@ -1,0 +1,468 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Linear Algebra Done Right 3rd Edition Excercise Solutions}
+\author{Nathan Jackson}
+
+\begin{document}
+
+{\huge \textbf{Chapter 1: Vector Spaces}}
+
+1.A: \(\textbf{R}^n\) and \(\textbf{C}^n\)
+
+\begin{enumerate}
+
+\item Suppose \(a\) and \(b\) are real numbers, not both 0.  Find real numbers \(c\) and \(d\) such that 
+
+\begin{equation*}
+    1/(a+bi) = c+di.
+\end{equation*}
+
+Let \(c = \frac{a}{a^2+b^2}\), \(d = \frac{-b}{a^2+b^2}\).  Then, by the rules of complex number multiplication,
+
+\begin{equation*}
+\begin{split}
+(a+bi)(c+di)&=(ac-bd)+(ad+bc)i \\
+&=(\frac{a^2}{a^2+b^2}-\frac{-b^2}{a^2+b^2})+(\frac{-ab}{a^2+b^2}+\frac{ab}{a^2+b^2})i \\
+&= \frac{a^2+b^2}{a^2+b^2} +0i \\
+&=1
+\end{split}
+\end{equation*}
+as required.
+
+\item Show that 
+
+\begin{equation*}
+    \frac{-1+\sqrt{3}i}{2}
+\end{equation*}
+
+is a cube root of 1 (meaning that its cube equals 1).
+
+The calculation is as follows:
+\begin{equation*}
+\begin{split}
+(\frac{-1+\sqrt{3}i}{2})^3 & = \frac{(-1+\sqrt{3}i)^3}{8} \\
+& = \frac{(-1+\sqrt{3}i)(-2-2\sqrt{3}i)}{8} \\
+& = \frac{(-1+\sqrt{3}i)(-1-\sqrt{3}i)}{4} \\
+& = \frac{4}{4} = 1
+\end{split}
+\end{equation*}
+
+\item Find two distinct square roots of \(i\).
+
+To do this observe that \[(a+bi)^2=(a^2-b^2)+(2ab)i.\]  Thus, any square root \(a+bi\) of \(i\) satisfies the following equations:
+\begin{align*}
+a^2-b^2 &= 0 \\
+2ab &= 1
+\end{align*}
+From the first equation, we find that either \(b = a\) or \(b=-a\).  We can then substitute these equalities into the second equation to solve for \(a\).  The case in which \(b = a\) is as follows:
+\begin{align*}
+2a^2 &= 1 \\
+a^2 &= \frac{1}{2} \\
+a &= \pm\frac{\sqrt{2}}{2}
+\end{align*}
+So, our solutions are \(a=\frac{\sqrt{2}}{2},b=\frac{\sqrt{2}}{2}\) and \(a=-\frac{\sqrt{2}}{2},b=-\frac{\sqrt{2}}{2}\), i.e. \(\frac{\sqrt{2}}{2}+\frac{\sqrt{2}}{2}i\) and \(-\frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}i\).  Plugging these numbers into our fornula for complex number multiplication confirms these answers.
+
+In the case in which \(b=-a\) we find that \(a^2=-\frac{1}{2}\).  This leads to complex solutions for \(a\), but from the way that we have defined \(a\) as the real part of a square root of \(i\) they do not make sense, and we can ignore them.
+
+\item Show that \(\alpha+\beta=\beta+\alpha\) for all \(\alpha, \beta \in \textbf{C}\).
+
+Let \(\alpha = a+bi\), \(\beta = c+di\).  Then,
+\begin{equation*}
+\begin{split}
+\alpha+\beta&=(a+bi)+(c+di) \\
+&=(a+c)+(b+d)i \\
+&=(c+a)+(d+b)i \\
+&= (c+di)+(a+bi) \\
+&=\beta+\alpha
+\end{split}
+\end{equation*}
+The third equality follows from commutativity of addition in \(\textbf{R}\); the rest are the definition of complex addition.
+
+\item Show that \((\alpha+\beta)+\lambda=\alpha+(\beta+\lambda\)) for all  \(\alpha, \beta, \lambda \in \textbf{C}\).
+
+Let \(\alpha = a+bi\), \(\beta = c+di\), \(\lambda=x+yi\).  Then,
+\begin{equation*}
+\begin{split}
+(\alpha+\beta)+\lambda&=((a+bi)+(c+di))+(x+yi) \\
+&=((a+c)+x)+((b+d)+y)i \\
+&=(a+(c+x))+(b+(d+y))i \\
+&=(a+bi)+((b+x) +(d+y)i) \\
+&=(a+bi)+((b+di)+(x+yi)) \\
+&=\alpha+(\beta+\lambda)
+\end{split}
+\end{equation*}
+The third equality follows from associativity of addition in \(\textbf{R}\); the rest are the definition of complex addition.
+
+\item Show that \((\alpha\beta)\lambda=\alpha(\beta\lambda)\) for all \(\alpha,\beta,\lambda \in \textbf{C}\).
+
+Let \(\alpha=a+bi,\beta=c+di,\lambda=x+yi\).  Then,
+\begin{equation*}
+\begin{split}
+(\alpha\beta)\lambda &= ((a+bi)(c+di))(x+yi) \\
+&= ((ac-bd)+(ad+bc)i)(x+yi) \\
+&= ((ac-bd)x-(ad+bc)y)+((ac-bd)y+(ad+bc)x)i \\
+&= (acx-bdx-ady-bcy)+(acy-bdy+adx+bcx)i \\
+&= (a(cx-dy)-b(cy+dx))+(a(cy+dx)+b(cx-dy))i \\
+&= (a+bi)((cx-dy)+(cy+dx)i) \\
+&= (a+bi)((c+di)(x+yi)) \\
+&= \alpha(\beta\lambda)
+\end{split}
+\end{equation*}
+The fourth and fifth equalities follow from the properties of \(\textbf{R}\); the rest are the definition of multiplication in \(\textbf{C}\).
+
+\item Show that for every \(\alpha \in \textbf{C}\), there exists a unique \(\beta \in \textbf{C}\) such that \(\alpha+\beta=0\).
+
+Given \(\alpha=a+bi \in \textbf{C}\).  Let \(\beta = c+di \in \textbf{C}\); then, \(\alpha+\beta=(a+c)+(b+d)i\).  Obviously \((a+c)+(b+d)i=0\) iff \(a+c=0\) and \(b+d=0\), i.e. \(c=-a\) and \(d=-b\).  Thus, the unique additive inverse for \(a+bi\) is \(\beta=(-a)+(-b)i\).
+
+\item Show that for every \(\alpha \in \textbf{C}\) with \(\alpha \neq 0\) there exists a unique \(\beta \in \textbf{C}\) such that \(\alpha\beta = 1\).
+
+We demonstrated in Excercise 1 that such \(\beta\) exists.  To prove uniqueness, assume that two such multiplicative inverses exist, \(\beta_1\) and \(\beta_2\).  Then, \[1=\alpha\beta_1=\alpha\beta_2.\]  We can multiply both sides by \(\beta_1\) and use associativity to obtain that \[(\beta_1\alpha)\beta_1=(\beta_1\alpha)\beta_2,\] which once we cancel out from both sides of the equation leaves us with \[\beta_1=\beta_2.\]  Thus, \(\beta\) is unique.
+
+\item Show that \(\lambda(\alpha+\beta)=\lambda\alpha+\lambda\beta\) for all \(\lambda,\alpha,\beta \in \textbf{C}\).
+
+Let \(\lambda=x+yi,\alpha=a+bi,\beta=c+di\).  Then,
+\begin{equation*}
+\begin{split}
+\lambda(\alpha+\beta) &= (x+yi)((a+bi)+(c+di)) \\
+&=(x+yi)((a+c)+(b+d)i) \\
+&= (x(a+c)-y(b+d))+(x(b+d)+y(a+c))i \\
+&= (ax+cx-by-dy)+(bx+dx+ay+cy)i \\
+&= ((ax-by)+(cx-dy))+((bx+ay)+(dx+cy))i \\
+&= ((ax-by)+(bx+ay)i)+((cx-dy)+(dx+cy)i) \\
+&= (x+yi)(a+bi)+(x+yi)(c+di) \\
+&= \lambda\alpha+\lambda\beta
+\end{split}
+\end{equation*}
+The fourth and fifth equalities follow from the field properties of \(\textbf{R}\); the rest are the definition of complex multiplication and addition.
+
+\item Find \(x \in \textbf{R}^4\) such that \[(4,-3,1,7)+2x=(5,9,-6,8).\]
+Our calculation is as follows:
+\begin{align*}
+(4,-3,1,7)+2x &= (5,9,-6,8) \\
+2x &= (1,12,-7,1) \\
+x &= (\frac{1}{2},6,-\frac{7}{5},\frac{1}{2})
+\end{align*}
+
+\item Explain why there does not exist \(\lambda \in \textbf{C}\) such that \[\lambda(2-3i,5+4i,-6+7i)=(12-5i,7+22i,-32-9i)\]
+
+Say that there did exist such \(\lambda\).  Then by the definition of scalar multiplication in \(\textbf{C}^n\), we would have that
+\begin{align*}
+\lambda(2-3i) &= 12-5i \\
+\lambda(5+4i) &= 7+22i \\
+\end{align*}
+We can multiply each equation by \((2-3i)^{-1}\) and \((5+4i)^{-1}\) as calculated from the formula in Exercise 1 to obtain the following equations:
+\begin{align*}
+\lambda &= (\frac{2}{11}+\frac{3}{11}i)(12-5i) = \frac{39}{11}+xi \\
+\lambda &= (\frac{5}{41}+\frac{4}{41}i)(7+22i) = \frac{-68}{41}+yi
+\end{align*}
+From the real parts that we have calulated for \(\lambda\) alone we can see that \(\lambda\) is forced to take on two different values, which is impossible.  Thus, no such \(\lambda\) can exist.
+
+\item Show that \(x+(y+z)=(x+y)+z\) for all \(x,y,z \in \textbf{F}^n\).
+
+Let \(x=(x_1,\dots,x_n), y=(y_1,\dots,y_n), z=(z_1,\dots,z_n) \in \textbf{F}^n\).  Then,
+\begin{equation*}
+\begin{split}
+(x+y)+z &= ((x_1,\dots,x_n)+(y_1,\dots,y_n))+(z_1,\dots,z_n) \\
+&= (x_1+y_1,\dots,x_n+y_n)+(z_1,\dots,z_n) \\
+&=((x_1+y_1)+z_1,\dots,x_1+(y_n+z_n)) \\
+&=(x_1+(y_1+z_1),\dots,x_n+(y_n+z_n)) \\
+&= (x_1,\dots,x_n)+(y_1+z_1,\dots,z_1+z_n) \\
+&= (x_1,\dots,x_n)+((y_1,\dots,y_n)+(z_1,\dots,z_n)) \\
+&= x+(y+z)
+\end{split}
+\end{equation*}
+The 4th equality above follows from associativity of addition in \(\textbf{F}\); the rest are the definition of vector addition in \(\textbf{F}^n\).
+
+\item Show that \((ab)x=a(bx)\) for all \(x \in \textbf{F}^n\) and all \(a,b \in \textbf{F}\).
+
+Let \(x = (x_1,\dots,x_n) \in \textbf{F}^n\).  Then,
+\begin{equation*}
+\begin{split}
+(ab)x &= (ab)(x_1,\dots,x_n) \\
+&= ((ab)x_1,\dots,(ab)x_n) \\
+&=(a(bx_1),\dots,a(bx_n)) \\
+&=a(b(x_1,\dots,x_n)) \\
+&=a(bx)
+\end{split}
+\end{equation*}
+The third equality follows from associativity of multiplication in \(\textbf{F}\); the rest are the definition of scalar multiplication in \(\textbf{F}^n\).
+
+\item Show that \(1x=x\) for all \(x \in \textbf{F}^n\)
+
+Let \(x = (x_1,\dots,x_n) \in \textbf{F}^n\).  Then,
+\begin{equation*}
+\begin{split}
+1x &= 1(x_1,\dots,x_n) \\
+&= (1x_1,\dots,1x_n) \\
+&=(x_1,\dots,x_n) \\
+&=x
+\end{split}
+\end{equation*}
+The third equality follows from the definition of \(1 \in \textbf{F}\); the rest are the definition of scalar multiplication in \(\textbf{F}^n\).
+
+\item Show that \(\lambda(x+y)=\lambda{x}+\lambda{y}\) for all \(\lambda \in \textbf{F}\) and all \(x,y \in \textbf{F}^n\).
+
+Let \(x = (x_1,\dots,x_n) \in \textbf{F}^n\).  Then,
+\begin{equation*}
+\begin{split}
+\lambda(x+y) &= \lambda((x_1,\dots,x_n)+(y_1,\dots,y_n)) \\
+&=\lambda(x_1+y_1,\dots,x_n+y_n) \\
+&=(\lambda(x_1+y_1),\dots,\lambda(x_n+y_n)) \\
+&=(\lambda(x_1)+\lambda(y_1),\dots,\lambda(x_n)+\lambda(y_n)) \\
+&=(\lambda(x_1),\dots,\lambda(x_n))+(\lambda(y_1),\dots,\lambda(y_n)) \\
+&= \lambda(x_1,\dots,x_n)+\lambda(y_1,\dots,y_n) \\
+&= \lambda{x}+\lambda{y}
+\end{split}
+\end{equation*}
+
+The fourth equality follows from the associativity of multiplication in \(\textbf{F}^n\); the rest are the definitions of vector addition and scalar multiplication in \(\textbf{F}^n\).
+
+\item Show that \((a+b)x=ax+bx\) for all \(a,b \in \textbf{F}\) and all \(x \in \textbf{F}^n\).
+
+Let \(x = (x_1,\dots,x_n) \in \textbf{F}^n\).  Then,
+\begin{equation*}
+\begin{split}
+(a+b)x &= (a+b)(x_1,\dots,x_n) \\
+&= ((a+b)x_1,\dots,(a+b)x_n) \\
+&=(ax_1+bx_1,\dots,ax_n+bx_n) \\
+&=(ax_1,\dots,ax_n)+(bx_1,\dots,bx_n) \\
+&=a(x_1,\dots,x_n)+b(x_1,\dots,x_n) \\
+&=ax+bx
+\end{split}
+\end{equation*}
+The third equality follows from distributivity of multiplication over addition in \(\textbf{F}^n\); the rest are the definition of scalar multiplication in \(\textbf{F}^n\).
+
+\end{enumerate}
+
+1.B: Definition of Vector Space
+
+\begin{enumerate}
+
+\item Prove that \(-(-v)=v\) for every \(v \in V\).
+
+By the definition of inverses, we have that \[(-v)+(-(-v))=0\] for every \(v \in V\).  We have shown that inverses are unique (1.26).  Thus, since \(v\) is itself the inverse of \(-v\), \(-(-v)\) and \(v\) must be the same element.
+
+\item Suppose \(a \in \textbf{F}\), \(v \in V\), and \(av=0\).  Prove that \(a=0\) or \(v=0\).
+
+Our proof is through contradiction.  Say that \(a\) and \(v\) are nonzero, but \(av=0\).  Then, we can multiply both sides of the equation by the mutliplicative inverse of \(a\) in \(\textbf{F}\) to yield \(a^{-1}av=v=a^{-1}0=0\) (the final equality is from 1.30).  However, since we have assumed that \(v\) is nonzero, this is a contradiction.  Thus our assumption is wrong and either \(a\) or \(v\) must be zero.
+
+\item Suppose \(v\), \(w\) \(\in \textit{V}\).  Explain why there exists a unique \(x \in V\) such that \(v+3x=w\).
+
+We can rewrite the given equation as \(3x=w-v\) by adding \(-v\) to both sides, and then we can multiply both sides by \(\frac{1}{3}\) to find that
+
+\begin{equation*}
+    x=\frac{1}{3}(w-v).
+\end{equation*}
+
+All of these steps are reversible, and so the two formulations of the equation are identical.  The expression on the right had side is clearly unique; therefore, \(x\) must be unique.
+
+\item The empty set is not a vector space.  The empty set fails to satify only one of the requirements listed in 1.19.  Which one?
+
+The existence of an additive identity; no such element can exist in the empty set because the empty set contains no elements at all.
+
+\item Show that in the definition of a vector space (1.19) the additive inverse condition can be replaced with the condition that \[0v=0\] for all \(v \in \textbf{V}\).  Here the 0 on the left side is the number 0, and the 0 on the right side is the additive identity of \(V\).
+
+Say that \(0v=0\) for each \(v \in V\).  We can rewrite this expression as \[(1+(-1))v=1v+(-1)v=v+(-1)v=0\] using the distributive property.  Thus, vector \((-1)v\) is an additive inverse of \(v\), and so the given condition implies the existence of additive inverses.  We have also shown that the existence of additive inverses implies that \(0v=0\) for each \(v \in V\) (1.29).  Therefore, taken together with the other vector space properties the two conditions are equivalent.
+
+\item Let \(\infty\) and \(-\infty\) denote two distinct objects, neither of which is in \(\textbf{R}\).  Is \(\textbf{R} \cup \{\infty\} \cup \{-\infty\}\) a vector space over \(\textbf{R}\)? Explain.
+
+No, it is not.  Our proof is through contradiction.  Assume that it is a vector space, so that addition of elements is associative.  It is given that \(\infty+\infty=\infty\), and so then by adding \(-\infty\) to both sides we find that
+\begin{align*}
+\infty+\infty+(-\infty) &= \infty+(-\infty) \\
+\infty &= 0
+\end{align*}
+Obviously \(0 \neq \infty\), and so this is a contradiction, meaning that \(\textbf{R} \cup \{\infty\} \cup \{-\infty\}\) cannot be a vector space over \(\textbf{R}\).
+
+\end{enumerate}
+
+1.C: Subspaces
+
+\begin{enumerate}
+
+\item For each of the following subsets of \(\textbf{F}^3\), determine whether it is a subspace of \(\textbf{F}^3\).
+
+(a) \(\{(x_1,x_2,x_3) \in \textbf{F}^3:x_1+2x_2+3x_3=0\}\).
+
+(b) \(\{(x_1,x_2,x_3) \in \textbf{F}^3:x_1+2x_2+3x_3=4\}\).
+
+(c) \(\{(x_1,x_2,x_3) \in \textbf{F}^3:x_1x_2x_3=0\}\).
+
+(d) \(\{(x_1,x_2,x_3) \in \textbf{F}^3:x_1=5x_3\}\).
+
+(a) Yes.
+
+(b) No, since it is not closed under addition or scalar multiplication.
+
+(c) No, since it is not closed under addition.
+
+(d) Yes.
+
+\item Verify all assertions in Example 1.35.
+
+(a) First, say that \(b \neq 0\).  Then, if \(x_3 = 5x_4 + b\) and the given set us a subspace, it follows that
+
+\begin{equation*}
+    (x_3 + x_3) = (5x_4 + b) + (5x_4 + b) + b,
+\end{equation*}
+
+i.e. \(2x_3 = 10x_4 + 3b\), and so \(x_3 = 5x_4 + \frac{3b}{2} \neq 5x_4 + b\).  This is a contradiction if \(b \neq 0\).  However, setting \(b = 0\) fulfills the requirement of closure under additivity, as well as - since \(\alpha x_3 = \alpha (5x_4)\) - closure under scalar multiplication.  Furthermore, the given set clearly contains the additive identity of \(\textbf{F}^4\), \((0,0,0,0)\).  Therefore, it is a subspace of \(\textbf{F}^4\), as required.
+
+(b) The given subset is closed under addition and scalar multiplication because the sum of continuous functions is continuous, and the scalar multiple of a continuous function is continuous.  In addition, \(f(x)=0\) is - as a constant function - continuous.  By its closure under addition and scalar multiplication and the fact that it contains the additive identity of \(\textbf{R}^{[0,1]}\), the given set is then a subspace of \(\textbf{R}^{[0,1]}\).
+
+(c) This holds true because the sum of differentiable functions is differentiable, and the scalar multiple of a differentiable function on an interval is differentiable.  In addition, \(f(x)=0\) is as a constant function differentiable with derivative zero.  The given set is thus closed under addition and scalar multiplication, and contains the additive identity element of \(\textbf{R}^{\textbf{R}}\), making it a subspace of \(\textbf{R}^{\textbf{R}}\).
+
+(d) Since the derivative of two functions is additive, if \(f'(2) = b\) and \(g'(2) = b\) and \(b \neq 0\) then \((f+g)'(2) = f'(2) + g'(2) = b + b \neq b\); so, the given subset is not closed under addition (nor scalar multiplication) and cannot be a subspace.  However, any linear combination of functions with \(f'(2)=0\) will also have zero derivative at \(2\) and the zero function \(f(x) = 0\) is contained in the subspace for \(b=0\), so the given set with \(b=0\) is a subspace of \(\textbf{R}^{(0,3)}\).
+
+(e) The limit of a sequence is additive and multiplicative in the sense that if \(\).  Since \(0 + 0 = 0\) and \(\alpha 0 = 0\) for any \(\alpha \in \textbf{C}\), the given subset is closed under addition and scalar multiplication and - since the sequence \((0)\) obviously has limit zero - also contains the additive identity of \(\textbf{C}^{\infty}\). Therefore, the given subset is a subspace of \(\textbf{C}^{\infty}\).
+
+\item Show that the set of differentiable real-valued functions \(f\) on the interval \((-4,4)\) such that \(f'(1)=3f(2)\) is a subspace of \(R^{(-4,4)}\).
+
+To begin with, observe that this set contains \(f(x)=0\), since \(f'(0)=0\) and so \(f'(1)=0=3(0)=3f(2)\).  Next, take two functions \(f,g \in R^{(-4,4)}\); they are also differentiable on \((-4,4)\), \((f+g)'(1)=f'(1)+g'(1)\), and \((f+g)(2)=f(2)+g(2)\).  Therefore, since \(f'(1)=f(2)\) and \(g'(1)=g(2)\), \(f'(1)+g'(1)=f(2)+g(2)\), and so  \((f+g) \in R^{(-4,4)}\).  For scalar multiplication, since \(f'(1)=3f(2)\) for any \(f \in R^{(-4,4)}\) then since \((kf)'=kf'\) then \((kf)'(1)=kf'(1)=kf(2)=(kf)(2)\).  Thus, the given set is a subspace of \(R^{(-4,4)}\), as required.
+
+\item Suppose \(b \in \textbf{R}\).  Show that the set of continuous real-valued functions \(f\) on the interval \([0,1]\) such that \(\int_{0}^{1} f=b\) is a subspace of \(\textbf{R}^{[0,1]}\) if and only if \(b=0\).
+
+To begin with, assume that \(b=0\).  Of course \(\int_{0}^{1} 0 = 0\), so \(f(x)=0\) is in the given set.  Now take two continuous real-values functions \(f,g\) on the given interval.  Since they both are continuous their sum is continuous, and \(\int_{0}^{1} (f+g)=\int_{0}^{1} f+\int_{0}^{1} g=0+0=0\), so \(f+g\) is in the given set, meaning that it is closed under addition.  In addition, since \(f\) is continuous on the given interval for any \(k \in \textbf{R}\) the function \(kf\) is continuous and \(\int_{0}^{1} kf=k\int{0}^{1} f = 0k=0\).  Thus the given set is closed under scalar multiplication as well and is a subspace.
+
+Now, say that \(b \neq 0\).  In this case take \(f,g\) in the given set; then \(\int_{0}^{1} (f+g)=\int_{0}^{1} f+\int_{0}^{1} g=b+b=2b \neq b\) since \(b \neq 0\).  Thus, the given set for \(b \neq 0\) is not closed under addition and therefore not a subspace.
+
+It follows that the given set is a subspace of \(\textbf{R}^{[0,1]}\) if and only if \(b=0\).
+
+\item Is \(\textbf{R}^2\) a subspace of the complex vector space \(\textbf{C}^2\)?
+
+No, it is not.  Since we are takinng \(\textbf{C}^2\) over field \(\textbf{C}\), we can mutiply an element of \(\textbf{R}^2\) by an element of \(\textbf{C}\) with imaginary part nonzero to yield an element of \(\textbf{C}^2\) not in \(\textbf{R}^2\); for example, \(i(1,1)=(i,i) \notin \textbf{R}^2\).  Thus \(\textbf{R}^2\) is not closed under scalar multiplication and  cannot be a subspace.
+
+\item (a) Is \(\{(a,b,c) \in \textbf{R}^3:a^3=b^3\}\) a subspace of \(\textbf{R}^3\)?
+
+(b) Is \(\{(a,b,c) \in \textbf{C}^3:a^3=b^3\}\) a subspace of \(\textbf{C}^3\)?
+
+(a) Yes.  To prove this observe that \(\forall \ a,b \in \textbf{R} \ a^3=b^3 \leftrightarrow x=y\) (we can take the cube root of both sides because one can take the cube root of a negative number).  First, observe that this set contains \((0,0,0\), since \(0=0\).  Now, take \((a,b,c),(x,y,z) \in \textbf{R}^3\) such that \(a=b, x=y\).  Then, \((a,b,c)+(x,y,z)=(a+x,b+y,c+z)\) such that \(a+x=b+y\).  Thus, the given set is closed under addition.  Finally, for any \(\lambda \in \textbf{R}\) observe that \(\lambda(a,b,c)=\lambda{a},\lambda{b},\lambda{c}\), where \(\lambda{a}=\lambda{b}\).  The given set is thereby closed under scalar multiplication, meaning that it is a subspace of \(\textbf{R}^3\).
+
+(b) No.  This is because it is possible for complex numbers to have the same cubes without being equal; for example, \(e^{\frac{2\pi}{3}i}\) and \(e^{\frac{-2\pi}{3}i}\) are both cube roots of \(1\) but their sum is not: 
+
+\begin{equation*}
+\begin{split}
+    \left( e^{\frac{2\pi}{3}i} + e^{\frac{-2\pi}{3}i} \right)^3 &= \left( 2 \cos\left(\frac{2\pi}{3}\right) \right)^3 \\
+    &= (-1)^3 = -1 \neq 1.
+\end{split}
+\end{equation*}
+
+\item Give an example of a nonempty subset \(U\) of \(\textbf{R}^2\) such that \(U\) is closed under addition and under taking additive inverses (meaning \(-u \in U\) whenever \(u \in U\)) but \(U\) is not a subspace of \(\textbf{R}^2\).
+
+Let \(U=\{(a,b) \in \textbf{R}^2: a,b \in \textbf{Z}\}\).  The integers are closed under addition and additive inversion, but they are not closed under scalar multiplication with real numbers, and so \(U\) as defined cannot be a subspace of \(\textbf{R}^2\).
+
+\item Give an example of a nonempty subset \(U\) of \(\textbf{R}^2\) such that \(U\) is closed under scalar multiplication, but \(U\) is not a subspace of \(\textbf{R}^2\).
+
+Let \(U=\{(a,b) \in \textbf{R}^2: |a|=|b|\}\).  For any \(\lambda \in \textbf{R}\) and \((a,b) \in U \ \lambda(a,b)=(\lambda{a},\lambda{b})\) and so since \(|\lambda{a}|=|\lambda||a|,|\lambda{b}|=|\lambda||b|\) then \(|\lambda{a}|=|\lambda{b}|\) and \(\lambda(a,b) \in U\).  However, consider the example of \((1,-1)\) and \((2,2)\).  Obviously \(|1|=|-1|=1\) and \(|2|=|2|=2\), and so \((1,-1),(2,2) \in U\).  However, their sum \((3,1)\) is not in \(U\) even though both summands are because \(|3| \neq |1|\).  Therefore, \(U\) is not closed under addition and not a subspace of \(\textbf{R}^2\).
+
+\item A function \(f: \textbf{R} \rightarrow \textbf{R}\) is called periodic if there exists a positive number \(p\) such that \(f(x)=f(x+p)\) for all \(x \in \textbf{R}\).  Is the set of periodic functions from \(\textbf{R}\) to \(\textbf{R}\) a subspace of \(\textbf{R}^{\textbf{R}}\)? Explain.
+
+It is not.  Our proof is through contradiction.  Assume that the given set is a subspace of \(\textbf{R}^{\textbf{R}}\).  Then, that subspace would include \(f(x)=\textrm{sin}x\) and \(g(x)=\textrm{sin}\pi{x}\), which respectively have periods of \(\pi\) and \(1\); and, by the definition of a subspace, their sum \((f+g)(x)\).  Since \((f+g)(x)\) is by our assumption periodic it must have some period \(p>0\).  \(p\) must be an integer multiple of both \(1\) and \(\pi\), since \(1\) and \(\pi\) are the smallest periods of \(f\) and \(g\).  We can then write that \(p=n\pi=m\), and so then \(\pi=\frac{m}{n}\) for integers \(m,n\).  This is impossible because \(\pi\) is irrational.  Therefore, our assumption that the given set is a subspace of \(\textbf{R}^{\textbf{R}}\) must be incorrect.
+
+\item Suppose \(U_1\) and \(U_2\) are subspaces of \(V\).  Prove that the intersection \(U_1 \cap U_2\) is a subspace of \(V\).
+
+To begin with, \(0 \in U_1\) and \(0 \in U_2\), and so \(0 \in U_1 \cap U_2\) as well.  Next we prove closure under addition: for any elements \(u,v \in U_1 \cap U_2\), \(u,v \in U_1\) and \(u,v \in U_2\).  Therefore, since \(U_1\) and \(U_2\) are subspaces of \(V\) \(u+v \in U_1\) and \(u+v \in U_2\) as well, meaning that \(u+v \in U_1 \cap U_2\).  Finally we prove closure under scalar multiplication: take \(a \in \textbf{F}\) and \(v \in U_1 \cap U_2\).  As before \(v \in U_1\) and \(v \in U_2\) so \(av \in U_1\) and \(av \in U_2\), i.e. \(av \in U_1 \cap U_2\).  Thus, \(U_1 \cap U_2\) is a subspace of \(V\).
+
+\item Prove that the intersection of any collection of subspaces of \(V\) is a subspace of \(V\).
+
+Our proof is analogous to that for Exercise 10.  Call the intersection \(U\), and take any two elements in \(U\); then, they must be in each subspace that \(U\) is the intersection of, and so their sum is contained in each of those subspaces and thereby in \(V\).  Likewise, any one element contained in \(V\) must be in each subspace \(U\) is the intersection of and so a scalar multiple of it is contained in each such subspace, meaning that it is contained in \(V\) as well.  Thus, \(U\) is a subspace of \(V\).
+
+\item Prove that the union of two subspaces of \(V\) is a subspace of \(V\) if and only if one of the subspaces is contained in the other.
+
+Call the subspaces \(U_1\) and \(U_2\).  In one direction, the proof is obvious: if (without loss of generality) \(U_1 \subseteq U_2\), then \(U_1 \cup U_2 = U_2\) and is a subspace by our assumption.
+
+The proof in the other direction is through contradiction.  Say that  \(U_1 \not\subseteq U_2\) and \(U_2 \not\subseteq U_1\), so there exist \(\ u_1 \in U_1,u_2 \in U_2\) such that \(u_1 \notin U_2, u_2 \notin U_1\)\, but that \(U_1 \cup U_2\) is a subspace of \(V\).  Then, \(u_1+u_2\) must be an element of \(U_1 \cup U_2\), i.e. contained in either \(U_1\) or \(U_2\).  If \(u_1 + u_2 \in U_1\), then since \(u_1 \in U_1\) as well then - by the additive closure of subspaces - the difference \((u_1+u_2)-u_1 = u_2 \in U_1\), which since we have defined \(u_2 \notin U_1\) is a contradiction.  The same argument with \(u_2\) applies to show that \(u_1+u_2 \notin U_2\).  Thus, \(u_1+u_2\) cannot be in either \(U_1\) or \(U_2\), meaning that it is not in \(U_1 \cup U_2\).  Thus, \(U_1 \cup U_2\) is not closed under addition, which contradicts our assumption that it is a subspace.  It follows that \(U_1 \cup U_2\) is a subspace implies that \(U_1 \subseteq U_2\) or \(U_2 \subseteq U_1\).  Together with the first part of the proof this implies that the conditions are equal.
+
+\item Prove that the union of three subpaces of \(V\) is a subspace of \(V\) if and only if one of the subspaces contains the other two.
+
+Call the subspaces \(U_1, U_2, U_3\).  First, assume that one of the subspaces contains the other two - without loss of generality, that \(U_1 \subseteq U_3\) and \(U_2 \subseteq U_3\).  Then - as before - it is obvious that the union is a subspace.
+
+As before, the proof in the other direction is through contradiction.  Assume that none of the subspaces contain the other two.  First, consider the case in which one of the subspaces is contained in another; then, the problem reduces down to that considered in Exercise 1C.12, and we are done.  Next, consider the case in which none of the subspaces contains any of the others
+
+\item Verify the assertion in Example 1.38.
+
+Example 1.38 states that given \(U=\{(x,x,y,y) \in \textbf{F}^4:x,y \in \textbf{F}\}\) and \(W=\{(x,x,x,y) \in \textbf{F}^4:x,y \in \textbf{F}\}\), then \(U+W=\{(x,x,y,z) \in \textbf{F}^4:x,y,z \in \textbf{F}\}\).
+
+To prove inclusion in one direction, take \(u=(a,a,b,b) \in U\) and \(w=(c,c,c,d) \in W\).  Then, \(u+w=(a+c,a+c,b+c,b+d)=(x,x,y,z)\) for \(x=a+c,y=b+c,z=b+d \in \textbf{F}\).
+
+To prove inclusion in the other direction, take \(\{(x,x,y,z) \in \textbf{F}^4:x,y,z \in \textbf{F}\}\).  Now, let \(a=,b=,c=,d=\).  
+
+\item Suppose \(U\) is a subspace of \(V\).  What is \(U+U\)?
+
+\(U+U\) is \(U\) itself.  To prove this note that any \(u \in U\) is equal to \(0+u\), which as the sum of two vectors in \(U\) is itself in \(U+U\), meaning that \(U \subseteq U+U\).  In addition, since \(U\) is closed under addition \(U+U \subseteq U\).  Thus, \(U = U+U\).
+
+\item Is the operation of addition on the subspaces of \(V\) commutative? In other words, if \(U\) and \(W\) are subspaces of \(V\), is \(U+W=W+U\)?
+
+Yes, it is.  To prove this take \(u+w \in U+W\); it can be written as \(w+u \in W+U\) because addition of vectors is commutative.  Inclusion in the other way can be proved by switching \(U\) and \(W\).
+
+\item Is the operation of addition on the subspaces of \(V\) associative? In other words, is \[(U_1+U_2)+U_3=U_1+(U_2+U_3)\]?
+
+Yes, it is.  To prove this take \((u_1+u_2)+u_3 \in (U_1+U_2)+U_3\); it can be written as \(u_1+(u_2+u_3) \in U_1+(U_2+U_3)\) because addition of vectors is associative.  Likewise any \(u_1+(u_2+u_3) \in U_1+(U_2+U_3)\) can be written as \((u_1+u_2)+u_3 \in (U_1+U_2)+U_3\).  Thus, \((U_1+U_2)+U_3=U_1+(U_2+U_3)\).
+
+\item Does the operation of addition on the subspaces of \(V\) have an additive identity? Which subspaces have additive inverses?
+
+It does have an additive identity, \(U=\{\textbf{0}\}\), the subspace consisting of the additive element of \(V\).  However, the only subspace that has an additive inverse is the zero subspace itself.  This is because the sum of two subspaces contains each subspace as a subset, meaning that any nonzero subspace added to another subspace contains nonzero elements and hence cannot be the zero subspace.
+
+\item Prove or give a counterexample: If \(U_1,U_2,W\) are subspace of \(V\) such that 
+
+\begin{equation*}
+    U_1+W=U_2+W,
+\end{equation*}
+
+then \(U_1=U_2\).
+
+Take any vector space \(V\) with subspaces \(U_1,U_2\) such that \(U_1 \neq U_2\), and let \(W=V\).  Clearly \(U_1+V=U_2+V=V\), even though \(U_1 \neq U_2\).  For a more concrete example, let \(V=W=\textbf{R}, U_1=\{0\},U_2=\textbf{R}\).
+
+\item Suppose 
+
+\begin{equation*}
+    U=\{(x,x,y,y) \in \textbf{F}^4: x,y \in \textbf{F}.
+\end{equation*}
+
+Find a subspace \(W\) of \(\textbf{F}^4\) such that \(\textbf{F}^4= U \oplus W\).
+
+Let \(W=\{(0,z,0,w) \in \textbf{F}^4: z,w \in \textbf{F}\}\).  To prove that \(U+W=\textbf{F}^4\), take any \((a,b,c,d) \in \textbf{F}^4\).  Now, pick \(u=(a,a,c,c) \in U\) and \(w=(0,b-a,0,d-c) \in W\); then, their sum \(u+w=(a,b,c,d)\), meaning that every vector in \(\textbf{F}^4\) can be represented as the sum of vectors in \(U\) and \(W\) and so \(U+W=\textbf{F}^4\).
+
+To prove that the sum is direct, take any element that is in both subspaces \((a,b,c,d)\); since it is in \(W\) \(a,c=0\) and since it is in \(U\), \(a=b=0\) and \(c=d=0\), meaning that \((a,b,c,d)=(0,0,0,0)\), and so then \(U \cap W =\textbf{0}\).  Therefore, by 1.45 the sum is direct.
+
+\item Suppose \[U=\{(x,y,x+y,x-y,2x) \in \textbf{F}^5: x,y \in \textbf{F}\}\].  Find a subspace \(W\) of \(\textbf{F}^5\) such that \(\textbf{F}^5=U \oplus W\).
+
+Let \(W=\{(0,0,z,w,t) \in \textbf{F}^5: z,w,t \in \textbf{F}\}\).  To prove that \(U+W=\textbf{F}^5\), take any \((a,b,c,d,e) \in \textbf{F}^5\).  Now, pick \(u=(a,b,a+b,a-b,2a) \in U\) and \(w=(0,0,c-(a+b),d-(a-b),e-2a) \in W\); then, their sum \(u+w=(a,b,c,d,e)\), meaning that every vector in \(\textbf{F}^5\) can be represented as the sum of vectors in \(U\) and \(W\) and so \(U+W=\textbf{F}^5\).
+
+To prove that the sum is direct, take any element that is in both subspaces \(a,b,c,d,e\); since it is in \(W\) \(a,b=0\) and since it is in \(U\) \(c=a+b=0\), \(d=a-b=0\), \(e=2a=0\), meaning that \((a,b,c,d,e)=(0,0,0,0,0)\), and so then \(U \cap W=\textbf{0}\).  Therefore, by 1.45 the sum is direct.
+
+\item Suppose \[U=\{(x,y,x+y,x-y,2x) \in \textbf{F}^5: x,y \in \textbf{F}\}\].  Find three subspaces \(W_1,W_2,W_3\) of \(\textbf{F}^5\), none of which equals \(\{0\}\), such that \(\textbf{F}^5=U \oplus W_1 \oplus W_2 \oplus W_3\).
+
+Let \(W_1=\{(0,0,z,0,0) \in \textbf{F}^5: z \in \textbf{F}\}, W_2=\{(0,0,0,w,0) \in \textbf{F}^5: w \in \textbf{F}\}, W_3=\{(0,0,0,0,t) \in \textbf{F}^5: t \in \textbf{F}\}\).  To prove that \(U+W_1+W_2+W_3=\textbf{F}^5\), take any \((a,b,c,d,e) \in \textbf{F}^5\).  Now, pick \(u=(a,b,a+b,a-b,2a) \in U, w_1=(0,0,c-(a+b),0,0) \in W_1, w_2=(0,0,0,d-(a-b),0) \in W_2, w_3=(0,0,0,0,e-2a) \in W_3\); then, their sum \(u+w_1+w_2+w_3=(a,b,c,d,e)\), meaning that every vector in \(\textbf{F}^5\) can be represented as the sum of vectors in \(U\), \(W_1\), \(W_2\), and \(W_3\) and so \(U+W_1+W_2+W_3=\textbf{F}^5\).
+
+To prove that the sum is direct, assume that \(u+w_1+w_2+w_3=0\) for \(u = (x,y,x+y,x-y,2x) \in U, w_1 = (0,0,z,0,0) \in W_1, w_2 = (0,0,0,w,0) \in W_2, w_3 = (0,0,0,0,t) \in W_3\).  Then, \((x,y,(x+y)+z,(x-y)+w,(2x)+t)=(0,0,0,0,0)\).  So, \(x=y=0\), meaning that \(z=w=t=0\), and so the only way of representing \((0,0,0,0,0)\) in such a way is through \(u=w_1=w_2=w_3=0\).  Therefore, by 1.44 the sum is direct.
+
+\item Prove or give a counterexample: if \(U_1\), \(U_2\), and \(W\) are subspaces of \(V\) such that
+
+\begin{equation*}
+    V=U_1 \oplus W \ \textrm{and} \ V=U_2 \oplus W,
+\end{equation*}
+
+then \(U_1=U_2\).
+
+This is not true.  As a counterexample, consider \(\textbf{R}^2\), with \(U_1=\textrm{span}\{(0,1)\}\), \(U_2=\textrm{span}\{(1,0)\}\), and \(W=\textrm{span}\{(1,1)\}\).  In this case, .  However, clearly \(U_1 \neq U_2\).
+
+\item A function \(f: \textbf{R} \rightarrow \textbf{R}\) is called even if.  A function \(f: \textbf{R} \rightarrow \textbf{R}\) is called odd if.  Let \(U_e\) denote the set of real-valued even functions on \textbf{R} and let \(U_o\) denote the set of real-valued odd functions on \textbf{R}.  Show that \(\textbf{R} = U_e \oplus U_o\).
+
+First, we demonstrate that for any function \(f: \textbf{R} \rightarrow \textbf{R}\) there exist functions \(u_e \in U_e\) and \(u_o \in U_o\) such that \(f = u_e + u_o\).  Let \(u_e = \frac{f(x)+f(-x)}{2}\) and \(u_o = \frac{f(x)-f(-x)}{2}\).  Then, 
+
+\begin{equation*}
+    u_e+u_o=\frac{f(x)+f(-x)+f(x)-f(-x)}{2}=\frac{2f(x)}{2}=f(x), 
+\end{equation*}
+
+as required.
+
+Next, we prove uniqueness.  Observe that the only function that is both even and odd is the zero function.  Therefore, by 1.45, the sum is direct.
+
+\end{enumerate}
+
+\end{document}

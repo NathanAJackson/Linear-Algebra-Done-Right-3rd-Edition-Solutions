@@ -1,0 +1,725 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Linear Algebra Done Right 3rd Edition Excercise Solutions}
+\author{Nathan Jackson}
+
+\begin{document}
+
+\textbf{Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces}
+
+5.A: Invariant Subspaces
+
+\begin{enumerate}
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(U\) is a subspace of \(V\).
+
+(a) Prove that if \(U \subset \textrm{null} \, T\), then \(U\) is invariant under \(T\).
+
+(b) Prove that if \(\textrm{range} \, T \subset U\), then \(U\) is invariant under \(T\).
+
+(a) By definition every vector in the null space is mapped to zero, and so since \(U \subset \textrm{null} \, T\) then \(T(U)=\{0\}\).  Since \(U\) is a subspace, \(\{0\} \subset U\), and so then \(T(U) \subset U\) and \(U\) is invariant under \(T\).
+
+(b) By definition \(\textrm{range} \, T=T(V)\).  Since \(U \subset V\), then \(T(U) \subset T(V) = \textrm{range} \, T\) and \(U\) is invariant under \(T\).
+
+\item Suppose \(S,T \in \mathcal{L}(V)\) are such that \(ST=TS\).  Prove that \(\textrm{null} \, S\) is invariant under \(T\).
+
+Our proof is through contraposition.  Say that \(\textrm{null} \, S\) is not invariant under \(T\), so there exists \(v \in \textrm{null} \, S\) such that \(Tv \notin \textrm{null} \, S\), i.e. \(S(T(v))=(ST)(v) \neq 0\).  However, \((TS)(v)=T(S(v))=T(0)=0\).  Thus,\((ST)v \neq (TS)v\), so \(ST \neq TS\).
+
+\item Suppose \(S,T \in \mathcal{L}(V)\) are such that \(ST=TS\).  Prove that \(\textrm{range} \, S\) is invariant under \(T\).
+
+Our proof is through contraposition.  Say that \(\textrm{range} \, S\) is not invariant under \(T\), so there exists \(v \in \textrm{range} \, S\) such that \(Tv \notin \textrm{range} \, S\).  there must exist some \(u \in V\) such that \(Su=v\); then, \((TS)u=T(S(u))=T(v) \notin \textrm{range} \, S\).  However, \((ST)(u)=S(T(u)) \in \textrm{range} \, S\), and so then \((ST)u \neq (TS)u\).
+
+\item Suppose that \(T \in \mathcal{L}(V)\) and \(U_1, ..., U_m\) are subspaces of \(V\) invariant under \(T\).  Prove that \(U_1 + ... + U_m\) is invariant under \(T\).
+
+Take any \(u =u_1+\dots+u_m \in U_1 + \dots + U_m\) for \(u_k \in U_k\).  Then, \(Tu=T(u_1+\dots+u_m=Tu_1+\dots+Tu_m\).  Since each \(U_k\) is invariant under \(T\), each \(Tu_k \in U_k\), and so \(Tu_1+\dots+Tu_m\) is contianed in \(U_1 + ... + U_m\).  Thus, \(U_1 + ... + U_m\) is invariant under \(T\).
+
+\item Suppose \(T \in \mathcal{L}(V)\).  Prove that the intersection of every collection of subspaces of \(V\) invariant under \(T\) is invariant under \(T\).
+
+Designate the intersection \(U\) and take any \(u \in U\).  \(u\) must be in each of the subspaces that \(U\) is the intersection of; since each of those subspaces is itself invariant under \(T\), \(Tv\) is in each of those subspaces and thus also in their intersection \(U\).
+
+\item Prove or give a counterexample: if \(V\) is finite-dimensional and \(U\) is a subspace of \(V\) that is invariant under every operator on \(V\), then \(U=\{0\}\) or \(U=V\).
+
+First we consider the case in which \(\textrm{dim} \, V=0\) or \(\textrm{dim} \, V=1\).  Then, every subspace is either \(\{0\}\) or \(V\) or both, both of which are invariant under every operator.  Therefore, in this case the statement is always true.
+
+Now, say that \(\textrm{dim} \, V \geq 2\) and proceed by contraposition.  Say that \(U \neq \{0\}\) and \(U \neq V\).  Then, we can pick a basis \(u_1,\dots,u_m\) of \(U\) and extend it to a basis \(u_1,\dots,u_m,v_1,\dots,v_n\) of \(V\) (since \(U \neq V\).  Define \(Tu_1=v_1\) and extend \(T\) to the rest of \(V\) arbitrarily (3.5).  Obviously \(v_1 \neq U\) and so \(U\) is not invariant under \(T\).
+
+\item Suppose \(T \in \mathcal{L}(\textbf{R}^2)\) is defined by \(T(x,y)=(-3y,x)\).  Find the eigenvalues of \(T\).
+
+Say that \((-3y,x)=\lambda(x,y)\); then, \(-3y=\lambda{x}\) and \(x=\lambda{y}\).  We can substitute to obtain that \(-3y=\lambda^2y\), and so \(\lambda^2=-3\), i.e. \(\lambda=\sqrt{3}i\) or \(\lambda=-\sqrt{3}i\).  No vectors in \(\textbf{R}^2\) have these corresponding eigenvalues.
+
+\item Define \(T \in \mathcal{L}(\textbf{R}^2)\) by
+
+\begin{equation*}
+    T(w,z)=(z,w).
+\end{equation*}
+
+Find all eigenvalues and eigenvectors of \(T\).
+
+Say that \((z,w)=\lambda(w,z)\); then, \(z=\lambda{w}\) and \(w=\lambda{z}\).  We can substitute to obtain that \(z=\lambda^2z\), and so \(\lambda^2=1\), i.e. \(\lambda=1\) or \(\lambda=-1\).  If \(\lambda=1\), then \(z=w\), and so \((1,1)\) is an eigenvector with eigenvalue \(1\).  If \(\lambda=-1\), then \(z=-w\), and so \((1,-1\)) is an eigenvector with eigenvalue \(-1\).  By 5.13, since \(\textrm{dim} \, \textbf{R}^2=2\) then \(T\) cannot have any other eigenvectors or eigenvalues.
+
+\item Define \(T \in \mathcal{L}(\textbf{R}^3)\) by 
+
+\begin{equation*}
+    T(z_1,z_2,z_3)=(2z_2,0,5z_3).
+\end{equation*}
+
+Find all eigenvalues and eigenvectors of \(T\).
+
+Say that \((2z_2,0,5z_3)=\lambda(z_1,z_2,z_3)\), so then finding the eigenvectors of \(T\) amounts to solving the system of equations
+
+\begin{equation*}
+    \begin{cases}
+        & 2z_2=\lambda z_1 \\
+        & 0=\lambda z_2 \\
+        & 5z_3 = \lambda z_3
+    \end{cases}
+\end{equation*}
+
+for \(z_1,z_2,z_3\) not all equal to zero.
+
+First, consider the case in which \(\lambda = 0\); this forces that \(z_2=0\) and \(z_3=0\).  However, \(z_1\) can be anything and indeed \(T(1,0,0)=(0,0,0)\), meaning that \((1,0,0)\) is an eigenvector of \(T\) with eigenvalue \(\lambda=0\).
+
+Next, assume that \(\lambda \neq 0\).  Then, this forces \(z_2=0\) and - therefore - that \(z_1=0\).  However, \(z_3\) can be anything, and indeed \(T(0,0,1)=(0,0,5)\), meaning that \((0,0,1)\) is an eigenvector of \(T\) with eigenvalue \(\lambda=5\).  
+
+The procedure we used to find these two eigenvectors is exhaustive/forcing in both cases, meaning that these are the only eigenvectors and eigenvalues of \(T\).
+
+\item Define \(T \in \mathcal{L}(\textbf{F}^n)\) by
+
+\begin{equation*}
+    T(x_1,x_2,\dots,x_n)=(x_1,2x_2,\dots,nx_n).
+\end{equation*}
+
+(a) Find all eigenvalues and eigenvectors of \(T\).
+
+Observe that 
+
+\begin{equation*}
+    T(0,\dots,0,x_k,0,\dots,0) = (0,\dots,0,kx_i,0,\dots,0) = k(0,\dots,0,x_k,0,\dots,0).
+\end{equation*}
+
+It follows that each standard basis vector \(e_k\) is an eigenvector of \(T\) with eigenvalues \(k\), and - by 5.13 - that these are all of the eigenvectors and eigenvalues of \(T\).
+
+(b) Find all invariant subspaces of \(T\).
+
+Since each standard basis vector is mapped to a scalar multiple of itself, then subspace closure under addition and scalar multiplication implies that every subspace that can be defined as the span of a subset of the standard basis vectors is invariant under \(T\) (5A.4).  To prove that every invariant subspace is like this, assume a subspace exists which cannot be defined as such, which has a basis vector \(x=(x_1,\dots,x_n)\) for (without loss of generality) each \(x_i\) not equal to zero.  Now, consider the vectors \(x, Tx, \dots, T^{n-1}x\).  Each \(T^i x\) is of the form
+
+\begin{equation*}
+    (1^i x_1,\dots,n^i x_n).
+\end{equation*}
+
+To show that the \(T^i x\) are linearly independent, arrange them into a matrix, and observe that some nontrivial linear combination on them with coefficient \(a_0,\dots,a_{n-1}\) being equal to zero implies that
+
+\begin{equation*}
+    \begin{pmatrix}
+        1^0x_1 & \dots & 1^{n-1}x_1 \\
+        \vdots & & \vdots \\
+        n^0x_n & \dots & n^{n-1}x_n
+    \end{pmatrix}
+    \begin{pmatrix}
+        a_0 \\
+        \vdots \\
+        a_{n-1}
+    \end{pmatrix}
+    =0
+\end{equation*}
+
+If any nontrivial linear combination of the matrix's columns is equal to zero then (after cancelling nonzero terms \(i\) and the expression \(a_{n-1}i^{n-1}+\dots+a_0=0\) for \(i=0,\dots,n-1\) (\(n\) distinct \(i\)).  This contradicts 4.12.  Thus \(\text{dim} \, \text{span}(x, Tx, \dots, T^nx)=n\), and so \(\text{span}(x, Tx, \dots, T^nx)=\textbf{R}^n\), contradicting our assumption.
+
+\item Define \(T: \mathcal{P}(\textbf{R}) \rightarrow \mathcal{P}(\textbf{R})\) by \(Tp=p'\).  Find all eigenvalues and eigenvectors of \(T\).
+
+Take any nonconstant polynomial \(p=a_nx^n+\dots+a_0\) for \(n, a_n \neq 0\); then \(Tp=p'=na_nx^{n-1}+\dots+a_1\).  This polynomial has degree \(n-1\), and thus cannot be a scalar multiple of \(p\).  The only circumstance in which this can work is when \(n=0\), i.e. the polynomial is constant, in which case \(Tp=0=0p\).  Therefore, the only eigenvector of \(T\) is \(1\), with an eigenvalue of \(0\).
+
+\item Define \(T \in \mathcal{L}(\mathcal{P}_4(\textbf{R}))\) by 
+
+\begin{equation*}
+    (Tp)(x)=xp'(x)
+\end{equation*}
+
+for all \(x \in \textbf{R}\).  Find all eigenvalues and eigenvectors of \(T\).
+
+Consider \(x^n\) for some positive integer \(n\).  By the power rule, \((x^n)'=nx^{n-1}\), and so \(x(x^n)'=xnx^{n-1}=nx^n\), meaning that \(n\) is the eigenvalue of eigenvector \(x^n\).  Note that this case includes that of \(n=0\), i.e. a constant polynomial.  Thus \(x^n\) is an eigenvector of \(T\) with an eigenvalue of \(n\) for \(n=0,1,2,3,4\).  It follows that these are all of the eigenvalues and eigenvectors of \(T\) by 5.13.
+
+\item Suppose \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\), and \(\lambda \in \textbf{F}\).  Prove that there exists \(\alpha \in \textbf{F}\) such that \(|\alpha - \lambda|<\frac{1}{1000}\) and \(T - \alpha I\) is invertible.
+
+Denote an \(\frac{1}{1000}\)-neighborhood of \(\lambda\), \(N\).  Since \(V\) is finite-dimensional, the number of its eigenvalues must be finite by 5.13, and so then not every element of \(N\) - which has an infinite number of elements, since \(\textbf{F}=\textbf{R}\) or \(\textbf{C}\) - can be an eigenvalue of \(T\).  Thus, we can choose some \(\alpha \in \textbf{N}\) such that \(\alpha\) is not an eigenvalue of \(T\), which by 5.6 is equivalent to the condition that \(T-\alpha I\) is invertible.
+
+\item Suppose \(V=U \oplus W\), where \(U\) and \(W\) are nonzero subspaces of \(V\).  Define \(P \in \mathcal{L}(V)\) by \(P(u+w)=u\) for \(u \in U\) and \(w \in W\).  Find all eigenvalues and eigenvectors of \(P\).
+
+We will start by finding the eigenvectors and eigenvalues.  Take any \(u \in U\); then, \(Pu=u=1u\), and so every nonzero \(u \in U\) is an eigenvector of \(P\) with an eigenvalue of \(1\).  Now, take any \(w \in W\); for it, \(Tw=0=0w\), and so any nonzero \(w \in W\) is an eigenvector of \(0\).
+
+Now, take \(u+w\) for any two nonzero vectors in \(U\) and \(W\).  \(T(u+w)=u\).  If \(u=\lambda(u+w)\), then \(u=\lambda{u}+\lambda{w}\), i.e. \((1-\lambda)u=\lambda{w}\).  Observe that since \(u\) and \(w\) have distinct eigenvalues they are linearly independent by 5.10, meaning that \(1-\lambda=\lambda=0\), which is impossible.  Therefore, no such \(\lambda\) can exist and no such \(u+w\) is an eigenvector of \(P\).  So, the eigenvalues and eigenvectors that we have found are indeed all of the eigenvalues and eigenvectors of \(P\).
+
+\item Suppose \(T \in \mathcal{L}(V)\).  Suppose \(S \in \mathcal{L}(V)\) is invertible.
+
+(a) Prove that \(T\) and \(S^{-1}TS\) have the same eigenvalues.
+
+(b) What is the relationship between the eigenvectors of \(T\) and the eigenvectors of \(S^{-1}TS\)?
+
+(a)(b) Given an eigenvector \(v \in V\) of \(T\), with eigenvalue \(\lambda\).  Then, \(S^{-1}v\) is an eigenvalue of \(S^{-1}TS\), also with eigenvalue \(\lambda\): \[(S^{-1}TS)(S^{-1}v) = S^{-1}T(SS^{-1})v = S^{-1}Tv = S^{-1}(\lambda v) = \lambda(S^{-1}v).\]
+
+\item Suppose \(V\) is a complex vector space, \(T \in \mathcal{L}(V)\), and the matrix of \(T\) with with respect to some basis of \(V\) contains only real entries.  Show that if \(\lambda\) is an eigenvalue of \(T\), so is \(\overline{\lambda}\).
+
+Choose an eigenvector \(v\) of \(T\) such that \(Tv=\lambda v\).  In the basis of \(V\) that contains only real entries, this can be written as \(\mathcal{M}(T) \mathcal{M}(v) = \lambda \mathcal{M}(v)\).  Taking the complex conjugate of each matrix entry on each side leaves us with \(\overline{\mathcal{M}(T)} \overline{\mathcal{M}(v)} = \bar{\lambda} \overline{\mathcal{M}(v)}\).  But since \(\mathcal{M}(T)\) has only real entries, \(\overline{\mathcal{M}(T)} = \mathcal{M}(T)\), so then \(\mathcal{M}(T) \overline{\mathcal{M}(v)} = \overline{\lambda} \overline{\mathcal{M}(v)}\).  Therefore, the vector in \(V\) given by taking the complex conjugate of each coordinate of \(v\) with respect to the basis we are using is an eigenvector of \(T\) with eigenvalue \(\overline{\lambda}\).
+
+\item Give an example of an operator \(T \in \mathcal{L}(\textbf{R}^4)\) such that \(T\) has no (real) eigenvalues.
+
+Define \(T(x_1,x_2,x_3,x_4)=(x_2,x_3,x_1,x_4)\).  It is obvious that \(\text{null} \, T = \{0\}\); thus, we can search for \(\lambda \in \textbf{F}\) such that
+    
+\begin{equation*}
+    (x_2,x_3,x_4,x_1) = \lambda(x_1,x_2,x_3,x_4).
+\end{equation*}
+
+We then obtain the following system of equations:
+
+\begin{equation*}
+    \begin{cases}
+        x_2 = \lambda x_1 \\
+        x_3 + x_2 = \lambda x_2 \\
+        x_1 = \lambda x_3 \\
+        x_4 = \lambda x_4
+    \end{cases}
+\end{equation*}
+
+Using substitution to solve for \(x_1\) yields that \(x_1 = \frac{}{}x_1\).  The .
+
+\item Show that the operator \(T \in \mathcal{L}(\textbf{C}^{\infty})\) defined by \[T(z_1,z_2,\dots)=(0,z_1,z_2,\dots)\] has no eigenvalues.
+
+Take a vector \(z=(z_1,z_2,\dots)\) and assume that it is an eigenvector of \(T\), so \(T(z_1,z_2,\dots)=(0,z_1,z_2,\dots)=\lambda(z_1,z_2,\dots)\).  We then find that \(0=\lambda{z_1}\).  Now, consider two cases.  The first case is in which \(z_1 \neq 0\); then, \(\lambda=0\), meaning that \((0,z_1,z_2,\dots)=(0,0,\dots)\) and so \(0=z_1=z_2=\dots=z_n=\dots\), which is a contradiction because we assumed that \(z_1 \neq 0\).  The second case is in which \(z_1=0\).  If \(\lambda \neq 0\), then \(\lambda{z_2} = 0\), which forces \(z_2=0\), and subsequently every \(z_i=0\).  If \(\lambda = 0\), then we run into the same problem as in the first case, again forcing the putative eigenvector to be zero.  Thus, no eigenvalue of \(T\) can exist.
+
+\item Suppose \(n\) is a positive integer and \(T \in \mathcal{L}(\textbf{F}^n)\) is defined by \[T(x_1,\dots,x_n)=(x_1+\dots+x_n,\dots,x_1+\dots+x_n);\] in other words, \(T\) is the operator whose matrix (with respect to the standard basis) consists of all \(1\)'s.  Find all eigenvalues and eigenvectors of \(T\).
+
+To begin with, consider the eigenvectors with nonzero eigenvalues.  Then, we have that
+
+\begin{equation*}
+    \begin{cases}
+        & x_1 + \cdots x_n = \lambda x_1 \\
+        & \vdots \\
+        & x_1 + \cdots x_n = \lambda x_n
+    \end{cases}
+\end{equation*}
+
+so that \(\lambda x_1 = \lambda x_2 = \dots = \lambda x_n\).  Since \(\lambda \neq 0\) it follows that \(x_1 = x_2 = \dots = x_n\), and - indeed - plugging in yields that \((1,\dots,1)\) is an eigenvector of \(T\) with eigenvalue \(n\).  Now, say that \(\lambda = 0\); so, we are looking for vectors in the nullspace of \(T\).  This forces that \(x_1 + \dots + x_n = 0\).  To fulfill this condition, take the vectors
+
+\begin{equation*}
+    \begin{pmatrix}
+        1 \\
+        -1 \\
+        0 \\
+        \vdots \\
+        0
+    \end{pmatrix},
+    \begin{pmatrix}
+        0 \\
+        1 \\
+        -1 \\
+        \vdots \\
+        0
+    \end{pmatrix}
+    \cdots
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        \vdots \\
+        1 \\
+        -1
+    \end{pmatrix}
+\end{equation*}
+
+\(T\) maps all of them to zero, as expected.  Furthermore, observe that they are linearly independent, and that there are exactly \(n-1\) of them.  By 5.10, this implies that any vector in their span (i.e. the nullspace of \(T\)) together with \((1,\dots,1)\), and the respective eigenvalues \(0\) and \(n\), are the complete set of eigenvectors and eigenvalues of \(T\).
+
+\item Find all eigenvalues and eigenvectors of the backward shift operator \(T \in \mathcal{L}(\textbf{F}^{\infty})\) defined by \[T(z_1,z_2,z_3,\dots)=(z_2,z_3,\dots).\]
+
+Say that \((z_2,z_3,\dots)=\lambda(z_1,z_2,\dots)\) for \(\lambda \neq 0\).  We then find that \(z_2=\lambda{z_1}, z_3=\lambda{z_2}=\lambda^2z_1,\dots\), etc..  Generalizing, we find that for any nonzero \(\lambda \in \textbf{F}\), the sole eigenvector of \(T\) with eigenvalues \(\lambda\) is \((1,\lambda,\lambda^2,\dots)\), i.e. the sequence defined by \(x_1=1\) and \(x_n=\lambda^n\) for \(n \geq 2\).  For \(\lambda=0\), this yields the eigenvector \((1,0,0,\dots)\); for \(\lambda \neq 0\), it yields the eigenvector \((1,\lambda,\lambda^2,\dots)\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) is invertible.
+
+(a) Suppose \(\lambda \in \textbf{F}\) with \(\lambda \neq 0\).  Prove that \(\lambda\) is an eigenvalue of \(T\) if and only if \(\frac{1}{\lambda}\) is an eigenvalue of \(T^{-1}\).
+
+(b) Prove that \(T\) and \(T^{-1}\) have the same eigenvectors.
+
+(a) Say that \(v\) is an eigenvector of \(T\) with nonzero eigenvalue \(\lambda\).  Then, \[v=Iv=(T^{-1}T)v=T^{-1}(Tv)=T^{-1}(\lambda v)=\lambda T^{-1},\] i.e. \(\lambda T^{-1}v = v\), so \(T^{-1}v=\frac{1}{\lambda}v\).  Thus, \(\frac{1}{\lambda}\) is an eigenvalue of \(T^{-1}\) if \(\lambda\) is an eigenvalue of \(T\).  To prove the other direction, observe that \(\frac{1}{\frac{1}{\lambda}}=\lambda\) and \((T^{-1})^{-1}=T\), and so applying the case we have already proved to map \(T^{-1}\) with eigenvalue \(\frac{1}{\lambda}\) completes the equivelence.
+
+(b) Our work above demonstrates that if \(v\) is an eigenvector of \(T\) with nonzero eigenvalue \(\lambda\), then \(T^{-1}(\lambda v)=v\).  We prove that \(v\) is an eigenvector of \(T^{-1}\) with eigenvalue \(\frac{1}{\lambda}\) using this fact: \[T^{-1}v=T^{-1}\left(\frac{1}{\lambda}\lambda v\right)=\frac{1}{\lambda}T^{-1}(\lambda v)=\frac{1}{\lambda}v.\]
+
+\item Suppose \(T \in \mathcal{L}(V)\) and there exist nonzero vectors \(v\) and \(w\) in \(V\) such that \[Tv=3w \ \textrm{and} \ Tw=3v.\]  Prove that \(3\) or \(-3\) is an eigenvalue of \(T\).
+
+Substitute to obtain that \(T^2v=9v\), and so then \(T^2v-9v=0\).  We can rewrite this to read \((T^2-9I)v=0\), and - factoring one final time - \((T-3I)(T+3I)v=0\).  Since \(v \neq 0\), this implies by 3.16 and Exercise 3B.11 that either \(T-3I\) or \(T+3I\) is noninjective, which implies that \(T\) must have \(3\) or \(-3\) as one of its eigenvalues.
+
+\item Suppose \(V\) is finite-dimensional and \(S,T \in \mathcal{L}(V)\).  Prove that \(ST\) and \(TS\) have the same eigenvalues.
+
+In the case of nonzero eigenvalues: if \(ST\) has zero as an eigenvalue, i.e. it has a nontrivial nullspace, then either \(S\) or \(T\) must have a nontrivial nullspace (this follows from 3.16 and 3B.11 since \(V\) is finite-dimensional).  Therefore, \(ST\) will have a nontrivial nullspace as well.
+
+For nonzero eigenvalues: take any eigenvalue \(\lambda \neq 0\) of \(ST\).  Select eigenvector \(v \neq 0 \in V\) of \(ST\) with eigenvalue \(\lambda\), so that \((ST- \lambda I)v = 0\) (5.6, \(V\) is finite-dimensional).  Then, by 3.11:
+
+\begin{equation*}
+    \begin{split}
+        0 &= T((ST-\lambda I))v \\
+        &= (TST-\lambda T)v \\
+        &= (TS-\lambda)(Tv).
+    \end{split}
+\end{equation*}
+
+Since \((ST)v=S(Tv)=\lambda v \neq 0\), then \(Tv \neq 0\) by 3.11.  Therefore, \(Tv\) is a nonzero vector which \(TS-\lambda I\) maps to \(0\); that is, it is an eigenvector of \(TS\) with eigenvalue \(\lambda\).  This, together with the proof for eigenvalues of \(0\), demonstrates that any eigenvalue of \(ST\) is an eigenvalue of \(TS\).  That any eigenvalue of \(TS\) is an eigenvalue of \(ST\) follows from the same argument.
+
+\item Suppose \(A\) is an \(n\)-by-\(n\) matrix with entries in \(\textbf{F}\).  Define \(T \in \mathcal{L}(\textbf{F}^n)\) by \(Tx=Ax\), where elements of \(\textbf{F}^n\) are thought of as \(n\)-by-\(1\) column vectors.
+
+(a) Suppose the sum of the entries in each row of \(A\) equals \(1\).  Prove that \(1\) is an eigenvalue of \(T\).
+
+Consider the column vector \((1,1,\dots,1) \in \textbf{F}^n\).  We have that
+
+\begin{equation*}
+    \begin{pmatrix}
+        A_{1,1} & \dots & A_{1,n} \\
+        A_{2,1} & \dots & A_{2,n} \\
+        \vdots & & \ddots \\
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\
+        \vdots \\
+        1 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \sum_{k=1}^{n} A_{1,k} \\
+        \vdots \\
+        \sum_{k=1}^{n} A_{n,k} \\
+    \end{pmatrix}
+\end{equation*}
+
+Since each entry in \(Ax\) is the sum of entries in the corresponding row of \(A\), and the sum of the entries , then \(Ax=(1,\dots,1)=1x\).  Therefore, \(1\) is an eigenvalue of \(T\).
+
+(b) Suppose the sum of the entries in each column of \(A\) equals \(1\).  Prove that \(1\) is an eigenvalue of \(T\).
+
+
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(u,v\) are eigenvectors of \(T\) such that \(u+v\) is also an eigenvector of \(T\).  Prove that \(u\) and \(v\) are eigenvectors of \(T\) corresponding to the same eigenvalue.
+
+Say that \(Tu=\lambda_1u\) and \(Tv=\lambda_2v\) and that \(T(u+v) = \lambda(u+v)\) for some \(\lambda \in \textbf{F}\).  It follows that \(\lambda(u+v) = \lambda u + \lambda v = \lambda_1 u + \lambda_2 v\), so then \((\lambda - \lambda_1)u + (\lambda - \lambda_2)v = 0\).  Since \(\lambda_1 \neq \lambda_2\), \(u\) and \(v\) are linearly independent by 5.10, forcing \(\lambda - \lambda_1 = \lambda - \lambda_2 = 0\).  This holds true if and only if \(\lambda_1 = \lambda_2 = \lambda\).  Then, \(T(u+v) = Tu+Tv=\lambda u + \lambda v = \lambda(u+v)\), as required.
+
+\item Suppose \(T \in \mathcal{L}(V)\) is such that every nonzero vector in \(V\) is an eigenvector of \(T\).  Prove that \(T\) is a scalar multiple of the identity operator.
+
+By Exercise 5A.25 if there exist eigenvectors with distinct eigenvalues, then their sum will not be an eigenvector, contradicting the condition that every nonzero vector in \(V\) is an eigenvector of \(T\) (the sum could not be the zero vector since such vectors are linearly independent).  Thus every eigenvector must have the same eigenvalue, so for each \(Tv=\lambda{v}=\lambda(Iv)\) for every \(v \in V\), i.e. \(T=\lambda{I}\).
+
+\item Suppose \(V\) is finite-dimensional and \(T \in \mathcal{L}(V)\) is such that every subspace of \(V\) with dimension \(\textrm{dim} \, V - 1\) is invariant under \(T\).  Prove that \(T\) is a scalar multiple of the identity operator.
+
+First, assume that \(T\) is a scalar multiple of the identity operator.  Then, the image of any subspace \(U \in V\) is \(U\) itself, meaning that every subspace is invariant under \(T\).
+
+Now say that \(T\) is not a scalar multiple of the identity operator but that every subspace is invariant under \(T\).  Select a basis \(v_1,\dots,v_n\) of \(V\); then, there must be at least one \(v_i\) (without loss of generality, say \(v_1\)) such that \(Tv_1 \neq a_1v_1\) for \(a_1 \in \textbf{F}\).  Say that \(Tv_1 = a_1v_1 + \dots + a_nv_n\), with (again with no loss of generality) \(a_n \neq 0\).  Now, consider the subspace \(U = \text{span}(v_1,\dots,v_{n-1})\); by our assumption, \(U + T(U) = U\).  By closure under addition of the subspace \(U\) we can subtract off \(a_1v_1 + \dots + a_{n-1}v_{n-1}\), leaving us with \(a_nv_n \in U\) for \(a_n \neq 0\), which is a contradiction.  Thus, \(U\) is not invariant under \(T\).
+
+\item Suppose \(V\) is finite-dimensional with \(\textrm{dim} \, V \geq 3\) and \(T \in \mathcal{L}(V)\) is such that every \(2\)-dimensional subspace of \(V\) is invariant under \(T\).  Prove that \(T\) is a scalar multiple of the identity operator.
+
+Our proof is through induction.  Assume that \(\text{dim} \, V = 3\); then, the statement is true by an application of 5A.27.  Now, assume that the statement holds true for all spaces of dimension \(n\).  Consider a space \(U\) of dimension \(n+1\) of which every \(2\)-dimensional subspace is invariant under a linear map \(T\). 
+ Then, for an arbitrary subspace \(W\) of \(U\), of dimension \(n\), any \(2\)-dimensional subspace of \(W\) will be invariant under \(T\), meaning that \(W\) itself is, and so the restriction \(T\vert_W\) is well-defined.  By our assumption, this implies that \(T\vert_W\) is a scalar multiple of the identity operator; and since this applies to every subspace of \(U\) of dimension \(n\), then the unrestricted \(T\) must also be a scalar multiple of the identity map on \(U\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(\textrm{dim} \, \textrm{range} \, T = k\).  Prove that \(T\) has at most \(k+1\) distinct eigenvalues.
+
+Consider any nonzero eigenvalue \(\lambda\) of \(T\).  Then, for some nonzero \(v \in V\), \(Tv=\lambda v \neq 0\) (1B.2) is also an eigenvector of \(T\) with eigenvalue \(\lambda\).  Since eigenvectors with distinct eigenvalues are linearly independent by 5.10, then each such nonzero eigenvalue of \(T\) adds at least one dimension to the range of \(T\).  Since \(\text{dim} \, \text{range} \, T = k\), this allows for a total of no more than \(k\) nonzero eigenvalues.  Accounting for the potential eigenvalue of zero (whose eigenvectors are all mapped to zero and do not contribute to \(\text{dim} \, \textrm{range} \, T\)), this allows for a total of \(k+1\) distinct eigenvalues, as required.
+
+\item Suppose \(T \in \mathcal{L}(\textbf{R}^3)\) and \(-4\), \(5\), and \(\sqrt{7}\) are eigenvalues of \(T\).  Prove that there exists \(x \in \textbf{R}^3\) such that \(Tx-9x=(-4,5,\sqrt{7})\).
+
+Since \(\textrm{dim} \, \textbf{R}^3=3\), then by 5.13 \(T\) can have no more than \(3\) distinct eigenvalues.  Since we are given three distinct eigenvalues, then, \(T\) can have no other eigenvalues, and - specifically - \(9\) cannot be an eigenvalue of \(T\).  Now, rewrite \(Tx-9x\) as \((T-9I)x\); since \(9\) is not an eigenvalue of \(T\), then by 5.6 \(T-9I\) is surjective, meaning that there exists some vector \(x \in \textbf{R}^3\) such that \((T-9I)x=Tx-9x=(-4,5,\sqrt{7})\).
+
+\item Suppose \(V\) is finite-dimensional and \(v_1,\dots,v_m\) is a list of vectors in \(V\).  Prove that \(v_1,\dots,v_m\) is linearly independent if and only if there exists \(T \in \mathcal{L}(V)\) such that \(v_1,\dots,v_m\) are eigenvectors of \(T\) corresponding to distinct eigenvalues.
+
+First, assume that such \(T\) exists.  By 5.10, this implies that \(v_1,\dots,v_m\) is linearly independent.
+
+Now, say that \(v_1,\dots,v_m\) is linearly independent.  By 3.5, we can define \(T \in \mathcal{L}(V)\) such that \(Tv_k=kv_k\) for each \(k=1,\dots,m\) and extend it to the rest of \(V\) as needed; that way, \(T\) multiplies each vector in the list by a different scalar, and so the vectors in the list are all eigenvectors with distinct eigenvalues from the other vectors in the list.
+
+\item Suppose \(\lambda_1,\dots,\lambda_n\) is a list of distinct real numbers.  Prove that the list \(e^{\lambda_1x},\dots,e^{\lambda_nx}\) is linearly independent in the vector space of real-valued functions on \(\textbf{R}\).
+
+We know that \(Tf=f'\) is a linear operator on the space of differentiable functions from \(\textbf{R}\) to \(\textbf{R}\).  From calculus we have that \(T(e^{\lambda_k x})=\lambda_k e^{\lambda_kx}\), so \(e^{\lambda_k x}\) is an eigenvector of \(T\) with eigenvalue \(\lambda_k\).  Since the list \(\lambda_1,\dots,\lambda_n\) is distinct then by 5.10 the list \(e^{\lambda_1x},\dots,e^{\lambda_nx}\) is linearly independent.
+
+\item Suppose \(T \in \mathcal{L}(V)\).  Prove that \(T/\text{range} \, T=0\).
+
+Select any \(v \in V\).  Then \(T(v+\text{range} \, T)=Tv+\text{range} \, T\).  Obviously \(Tv \in \text{range} \, T\), and so \(Tv+\text{range} \, T = \text{range} \, T\) (3.85), the zero element of \(T/\text{range} \, T\), meaning that \(T=0\).
+
+\item Suppose \(T \in \mathcal{L}(V)\).  Prove that \(T/(\textrm{null} \, T)\) is injective if and only if \((\textrm{null} \, T) \cap (\textrm{range} \, T) = \{0\}\).
+
+\((\textrm{null} \, T) \cap (\text{range} \, T) = \{0\}\) is equivalent to the statement that there exists no nonzero  \(v \in V\) such that \(T(v+\text{null} \, T)=Tv+\text{null} \, T=\text{null} \, T\) (the last equality is from 3.85).  By 3.16 this is equivalent to \(T\) being injective.
+
+\item Suppose \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\), and \(U\) is invariant under \(T\).  Prove that each eigenvalue of \(T/U\) is an eigenvalue of \(T\).
+
+Given an eigenvector \(v_1+U \in V/U\) of \(T/U\) with eigenvalue \(\lambda\), so that \(T(v_1+U)=Tv_1+U=\lambda(v_1+U)=\lambda v_1+U\).  By 3.85, this forces \(Tv_1+U=\lambda v_1+U\) and so then \(Tv_1-\lambda v_1 \in U\).  Since \(U\) is an invariant subspace under \(T\), this implies that \(T(v_1+u)-\lambda(v_1+u) = (Tv_1-\lambda v)+(Tu-\lambda u) \in U\) for any \(u \in U\).  Now consider the restriction of the map \(T-\lambda I\) to \(U\), as described in 5.14.  If it has a nontrivial nullspace then \(\lambda\) is an eigenvalue of \(T\) and we are done.  If the nullspace is trivial, though, then since \(U\) must be finite-dimensional then 3.69 implies that the restriction is surjective, meaning that there exists some \(w \in U\) such that \(Tw-9w=-(Tv-\lambda v)\).  Letting \(w=u\), this implies that \(T(v+w)=\lambda (v+w)\), so \(\lambda\) is an eigenvalue of \(T\).  Note that \(v+w\) is guaranteed to be nonzero by the fact that \(v+U \neq 0\) and so \(v \notin U\).
+
+\item Give an example of a vector space \(V\), an operator \(T \in \mathcal{L}(V)\), and a subspace \(U\) of \(V\) that is invariant under \(T\) such that \(T/U\) has an eigenvalue that is not an eigenvalue of \(T\).
+
+Consider the rightward shift operator on \(\textbf{C}^{\infty}\), defined by \(T(z_1,\dots,z_n,\dots)=(0,z_1,\dots,z_n,\dots)\).  By 5A.18 it has no eigenvalues.  However, the subspace defined by \(U={(z_1,\dots) \in \textbf{C}^{\infty}}:z_1=0\) is invariant under \(T\), and the quotient operator \(T/U:\textbf{C}^{\infty}/U \rightarrow \textbf{C}^{\infty}/U: (z_1,\dots)+U \mapsto (0,z_1,\dots)+U\) is the zero map, since \(0,z_1,\dots) \in U\).  Thus, \(0\) is an eigenvalue of \(T/U\) but not of \(T\).
+
+\end{enumerate}
+
+5.B: Eigenvectors and Upper-Triangular Matrices
+
+\begin{enumerate}
+
+\item Suppose \(T \in \mathcal{L}(V)\) and there exists a positive integer \(n\) such that \(T^n=0\).
+
+(a) Prove that \(I-T\) is invertible and that \[(I-T)^{-1}=I+T+\dots+T^{n-1}.\]
+
+(b) Explain how you would guess the formula above.
+
+(a) The calculation is as follows:
+\begin{align*}
+(I-T)(I+T+\dots+T^{n-1}) &= I(I+T+\dots+T^{n-1})-T(I+T+\dots+T^{n-1}) \\
+&= I+T+\dots+T^{n-1} -T-T^2-\dots-T^n \\
+&= I.
+\end{align*}
+(b) We might guess this formula from the Taylor series of \(\frac{1}{1-x}\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \((T-2I)(T-3I)(T-4I)=0\).  Suppose \(\lambda\) is an eigenvalue of \(T\).  Prove that \(\lambda=2\) or \(\lambda=3\) or \(\lambda=4\).
+
+The proof is through contraposition.  Say that \(v\) is an eigenvector of \(T\) with eigenvalue \(\lambda\) not equal to \(2\), \(3\), or \(4\).  Then, \((T-\alpha I)v=(\lambda-\alpha)v \neq 0\), and so \((T-2I)(T-3I)(T-4I)v=(\lambda-2)(\lambda-3)(\lambda-4)v \neq 0\) by our assumption on \(\lambda\), meaning that \((T-2I)(T-3I)(T-4I) \neq 0\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(T^2=I\) and \(-1\) is not an eigenvalue of \(T\).  Prove that \(T=I\).
+
+If \(T^2=I\) then \(T^2-I=(T+I)(T-I)=0\).  Since \(-1\) is not an eigenvalue of \(T\) then \(\text{null} \, (T+\lambda I)=\{0\}\).  For \((T+I)(T-I)\) to equal zero, then, forces \(\text{null} \, T-I=V\), i.e. \(T-I=0\), and so \(T=I\).
+
+\item Suppose \(P \in \mathcal{L}(V)\) and \(P^2=P\).  Prove that \(V=\textrm{null} \, P \oplus \textrm{range} \, P\).
+
+% Rewrite \(P^2=P\) as \(P^2-P=P(P-I)=0\), so \(P(P-I)v=0\) for any \(v \in V\).  If 
+
+Select arbitrary \(v \in V\).  Then, since \(P^2=P\) (or \(P^2-P=0\)), we have that \(P(P-I)v=0\).  This implies that \((P-I)v=Pv-v \in \text{null} \, P\), or - since \(\text{null} \, P\) is a subspace - then \(v-Pv \in \text{null} \, P\).  This implies that any \(v\) can be represented as \((v-Pv)+Pv\) for \(v-Pv \in \text{null} \, P\) and \(Pv \in \text{range} \, P\), and so then \(V=\text{null} \, P + \text{range} \, P\).  To prove that the sum is direct through 1.45, observe that \(\text{null} \, P \cap \text{range} \, P = \{0\}\) (were the intersection nontrivial then some vector in \(V\) would be mapped to zero by \(P^2\) but not by \(P\)).
+
+\item Suppose \(S,T \in \mathcal{L}(V)\) and \(S\) is invertible.  Suppose \(p \in \mathcal{P}(\textbf{F})\) is a polynomial.  Prove that
+
+\begin{equation*}
+    p(STS^{-1})=Sp(T)S^{-1}.
+\end{equation*}
+
+Observe that for any positive integer \(n\), we can regroup \((STS^{-1})^n\) to obtain
+
+\begin{equation*}
+    (STS^{-1})^n = (STS^{-1})\dots(STS^{-1}) \ (n \ \text{times}) \ =S(TSS^{-1})^{n-1}TS^{-1} = ST^nS^{-1}.
+\end{equation*}
+
+Therefore, for any polynomial \(p(T)=a_nT^n+\dots+a_1T+a_0I\), we have that
+
+\begin{equation*}
+    \begin{split}
+        p(STS^{-1}) &= a_n(STS^{-1})^n+\dots+a_1(STS^{-1})+a_0I \\
+        &= a_nST^nS^{-1}+\dots+a_1STS^{-1}+a_0SS^{-1} \\
+        &= S(a_nT^n+\dots+a_1T+a_0I)S^{-1} \\
+        &= Sp(T)S^{-1},
+    \end{split}
+\end{equation*}
+
+as required.
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(U\) is a subspace of \(V\) invariant under \(T\).  Prove that \(U\) is invariant under \(p(T)\) for every polynomial \(p \in \mathcal{P}(\textbf{F})\).
+
+By a simple inductive argument \(T(U) \subseteq U\) implies that \(\text{range} \, T^n(U) \subseteq U\) for every positive integer \(n\).  For any \(v \in V\), \(\left(p(T)\right)v\) will then be a linear combination of \(T^k v\), each of which is contained in \(U\).  Since \(U\) is a subspace then this linear combination will also be contained in \(U\).
+
+\item Suppose \(T \in \mathcal{L}(V)\).  Prove that \(9\) is an eigenvalue of \(T^2\) if and only if \(3\) or \(-3\) is an eigenvalue of \(T\).
+
+First,say that \(3\) or \(-3\) is an eigenvalue of \(T\) with eigenvector \(V \in V\).  Then \(T^2(v)=T(Tv)=T(\pm 3v)=\pm3Tv=\pm3(\pm3v)=9v\), meaning that \(9\) is an eigenvalue of \(T\).  Now, say that \(9\) is an eigenvalue of \(T^2\), and so \(T^2-9I)v=(T+3I)(T-3I)=0\) for some nonzero \(v \in V\).  This forces either \(T+3I\) or \(T-3I\) to be noninjective, meaning that \(3\) or \(-3\) is an eigenvalue of \(T\).
+
+\item Give an example of \(T \in \mathcal{L}(\textbf{R}^2)\) such that \(T^4=-1\).
+
+Consider the operator \(T\) which - with the standard basis - has matrix
+
+\begin{equation*}
+    \begin{pmatrix}
+        \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+        \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}.
+    \end{pmatrix}
+\end{equation*}
+
+With the given basis it corresponds to a rotation of the \(x-y\) plane by \(\frac{\pi}{4}\) radians counterclockwise.  By 3.43 \(T^4\) will have matrix
+
+\begin{equation*}
+    \begin{pmatrix}
+        \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+        \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+    \end{pmatrix}^4
+    =
+    \begin{pmatrix}
+        -1 & 0 \\
+        0 & -1
+    \end{pmatrix}
+    =-
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix}
+    =-I.
+\end{equation*}
+
+and so \(T^4=-I\), as required.
+
+\item Suppose \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\), and \(v \in V\) with \(v \neq 0\).  Let \(p\) be a nonzero polynomial of smallest degree such that \(p(T)v=0\).  Prove that every zero of \(p\) is an eigenvalue of \(T\).
+
+% The existence of such a polynomial is guaranteed by the fact that \(v\) is finite-dimensional, so the list \(v, Tv, \dots, T^nv\) must be linearly dependent.  Select such a polynomial of smallest degree \(p(T)=a_mT^m+\dots+a_1T+a_0I\), where \(a_m \neq 0\).  If \(\textbf{F}=\textbf{C}\), then .
+
+\item Suppose \(T \in \mathcal{L}(V)\) and \(v\) is an eigenvector of \(T\) with eigenvalue \(\lambda\).  Suppose \(p \in \mathcal{P}(\textbf{F})\).  Prove that \(p(T)v=p(\lambda)v\).
+
+By the scalar multiplicativity property of linear maps we have that for any nonnegative integer \(n\) and eigenvector \(v\) of \(T\) with eigenvalue \(\lambda\), then \(T^n v=\lambda^n v\).  Therefore,
+
+\begin{equation*}
+    \begin{split}
+        \left(p(T)\right)v &= (a_nT^n+\dots+a_1T+a_0I)v \\
+        &= a_nT^nv + \dots + a_1Tv + a_0Iv \\
+        &= a_n\lambda^nv + \dots + a_1\lambda v + a_0v \\
+        &= (a_n\lambda^n + \dots + a_1\lambda + a_0)v \\
+        &= p(\lambda)v.
+    \end{split}
+\end{equation*}
+
+\item Suppose \(\textbf{F}=\textbf{C}\), \(T \in \mathcal{L}(V)\),\(p \in \mathcal{P}(\textbf{C})\) is a polynomial, and \(\alpha \in \textbf{C}\).  Prove that \(\alpha\) is an eigenvalue of \(p(T)\) if and only if \(\alpha=p(\lambda)\) for some eigenvalue \(\lambda\) of \(T\).
+
+Assume that \(\alpha=p(\lambda)\) for some eigenvalue \(\lambda\) of \(T\) with eigenvector \(v\).  Then, by 5B.10,
+
+\begin{equation*}
+    (p(T)-\alpha I)v = (p(\lambda) I-p(\lambda) I)v=0v=0.
+\end{equation*}
+
+So, \(\alpha\) is an eigenvalue of \(p(T)\) with eigenvector \(v\).
+
+Now, say that \(\alpha\) is an eigenvalue of \(p(T)\) with eigenvector \(w\).  Then, \((p(T)-\alpha I)w=0\).  
+
+\item Show that the result in the previous excercise does not hold if \(\textbf{C}\) is replaced with \(\textbf{R}\).
+
+\item Suppose \(W\) is a complex vector space and \(T \in \mathcal{L}(W)\) has no eigenvalues.  Prove that every subspace of \(W\) invariant under \(T\) is either \(\{0\}\) or infinite-dimensional.
+
+Given any such invariant subspace \(U\) we can define \(T|_U \in \mathcal{L}(U)\).  If \(U\) is finite-dimensional then 5.21 implies that \(T_U\) must have an eigenvalue, meaning that \(T\) does.  This contradicts our assumption.  Since \(W\) is know to be complex, this forces either the hypothesis of 5.21 that \(W\) is finite-to be false (so \(W\) is infinite-dimensional), or the hypothesis of 5.21 that \(W\) is nonzero to be false (so \(W=0\)).
+
+\item Give an example of an operator whose matrix with respect to some basis contains only \(0\)'s on the diagonal, but the operator is invertible.
+
+Consider a vector space with basis \(v_1,v_2\).  Then the operator defined by \(Tv_1=v_2\) and \(Tv_2=v_1\) is clearly invertible (in fact it is its own inverse), but has matrix
+
+\begin{equation*}
+    \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}.
+\end{equation*}
+
+\item Give an example of an operator whose matrix with respect to some basis contains only nonzero numbers on the diagonal, but the operator is not invertible.
+
+Consider an operator with matrix
+
+\begin{equation*}
+    \begin{pmatrix}
+        1 & 1 \\
+        1 & 1
+    \end{pmatrix}.
+\end{equation*}
+
+The range of the operator has dimension \(1\) (3.117) even though every diagonal entry is a \(1\).
+
+\item Rewrite the proof of 5.21 using the linear map that sends \(p \in \mathcal{P}_n(\textbf{C})\) to \((p(T))v \in V\) (and use 3.23).
+
+\(\text{dim} \, \mathcal{P}_n(\textbf{C})=n+1\) and \(\text{dim} \, V = n\).  Therefore, the linear map \(T:\mathcal{P}_n(\textbf{C}) \rightarrow V:p \rightarrow (p(T))v\) must be noninjective by 3.23, meaning that by 3.16 it must have a nontrivial nullspace.  There must then be some polynomial \(p \in \mathcal{P}_n(\textbf{C})\) such that \((a_nT^n+\dots+a_1T+a_0I)v=0\) for \(a_1,\dots,a_n\) not all zero (by the justification given in 5.21).  The rest of the proof is identical to 5.21.
+
+\item Rewrite the proof of 5.21 using the linear map that sends \(p \in \mathcal{P}_{n^2}(\textbf{C})\) to \(P(T) \in \mathcal{L}(V)\) (and use 3.23).
+
+\(\text{dim} \, \mathcal{P}_{n^2}(\textbf{C})=n^2+1\) and \(\text{dim} \, \mathcal{L}(V) = n^2\) (3.61).  Therefore, the linear map \(T:\mathcal{P}_{n^2}(\textbf{C}) \rightarrow \mathcal{L}(V):p \rightarrow p(T)\) must be noninjective by 3.23, meaning that by 3.16 it must have a nontrivial nullspace.  There must then be some polynomial \(p \in \mathcal{P}_{n^2}(\textbf{C})\) such that \(a_{n^2}T^{n^2}+\dots+a_1T+a_0I=0\) for \(a_1,\dots,a_{n^2}\) not all zero (by the justification given in 5.21).  By 4.13, this polynomial can be factorized as \(c(T-\lambda_1 I)\dots(T-\lambda_m I)=0\).  This forces at least one of the \(T-\lambda_i I\) to be noninjective/have a nontrivial nullspace, meaning that one of the \(\lambda_i\) is an eigenvalue of \(T\).
+
+\item Suppose \(V\) is a finite-dimensional complex vector space and \(T \in \mathcal{L}(V)\).  Define a function \(f: \textbf{C} \rightarrow \textbf{R}\) by
+
+\begin{equation*}
+    f(\lambda)=\textrm{dim} \, \textrm{range} \, (T-\lambda I).
+\end{equation*}
+
+Prove that \(f\) is not a continuous function.
+
+5.13 and 5.21 together imply that \(T\) has a nonzero but finite set of eigenvalues.  It follows from this and 5.6 (which implies that \(f(\lambda)=\text{dim} \, V\) for \(\lambda\) not an eigenvalue of \(T\)) that \(f\) must equal \(\text{dim} \, V\) at for every \(\lambda \in \textbf{C}\) except for the nonzero but finite set of eigenvalues of \(T\).  It is impossible to define a neighborhood of an eigenvalue \(\lambda\) containing no complex numbers that are \textit{not} eigenvalues of \(T\) on account of there being uncountable many non-eigenvalues and only finitely many eigenvalues.  Thus, every eigenvalue of \(T\) corresponds to a discontinuity in \(f\) at that eigenvalue.
+
+\item Suppose \(V\) is finite-dimensional with \(\textrm{dim} \, V > 1\) and \(T \in \mathcal{L}(V)\).  Prove that \[\{p(T):p \in \mathcal{P}(\textbf{F})\} \neq \mathcal{L}(V).\]
+
+\item Suppose \(V\) is a finite-dimensional complex vector space and \(T \in \mathcal{L}(V)\).  Prove that \(T\) has an invariant subspace of dimension \(k\) for each \(k=1,\dots,\textrm{dim} \, V\).
+
+By 5.26 and 5.27 we can accomplish this by selecting a basis \(v_1,\dots,v_n\) to which \(T\) has an upper-triangular matrix and taking each invariant subspace of dimension \(k\) to be \(\text{span}(v_1,\dots,v_k)\).
+
+\end{enumerate}
+
+5.C: Eigenspaces and Diagonal Subspaces
+
+\begin{enumerate}
+
+\item Suppose \(T \in \mathcal{L}(V)\) is diagonalizable.  Prove that \(V=\textrm{null} \, T \oplus \textrm{range} \, T\).
+
+If \(T\) is diagonalizable then it has a basis \(v_1,\dots,v_n,u_1,\dots,u_m\) consisting of eigenvectors of \(T\).  Without loss of generality assume that \(v_1,\dots,v_n\) have an eigenvalue of \(0\) and \(u_1,\dots,u_m\) all have nonzero eigenvalues.  Now, for any \(v \in V\),
+
+\begin{equation*}
+    \begin{split}
+        Tv &= T(a_1v_1+\dots+a_nv_n+b_1u_1+\dots+b_mu_m) \\
+        &= b_1\lambda_1 u_1 + \dots + b_m\lambda_m u_m.
+    \end{split}
+\end{equation*}
+
+Since all the \(\lambda_i\) are nonzero then \(\text{range} \, T = \text{span}(u_1,\dots,u_m)\).  Furthermore, since the full list is linearly independent, then the fact that any nonzero multiple of the \(u_1\) is sent to a nonzero multiple of itself implies that \(\text{null} \, T = \text{span}(v_1,\dots,v_m)\).  Therefore \(V=\text{range} \, T + \text{null} \, T\).
+
+\item Prove the converse of the statement in the excercise above or give a counterexample to the converse.
+
+\item Suppose \(V\) is finite-dimensional and \(T \in \mathcal{L}(V)\).  Prove that the following are equivalent:
+
+(a) \(V = \textrm{null} \, T \oplus \textrm{range} \, T\).
+
+(b) \(V = \textrm{null} \, T + \textrm{range} \, T\).
+
+(c) \(\textrm{null} \, T \cap \textrm{range} \, T = \{0\}\).
+
+(a) \(\rightarrow\) (b): This is obvious.
+
+(c) \(\rightarrow\) (a): By 3.22, \(\text{dim} \, V = \text{dim} \, \text{null} \, T + \text{dim} \, \text{range} \, T\).  Combining this with the assumption that \(\textrm{null} \, T \cap \textrm{range} \, T = \{0\}\) and 2.43 yields \(\\text{dim} \, (\text{null} \, T + \text{range} \, T = \text{dim} \, V\).  This forces \(V = \text{null} \, T + \text{range} \, T\) by 2C.1.  That the sum is direct follows from 3.78 (alternately 1.45).
+
+(b) \(\rightarrow\) (c): Analogously to the proof of (c) \(\rightarrow\) (a): 3.22 and 2.48 force \(\text{dim} \, (\text{range} \, T \cap \text{null} \, T) = 0)\), and so \(\textrm{null} \, T \cap \textrm{range} \, T = \{0\}\).
+
+\item Give an example to show that the exercise above is false without the hypothesis that \(V\) is finite-dimensional.
+
+Consider the map on \(\textbf{R}^{\infty}\) defined by \(T(x_1,x_2,\dots)=(x_2,x_3,\dots)\).  Here, \(\text{null} \, T = \text{span}(1,0,\dots)\) but \(\text{range} \, T = \textbf{R}^{\infty}\), and so even though \(V=\text{null} \, T + \text{range} \, T\) the sum is not direct and the intersection is not \(\{0\}\).
+
+\item Suppose \(V\) is a finite-dimensional complex vector space and \(T \in \mathcal{L}(V)\).  Prove that \(T\) is diagonalizable if and only if
+
+\begin{equation*}
+    \textrm{null}(T-\lambda I) \oplus \textrm{range}(T-\lambda I)
+\end{equation*}V=
+
+for every \(\lambda \in \textbf{C}\).
+
+First, consider \(\lambda\) that is not any eigenvalue of \(T\).  Then 5.6 implies that \(\text{range} \, (T-\lambda I) = V\) and \(\text{null} \, (T-\lambda I) = \{0\}\), and so that \(V=\textrm{null}(T-\lambda I) \oplus \textrm{range}(T-\lambda I)\) is obvious.
+
+Now, say that \(\lambda\) is an eigenvalue of \(T\).  Then .
+
+\item Suppose \(V\) is finite-dimensional, \(T \in \mathcal{L}(V)\) has \(\textrm{dim} \, V\) distinct eigenvalues, and \(S \in \mathcal{L}(V)\) has the same eigenvectors as \(T\) (not necessarily with the same eigenvalues).  Prove that \(ST=TS\).
+
+We can apply 5.44 to show that \(T\) is diagonalizable.  Thus by 5.41 we can select a basis \(v_1,\dots,v_n\) of eigenvectors of \(T\), with eigenvalues \(\lambda_1,\dots,\lambda_n\).  Since \(S\) has the same eigenvectors as \(T\), then each \(v_i\) is also an eigenvector of \(S\), with eigenvalue \(\alpha_1,\dots,\alpha_n\).  Thus
+
+\begin{equation*}
+    \begin{split}
+        (ST)v_i &= S(Tv_i) \\
+        &= S(\lambda v_i) \\
+        &= \lambda Sv_i \\
+        &= \lambda \alpha v_i \\
+        &= \alpha \lambda v_i \\
+        &= \alpha Tv_i \\
+        &= T(\alpha v_i) \\
+        &= T(Sv_i) \\
+        &= (TS)v_i.
+    \end{split}
+\end{equation*}
+
+This suffices for nonzero eigenvalues (since all the eigenvalues of \(T\) are distinct then there can be no more than one).  In the case of an eigenvalue of \(0\) of \(T\) then \(S(Tv_i)=S(0)=0\) (3.11) whereas \(T(Sv_i)=T(\alpha v_i)=\alpha(Tv_i)=\alpha(0)=0\).  Since \(ST\) and \(TS\) agree on every element of the basis \(v_1,\dots,v_n\) then 3.5 implies that \(ST=TS\).
+
+\item Suppose \(T \in \mathcal{L}(V)\) has a diagonal matrix \(A\) with respect to some basis of \(V\) and that \(\lambda \in \textbf{F}\).  Prove that \(\lambda\) appears on the diagonal of \(A\) precisely \(\textrm{dim} \, E(\lambda,T)\) times.
+
+Call the basis vectors of \(V\) which appear on the diagonal of \(A\) with eigenvalue \(\lambda\), \(v_1,\dots,v_k\).  We will prove that \(k=\text{dim} \, E(\lambda,T)\) by proving that \(E(\lambda,T)=\text{span}(v_1,\dots,v_k)\).  That \(\text{span}(v_1,\dots,v_k) \subseteq E(\lambda,T)\) is obvious.  To prove inclusion in the opposite direction, label the basis vectors of \(V\) which appear on the diagonal if \(A\) with eigenvalues other than \(\lambda\), \(u_1,\dots,u_m\).  Now, say that \(T(a_1u_1+\dots+a_mu_m+b_1v_1+\dots+b_kv_k)=\lambda(a_1u_1+\dots+a_mu_m+b_1v_1+\dots+b_kv_k)\).  The \(v_i\) terms on both sides drop out, and - rearranging - we are left with \((\lambda_1-\lambda)a_1u_1+\dots+(\lambda_m-\lambda)a_mu_m=0\).  Since the \(u_1\) are linearly independent (being part of a basis) each coefficient must be zero; since \(\lambda \neq \lambda_m\) for each \(m\) this forces \(a_i=0\) for every \(i\).  This shows that \(E(\lambda,T) \subseteq \text{span}(v_1,\dots,v_n)\), completing the proof.
+
+\item Suppose \(T \in \mathcal{L}(\textbf{F}^5)\) and \(\textrm{dim} \, E(8,T)=4\).  Prove that \(T-2I\) or \(T-6I\) is invertible.
+
+Tf \(T-2I\) and \(T-6I\) were both noninvertible then that would force \(\text{dim} \, E(2,T) \geq 1\) and \(\text{dim} \, E(2,T) \geq 1\).  Thus the sum of dimensions of each eigenspace \(\text{sum} \geq \text{dim} \, E(4,T) + \text{dim} \, E(2,T) + \text{dim} \, E(6,T) \geq 6 > 5 = \text{dim} \, V\).  This contradicts 5.38.
+
+\item Suppose \(T \in \mathcal{L}(V)\) is invertible.  Prove that \(E(\lambda,T)=E(\frac{1}{\lambda},T^{-1})\) for every \(\lambda \in \textbf{F}\) with \(\lambda \neq 0\).
+
+Select \(v \in E(\lambda,T)\); then, \((T^{-1}T)v=T^{-1}(\lambda v)=\lambda T^{-1}v = v\).  Thus \(T^{-1}v=\frac{1}{\lambda}v\), and so \(E(\lambda,T) \subseteq E(\frac{1}{\lambda},T^{-1})\).  Since the inverses of invertible linear maps and field elements are both unique (1.3, 3.54), inclusion in only one direction suffices to prove equality.  
+
+\item Suppose that \(V\) is finite-dimensional and \(T \in \mathcal{L}(V)\).  Let \(\lambda_1,\dots,\lambda_m\) denote the distinct nonzero eigenvalues of \(T\).  Prove that \[\textrm{dim} \, E(\lambda_1,T)+\dots+\textrm{dim} \, E(\lambda_m,T) \leq \textrm{dim} \, \textrm{range} \, T.\]
+
+From looking at the definitions it is obvious that \(E(0,T)=\text{null} \, T\).  Starting with 3.78, using 3.22 to express \(\text{dim} \, V = \text{dim} \, \text{null} \, T + \text{dim} \, \text{range} \, T\), and subtracting off from both sides yields the necessary inequality.
+
+\item Verify the assertion in Example 5.40.
+
+The computations are as follows:
+
+\begin{equation*}
+    \begin{pmatrix}
+        41 & 7 \\
+        -20 & 74
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\
+        4
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        41 \cdot 1 + 7 \cdot 4 \\
+        -20 \cdot 1 + 74 \cdot 4
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        69 \\
+        276
+    \end{pmatrix}
+    =69
+    \begin{pmatrix}
+        1 \\
+        4
+    \end{pmatrix}    
+\end{equation*}
+
+\begin{equation*}
+    \begin{pmatrix}
+        41 & 7 \\
+        -20 & 74
+    \end{pmatrix}
+    \begin{pmatrix}
+        7 \\
+        5
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        41 \cdot 7 + 7 \cdot 5 \\
+        -20 \cdot 7 + 74 \cdot 5
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        332 \\
+        230
+    \end{pmatrix}
+    =46
+    \begin{pmatrix}
+        7 \\
+        5
+    \end{pmatrix}    
+\end{equation*}
+
+So the matrix of \(T\) with respect to the basis \((1,4),(7,5)\) is indeed
+
+\begin{equation*}
+    \begin{pmatrix}
+        69 & 0 \\
+        0 & 46
+    \end{pmatrix}.
+\end{equation*}
+
+\item Suppose \(R,T \in \mathcal{L}(\textbf{F}^3)\) each have \(2\), \(6\), \(7\) as eigenvalues.  Prove that there exists an invertible operator \(S \in \mathcal{L}(\textbf{F}^3)\) such that \(R=S^{-1}TS\).
+
+By 5.44, we can say that \(R\) and \(T\) are both diagonalizable.  Thus, we can select bases \(u_2,u_6,u_7\) and \(w_2,w_6,w_7\) of \(\textbf{F}^3\), where \(Ru_i=iu_i\) and \(Tw_i=iw_i\).  Now, define \(S\) by \(Su_i=w_i\), so that \(S^{-1}w_i=u_i\).  Then,
+
+\begin{equation*}
+    \begin{split}
+        (S^{-1}TS)u_i &= S^{-1}Tw_i \\
+        &= S^{-1}(iw_i) \\
+        &= iS^{-1}w_i \\
+        &= iu_i \\
+        &= Ru_i.
+    \end{split}
+\end{equation*}
+
+Since the \(w_i\) form a basis then 3.5 implies that \(R=S^{-1}TS\), as required.
+
+\item Find \(R,T \in \mathcal{L}(\textbf{F}^4)\) such that \(R\) and \(T\) each have \(2\), \(6\), \(7\) as eigenvalues, \(R\) and \(T\) have no other eigenvalues, and there does not exist an invertible operator \(S \in \mathcal{L}(\textbf{F}^4)\) such that \(R=S^{-1}TS\).
+
+\item Find \(T \in \mathcal{L}(\textbf{C}^3)\) such that \(6\) and \(7\) are eigenvalues of \(T\) and such that \(T\) does not have a diagonal matrix with respect to any basis of \(\textbf{C}^3\).
+
+\item Suppose \(T \in \mathcal{L}(\textbf{C}^3)\) is such that \(6\) and \(7\) are eigenvalues of \(T\).  Furthermore, suppose \(T\) does not have a diagonal matrix with respect to any basis of \(\textbf{C}^3\).  Prove that there exists \((x,y,z) \in \textbf{F}^3\) such that \(T(x,y,z)=(17+8x,\sqrt{5}+8y,2\pi+8z)\).
+
+\item The Fibonacci sequence \(F_1,F_2,\dots\) is defined by \[F_1=1,F_2=1, F_n=F_{n-2}+F_{n-1}.\] Define \(T \in \mathcal{L}(\textbf{R}^2)\) by \(T(x,y)=(y,x+y)\).
+
+(a) Show that \(T^n(0,1)=(F_n,F_{n+1})\) for each positive integer \(n\).
+
+(b) Find the eigenvalues of \(T\).
+
+(c) Find a basis of \(\textbf{R}^2\) consisting of eigenvectors of \(T\).
+
+(d) Use the solution to part (c) to compute \(T^n(0,1)\).  Conclude that \[F_n=\frac{1}{\sqrt{5}}[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]\] for each positive integer \(n\).
+
+(e) Use part (d) to conclude that for each positive integer \(n\), the Fibonacci number \(F_n\) is the integer that is closest to \[\frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^n.\]
+
+\end{enumerate}
+
+\end{document}

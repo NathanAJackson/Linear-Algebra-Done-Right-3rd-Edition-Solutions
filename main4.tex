@@ -1,0 +1,155 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Linear Algebra Done Right 3rd Edition Excercise Solutions}
+\author{Nathan Jackson}
+
+\begin{document}
+
+\textbf{Chapter 4: Polynomials}
+
+\begin{enumerate}
+
+\item Verify all the assertions in 4.5 except the last one.
+
+Let \(w=c+di\) and \(z=a+bi\).  Then:
+
+\textbf{sum of \(z\) and \(\bar{z}\)}
+
+\(z+\bar{z} = (a+bi)+\overline{a+bi}=(a+bi)+(a-bi)=a+bi+a-bi=2a\).
+
+\textbf{difference of \(z\) and \(\bar{z}\)}
+
+\(z-\bar{z} = (a+bi)-\overline{a+bi}=(a+bi)-(a-bi)=a+bi-a+bi=2bi\).
+
+\textbf{product of \(z\) and \(\bar{z}\)}
+
+\(z\bar{z}=(a+bi)\overline{(a+bi)}=(a+bi)(a-bi)=a^2+abi-abi-(bi)^2=a^2+b^2=|z|^2\).
+
+\textbf{additivity and multiplicativity of complex conjugate}
+
+\(\overline{w+z}=\overline{(c+di)+(a+bi)}=\overline{(c+a)+(d+b)i}=(c+a)+(-(d+b))i=c+a-di-bi=(c-di)+(a-bi)=\overline{c+di}+\overline{a+bi}=\bar{w}+\bar{z}\).
+
+\(\overline{wz}=\overline{(c+di)(a+bi)}=\overline{(ac-bd)+(ad+bc)i}=(ac-bd)-(ad+bc)i\); \(\bar{w}\bar{z}=\overline{c+di}\overline{a+bi}=(c-di)(a-bi)=(ac-bd)-(ad+bc)i\).
+
+\textbf{conjugate of conjugate}
+
+\(\overline{\bar{z}}=\overline{\overline{a+bi}}=\overline{a-bi}=a-(-b)i=a+bi=z\).
+
+\textbf{real and imaginary parts are bounded by \(|z|\)}
+
+\(|a| = \sqrt{a^2} \leq \sqrt{a^2+b^2} = |z|\), so \(|a| \leq |z|\); \(|b| = \sqrt{b^2} \leq \sqrt{a^2+b^2} = |z|\), so \(|b| \leq |z|\).
+
+\textbf{absolute value of the complex conjugate}
+
+\(|\bar{z}|=|a-bi|=\sqrt{a^2+(-b)^2}=\sqrt{a^2+b^2}=|a+bi|=|z|\).
+
+\textbf{multiplicativity of absolute value}
+
+\(|wz|=|(c+di)(a+bi)|=|(ac-bd)+(ad+bc)i|=\sqrt{(ac-bd)^2+(ad+bc)^2}=\sqrt{a^2c^2+b^2d^2-2abcd+a^2d^2+b^2c^2+2abcd}=\sqrt{a^2c^2+a^2d^2+b^2c^2+b^2d^2}\); \(|w||z|=|c+di||a+bi|=\sqrt{c^2+d^2}\sqrt{a^2+b^2}=\sqrt{a^2c^2+a^2d^2+b^2c^2+b^2d^2}\).
+
+\item Suppose \(m\) is a positive integer.  Is the set \[\{0\} \cup \{p \in \mathcal{P}(\textbf{F}): \textrm{deg}p = m\}\] a subspace of \(\mathcal{P}(\textbf{F}\)?
+
+No, it is not, due to not being closed under addition.  As an example, observe that the polynomials \(f(x)=x^2+x\) and \(g(x)=x^2\) both have degree 2, but the difference \((f-g)(x)=(x^2+x)-x^2=x\) has degree 1.
+
+\item Is the set \[\{0\} \cup \{p \in \mathcal{P}(\textbf{F}): \textrm{deg} \, p \ \textrm{is even}\}\] a subspace of \(\mathcal{P}(\textbf{F})\)
+
+It is not, by the same counterexample as before.
+
+\item Suppose \(m\) and \(n\) are positive integers with \(m \leq n\), and suppose \(\lambda_1,\dots,\lambda_n \in \textbf{F}\).  Prove that there exists a polynomial \(p \in \mathcal{P}(\textbf{F})\) with \(\textrm{deg} \, p = n\) such that \(0 = p(\lambda_1) = p(\lambda_2)= \dots = p(\lambda_m)\) and such that \(p\) has no other zeros.
+
+Let \(p = (x-\lambda_1)(x-\lambda_2)\dots(x-\lambda_{m-1})(x-\lambda_m)^{n-m+1}\).  The degree \(\textrm{deg} p\) will be the power of \(x\) obtained by multiplying the \(x\) in each term, and - since there are exactly \(n\) terms, counting the expansion of the final term into individual \(x-\lambda_m\) factors - then this power and thus \(\textrm{deg} p\) is \(n\), as required.  Now, consider \(p(\lambda)\) for \(\lambda \neq \lambda_1,\dots,\lambda_m\); then, each term will be nonzero, and since the product of nonzero field elements is zero then \(p(\lambda)\) is nonzero as well.  This, \(\lambda_1,\dots,\lambda_m\) are the only zeros of \(p\), as required.
+
+\item Suppose \(m\) is a nonnegative integer, \(z_1,\dots,z_{m+1}\) are distinct elements of \(\textbf{F}\), and \(w_1,\dots,w_{m+1} \in \textbf{F}\).  Prove that there exists a unique polynomial \(p \in \mathcal{P}_m(\textbf{F})\) such that \[p(z_j)=w_j\] for \(j=1,\dots,m+1\).
+
+Define a map \(T: \mathcal{P}_m(\textbf{F}) \rightarrow \textbf{F}^{m+1}: p \rightarrow (p(z_1),\dots,p(z_{m+1}))\), which - by the laws of polynomial addition and multiplication - is linear.  By 4.12 a polynomial with degree greater than or equal to zero can have at most as many distinct zeros as its degree.  Since the \(z_i\) are distinct, there are \(m+1\) of them, and so then the only polynomial in \(\mathcal{P}_m(\textbf{F})\) mapped to the zero vector in \(\textbf{F}^{m+1}\) is the zero polynomial (which has undefined degree).  By 3.22, this implies that \(\textrm{dim} \, \textrm{range} \, T = \textrm{dim} \, \mathcal{P}_m (\textbf{F}) = m+1\), and so then by Excercise 2C.1 \(\textrm{range} \, T = \textbf{F}^{m+1}\), i.e. \(T\) is surjective.  Therefore, by our definition of \(T\), there must exist some \(p \in \mathcal{P}_m(\textbf{F})\) such that \(p(z_j)=w_j\) for \(j=1,\dots,m+1\).  Furthermore, since \(\textrm{null} \, T = \{0\}\) then by 3.16 \(T\) is injective, meaning that any such \(p\) is unique.
+
+\item Suppose \(p \in \mathcal{P}(\textbf{C})\) has degree \(m\).  Prove that \(p\) has \(m\) distinct zeros if and only if \(p\) and its derivative \(p'\) have no zeros in common.
+
+By 4.11 and 4.13, for any zero \(\lambda\), \(p\) can be factored into an expression \((x-\lambda)q(x)\) with \(q(x) \in \mathcal{C}(x)\).  Now, take the derivative of the expression:
+\begin{align*}
+((x-\lambda)q(x))' &= (x-\lambda)'q(x)+(x-\lambda)q'(x) \\
+&= q(x)+(x-\lambda)q'(x)
+\end{align*}
+Plugging in \(\lambda\), we find that \(p'(\lambda) = q(\lambda)\).  Thus, \(q\) has \(\lambda\) as a zero (i.e. \(\lambda\) is a multiple root of \(p\)) if and only if \(p'(\lambda)=0\).  By 4.14 \(p\) can always be factored into \(m\) distinct linear factors, which are its zeros; however, there are \(m\) distinct zeros if and only if none of the zeros are repeated.  Thus - since any zero of \(p\) is a multiple root if and only if it is also a zero of \(p'\) - \(p\) has \(m\) distinct zeros if and only if \(p\) and \(p'\) have no zeros in common, as required.
+
+\item Prove that every polynomial of odd degree with real coefficients has a real zero.
+
+By 4.17, every \(p \in \mathcal{P}(\textbf{R})\) can be factored uniquely over \(\textbf{R}\) into the product of linear and quadratic terms.  If a polynomial has odd degree and factors only into quadratic terms, then its degree would be even, and so any real polynomial of odd degree must have at least one linear term.  Each linear term corresponds to a zero, and so then every real polynomial of odd degree has a real zero.
+
+\item Define \(T: \mathcal{P}(\textbf{R}) \rightarrow \textbf{R}^{\textbf{R}}\) by
+
+\begin{equation*}
+    Tp = 
+    \begin{cases}
+        & \frac{p - p(3)}{x - 3} \textrm{ if } x \neq 3 \\
+        & p'(3) \textrm{ if } x = 3
+    \end{cases}
+\end{equation*}
+
+Show that \(Tp \in \mathcal{P}(\textbf{R})\) for every polynomial \(p \in \mathcal{P}(\textbf{R})\) and that \(T\) is a linear map.
+
+First, we prove that \(Tp \in \mathcal{P}(\textbf{R})\) for every polynomial \(p \in \mathcal{P}(\textbf{R})\).  Consider the function \(p - p(3)\); since it obviously evaluates to zero at \(x = 3\), then by 4.11 it has a factor of \(x-3\) and can be written as \((x-3)q(x)\).  If \(x \neq 3\), then we can divide out by the factor of \(x-3\) in the denominator and are left with \(q(x)\).  At \(x=3\), the value of \(Tp\) is given by \(p'(3)\), which is defined as
+
+\begin{equation*}
+    p'(3) = \lim_{x \to 3} \frac{p(x)-p(3)}{x-3} = \lim_{x \to 3} q(x).
+\end{equation*}
+
+Therefore, we can alternately define \(Tp=q(x)\), since \(q(x)\) being a polynomial and thus continuous ensures that \(q(3) = \lim_{x \to 3} q(x) = p'(3)\).  It follows that \(Tp \in \mathcal{P}(\textbf{R})\), as required.
+
+Next, we prove that \(T\) is linear.  Consider two polynomials \(p_1, p_2 \in \mathcal{P}(\textbf{R})\).  Let \(p_1 - p_1(3) = (x-3)q_1\) and \(p_2 - p_2(3) = (x-3)q_2\).  Then,
+
+\begin{equation*}
+\begin{split}
+    (p_1+p_2)-(p_1(0)+p_2(0)) &= (p_1-p_1(0)) + (p_2-p_2(0)) \\
+    &= (x-3)q_1 + (x-3)q_2 \\
+    &= (x-3)(q_1+q_2),
+\end{split}
+\end{equation*}
+
+and so \(T(p_1+p_2)=q_1+q_2=Tp_1+Tp_2\), as required.  Furthermore, if \(p-p(3)) = q\) then
+
+\begin{equation*}
+\begin{split}
+\lambda p &= (\lambda p)(3) \\
+&= \lambda p - \lambda p(3) \\
+&= \lambda (p - p(3)) \\
+&= \lambda (x-3)q \\
+&= (x-3)(\lambda q),
+\end{split}
+\end{equation*}
+
+and so \(T(\lambda p) = \lambda q = \lambda Tp\), as required.  Thus, \(T\) is linear.
+
+\item Suppose \(p \in \mathcal{P}(\textbf{C})\).  Define \(q:\textbf{C} \rightarrow \textbf{C}\) by \[q(z)=p(z)\overline{p(\bar{z})}.\] Prove that \(q\) is a polynomial with real coefficients.
+
+Recall that - by 14.14 - we can rewrite the product as follows:
+\begin{align*}
+&c(z-\lambda_1)\dots(z-\lambda_n)\overline{c(\bar{z}-\lambda_1)\dots(\bar{z}-\lambda_n)} \\
+&=c(z-\lambda_1)\dots(z-\lambda_n)\bar{c}\overline{(\bar{z}-\lambda_1)}\dots\overline{(\bar{z}-\lambda_n)} \\
+&=c\bar{c}(z-\lambda_1)\dots(z-\lambda_n)(z-\bar{\lambda_1})\dots(z-\bar{\lambda_n}) \\
+&=|c|^2(z^2-2\textrm{Re}\lambda_1+|\lambda_1|^2)\dots(z^2-2\textrm{Re}\lambda_n+|\lambda_n|^2)
+\end{align*}
+The first and second equalities follow from the rules of complex conjugation 4.5 and the third follows from the proof of 4.17.  Examining the final step we see that all the terms are real, and so then the product \(p(z)\overline{p(\bar{z})}=q(z)\) is a polynomial with real coefficients.
+
+\item Suppose \(m\) is a nonnegative integer and \(p \in \mathcal{P}_m(\textbf{C})\) is such that there exist distinct real numbers \(x_0,x_1,\dots,x_m\) such that \(p(x_j) \in \textbf{R}\) for \(j=0,1,\dots,m\).  Prove that all the coefficients of \(p\) are real.
+
+By Exercise 4.5, there exists a unique polynomial in \(q \in \mathcal{P}_m(\textbf{R})\) such that \(q\) agrees with \(p\) on \(x_0,\dots,x_m\).  However, by Excercise 4.5, \(p \in \mathcal{P}_m(\textbf{C})\) is unique.  Since \(\textbf{R}\) is a subfield of \(\textbf{C}\) - meaning that \(\mathcal{P}(\textbf{R})_m \subset \mathcal{P}(\textbf{C})_m\) - this implies that the polynomials \(q\) and \(p\) are the same (else, there would be two distinct polynomials in \(\mathcal{P}_m(\textbf{C})\) agreeing on \(x_0,\dots,x_m\), a contradiction).  Thus, since every coefficient of \(q\) is real, every coefficient of \(p\) is real.
+
+\item Suppose \(p \in \mathcal{P}(\textbf{F})\) with \(p \neq 0\).  Let \(U=\{pq: q \in \mathcal{P}(\textbf{F})\}\).
+
+(a) Show that \(\textrm{dim} \, \mathcal{P}(\textbf{F})/U = \textrm{deg} \, p\).
+
+(b) Find a basis of \(\textrm{dim} \, \mathcal{P}(\textbf{F})/U\).
+
+(a)(b) By definition, \(\mathcal{P}(\textbf{F})/U=\{p' + U:p' \in \mathcal{P}(\textbf{F})\}\).  By the division algorithm for polynomials (4.8) and since \(p \neq 0\), we can uniquely express \(p'=pq+r\) for some \(r \in \mathcal{P}(\textbf{F})\) such that \(\text{deg} \, r < \text{deg} \, p\).  If \(q \neq 0\), then \(\text{deg} \, p'q \geq \text{deg} \, p'\), meaning that \(p'q \in U\), and so \(p'+U=r+U\).  Thus, we can write \(\mathcal{P}(\textbf{F}/U) = \{r+U:\text{deg} \, r < \text{deg} \, p\}\).  Moreover, the fact that distinct \(r\) in this definition correspond to distinct elements of the quotient space is apparent from the fact that \(r\) is the only polynomial in each affine subset with degree less than or equal to \(\text{deg} \, p\).
+
+Now, consider the list \(1+U,x+U,\dots,x^{\text{deg} \, p-1}+U\).  Our results above demonstrate that they span the quotient space.  Furthermore, the only linear combination of the \(x^i+U\) equal to the identity element of the quotient space - that is the only one in which \(a_1+a_2x+\dots+a_{\text{deg} \ p}x^{\text{deg} \, p-1} \in U\) - is when each \(a_i=0\).  Thus, the given list is linearly independent in \(\mathcal{P}(\textbf{F})/U\), making it a basis.  This demonstrates that the quotient space has dimension \(\text{deg} \, P\).
+
+\end{enumerate}
+
+\end{document}
